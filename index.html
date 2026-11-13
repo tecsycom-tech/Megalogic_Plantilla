@@ -333,25 +333,33 @@ Alta`;
             // 1. TIPO TRABAJO
             let rawTipoTrabajo = getFieldValue(/^Tipo Trabajo$/i);
             if (!rawTipoTrabajo) {
-                const m = cleanLines.find(l => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(l));
-                if (m) rawTipoTrabajo = m;
+                const ttLine = cleanLines.find(l => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(l));
+                if (ttLine) rawTipoTrabajo = ttLine;
             }
-            const tipoTrabajo = /INSTALACION/i.test(rawTipoTrabajo) ? 'ALTA NUEVA' : (rawTipoTrabajo.toUpperCase() || '');
+            const tipoTrabajo = /^INSTALACION$/i.test(rawTipoTrabajo) ? 'ALTA NUEVA' : rawTipoTrabajo.toUpperCase();
 
-            // 2. AGENDADO
-            let fechaVisita = getFieldValue(/^Fecha Visita$/i);
-            if (!fechaVisita) {
+            // 2. AGENDADO (A partir de la columna Fecha Solicitud)
+            let fechaSolicitud = getFieldValue(/^Fecha Solicitud$/i);
+            if (!fechaSolicitud) {
                 const fechas = cleanLines.filter(l => /^\d{2}\/\d{2}\/\d{4}\s+\d{1,2}:\d{2}$/.test(l));
-                fechaVisita = fechas[1] || fechas[0] || '';
+                fechaSolicitud = fechas[0] || '';
             }
             let agendado = '';
-            const timeMatch = fechaVisita.match(/(\d{1,2}):\d{2}/);
+            const timeMatch = fechaSolicitud.match(/(\d{1,2}):\d{2}/);
             if (timeMatch) {
                 const startHour = parseInt(timeMatch[1], 10);
-                const endHour = startHour + 4;
-                const startSuffix = startHour >= 12 ? 'PM' : 'AM';
-                const endSuffix = endHour >= 12 ? 'PM' : 'AM';
-                agendado = `${String(startHour).padStart(2, '0')}${startSuffix}-${String(endHour).padStart(2, '0')}${endSuffix}`;
+                if (startHour === 8) {
+                    agendado = '08AM-12PM';
+                } else if (startHour === 12) {
+                    agendado = '12PM-16PM';
+                } else if (startHour === 16) {
+                    agendado = '16PM-20PM';
+                } else {
+                    const endHour = startHour + 4;
+                    const startSuffix = startHour >= 12 ? 'PM' : 'AM';
+                    const endSuffix = endHour >= 12 ? 'PM' : 'AM';
+                    agendado = `${String(startHour).padStart(2, '0')}${startSuffix}-${String(endHour).padStart(2, '0')}${endSuffix}`;
+                }
             }
 
             // 3. CÓDIGO (Cod Seguimiento Cliente)
@@ -460,15 +468,15 @@ Alta`;
                 plan = getFieldValue(/^Producto$/i);
             }
 
-            // 10. TELF.1 y TELF ALTERNATIVO
+            // 10. TELF.1 (Móvil) y TELF.2 (Fijo)
             let telf1 = getFieldValue(/^Móvil$/i).replace(/^51\s*\/\s*/g, '').trim();
-            let telfAlt = getFieldValue(/^Fijo$/i).replace(/^51\s*\/\s*/g, '').trim();
+            let telf2 = getFieldValue(/^Fijo$/i).replace(/^51\s*\/\s*/g, '').trim();
             if (!telf1 && docIdx !== -1) {
                 for (let i = docIdx + 2; i < Math.min(docIdx + 6, cleanLines.length); i++) {
                     if (/^9\d{8}$/.test(cleanLines[i])) {
                         telf1 = cleanLines[i];
                         if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) {
-                            telfAlt = cleanLines[i + 1];
+                            telf2 = cleanLines[i + 1];
                         }
                         break;
                     }
@@ -502,9 +510,9 @@ Alta`;
 *DISTRITO:* ${distrito}
 *PLAN:* ${plan}
 *TELF.1:* ${telf1}
-*TELF.2:* 
+*TELF.2:* ${telf2}
 
-*TELF ALTERNATIVO:* ${telfAlt}
+*TELF ALTERNATIVO:* 
 *CTO:* 
 *PUERTO:* 
 
