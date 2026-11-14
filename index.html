@@ -64,21 +64,6 @@
 
     <!-- Main Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
-        
-        <!-- Description / Intro Banner -->
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div class="space-y-1">
-                <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles text-blue-600"></i> Pega tus Datos Sin Orden y Estructúralos al Instante
-                </h2>
-                <p class="text-sm text-slate-600">
-                    Copia y pega el bloque completo desde tu sistema (encabezados y valores). La aplicación emparejará automáticamente cada columna con su dato correspondiente, omitiendo espacios vacíos.
-                </p>
-            </div>
-            <button id="btnSampleData" class="shrink-0 text-xs font-semibold px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-700 transition border border-slate-200 hover:border-blue-200 flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-paste text-blue-600"></i> Cargar Ejemplo Real
-            </button>
-        </div>
 
         <!-- Two Column Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
@@ -180,7 +165,6 @@
         const btnProcessText = document.getElementById('btnProcessText');
         const btnPasteClipboard = document.getElementById('btnPasteClipboard');
         const btnClearText = document.getElementById('btnClearText');
-        const btnSampleData = document.getElementById('btnSampleData');
 
         const emptyState = document.getElementById('emptyState');
         const resultsContainer = document.getElementById('resultsContainer');
@@ -264,11 +248,6 @@ Alta`;
                 resultsContainer.classList.add('hidden');
                 exportBar.classList.add('hidden');
                 statsCount.textContent = 'Sin datos procesados aún';
-            });
-
-            btnSampleData.addEventListener('click', () => {
-                rawTextInput.value = SAMPLE_TEXT;
-                processPastedText();
             });
 
             btnCopyTemplate.addEventListener('click', () => {
@@ -424,34 +403,47 @@ Alta`;
                 cordXyDir = `http://maps.google.com/?q=${parts[0]},${parts[1]}`;
             }
 
-            // 8. DISTRITO
-            let regionZona = getFieldValue(/^Región \/ Zona$/i);
-            let localidad = getFieldValue(/^Localidad$/i);
-            if (!regionZona) {
-                const regIdx = cleanLines.findIndex(l => /^REGION\s+/i.test(l));
-                if (regIdx !== -1) {
-                    regionZona = cleanLines[regIdx];
-                    if (cleanLines[regIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[regIdx + 1]) && !/Cédula|DNI/i.test(cleanLines[regIdx + 1])) {
-                        regionZona += ` / ${cleanLines[regIdx + 1]}`;
-                    }
-                }
-            }
-            if (!localidad) {
-                const locIdx = cleanLines.findIndex(l => /^(CHICLAYO|LIMA|TRUJILLO|PIURA|AREQUIPA|CUSCO|ICA|HUANCAYO)$/i.test(l));
-                if (locIdx !== -1) {
-                    localidad = cleanLines[locIdx];
-                    if (cleanLines[locIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[locIdx + 1]) && !/(CALLE|AV|JR|URB|MZ)/i.test(cleanLines[locIdx + 1])) {
-                        localidad += ` - ${cleanLines[locIdx + 1]}`;
-                    }
-                }
-            }
+            // 8. DISTRITO (Extraído desde DIRECCIÓN: después de '(' y antes de la segunda ',')
             let distrito = '';
-            const distritoPart = regionZona.includes('/') ? regionZona.split('/')[1].trim() : '';
-            const provPart = localidad.includes('-') ? localidad.split('-')[0].trim() : localidad;
-            if (distritoPart && provPart) {
-                distrito = `${distritoPart}-${provPart}`;
-            } else {
-                distrito = distritoPart || provPart;
+            const dirParenMatch = direccion.match(/\(([^)]+)\)/);
+            if (dirParenMatch) {
+                const parenParts = dirParenMatch[1].split(',').map(p => p.trim()).filter(Boolean);
+                if (parenParts.length >= 2) {
+                    distrito = `${parenParts[0]}-${parenParts[1]}`;
+                } else if (parenParts.length === 1) {
+                    distrito = parenParts[0];
+                }
+            }
+
+            // Respaldo si la dirección no trae paréntesis
+            if (!distrito) {
+                let regionZona = getFieldValue(/^Región \/ Zona$/i);
+                let localidad = getFieldValue(/^Localidad$/i);
+                if (!regionZona) {
+                    const regIdx = cleanLines.findIndex(l => /^REGION\s+/i.test(l));
+                    if (regIdx !== -1) {
+                        regionZona = cleanLines[regIdx];
+                        if (cleanLines[regIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[regIdx + 1]) && !/Cédula|DNI/i.test(cleanLines[regIdx + 1])) {
+                            regionZona += ` / ${cleanLines[regIdx + 1]}`;
+                        }
+                    }
+                }
+                if (!localidad) {
+                    const locIdx = cleanLines.findIndex(l => /^(CHICLAYO|LIMA|TRUJILLO|PIURA|AREQUIPA|CUSCO|ICA|HUANCAYO)$/i.test(l));
+                    if (locIdx !== -1) {
+                        localidad = cleanLines[locIdx];
+                        if (cleanLines[locIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[locIdx + 1]) && !/(CALLE|AV|JR|URB|MZ)/i.test(cleanLines[locIdx + 1])) {
+                            localidad += ` - ${cleanLines[locIdx + 1]}`;
+                        }
+                    }
+                }
+                const distritoPart = regionZona.includes('/') ? regionZona.split('/')[1].trim() : '';
+                const provPart = localidad.includes('-') ? localidad.split('-')[0].trim() : localidad;
+                if (distritoPart && provPart) {
+                    distrito = `${distritoPart}-${provPart}`;
+                } else {
+                    distrito = distritoPart || provPart;
+                }
             }
 
             // 9. PLAN
@@ -491,13 +483,13 @@ Alta`;
             }
             const tecnico = rawCuadrilla.trim();
 
-            // 12. ESTADO (Valor exacto de la columna Estado)
+            // 12. ESTADO (Valor exacto de la columna Estado en MAYÚSCULAS)
             let rawEstado = getFieldValue(/^Estado$/i);
             if (!rawEstado) {
                 const estLine = cleanLines.find(l => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(l));
                 if (estLine) rawEstado = estLine;
             }
-            const estado = rawEstado.trim();
+            const estado = rawEstado.trim().toUpperCase();
 
             return `*TIPO TRABAJO:* ${tipoTrabajo}
 
