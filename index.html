@@ -1,7 +1,11 @@
-<!-- ... existing code ... -->
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Tech-Win | Ordenador Inteligente de Datos</title>
     <!-- Favicon SVG en formato Data URI para el ícono de la pestaña -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF5A0A'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/></svg>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,12 +15,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
+                            50: '#fff5f0',
+                            100: '#ffe6d9',
+                            500: '#FF5A0A',
+                            600: '#e04800',
+                            700: '#b83b00',
+                            900: '#7c2800',
                         }
                     }
                 }
@@ -34,19 +38,25 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .template-pill.active {
+            background-color: #FF5A0A;
+            color: #ffffff;
+            border-color: #FF5A0A;
+            box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25);
+        }
     </style>
 </head>
 <body class="h-full flex flex-col bg-slate-50 text-slate-800 overflow-x-hidden">
 
     <!-- Header Navigation -->
-    <header class="border-b border-slate-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <header class="border-b border-slate-200/80 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/25">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#FF5A0A] to-orange-400 flex items-center justify-center shadow-md shadow-orange-500/25">
                     <i class="fa-solid fa-layer-group text-xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-indigo-600 bg-clip-text text-transparent">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-[#FF5A0A] bg-clip-text text-transparent">
                         Digital Tech-Win
                     </h1>
                     <p class="text-xs text-slate-500 font-medium">Ordenador & Estructurador Inteligente de Registros</p>
@@ -58,6 +68,36 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>Procesamiento Instantáneo</span>
                 </span>
+            </div>
+        </div>
+
+        <!-- Barra de Resumen Rápido del Cliente, DNI, Código y Técnico -->
+        <div class="border-t border-slate-100 bg-orange-50/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-1.5 min-w-0 flex-1">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-user mr-1"></i>CLIENTE:
+                    </span>
+                    <span id="topBarCliente" class="font-semibold text-slate-800 truncate">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider">
+                        <i class="fa-solid fa-id-card mr-1"></i>DNI:
+                    </span>
+                    <span id="topBarDni" class="font-mono font-bold text-slate-800">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider">
+                        <i class="fa-solid fa-hashtag mr-1"></i>CÓDIGO:
+                    </span>
+                    <span id="topBarCodigo" class="font-mono font-bold text-slate-800">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 min-w-0 flex-1 justify-end">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-helmet-safety mr-1"></i>TÉCNICO:
+                    </span>
+                    <span id="topBarTecnico" class="font-semibold text-slate-800 truncate">—</span>
+                </div>
             </div>
         </div>
     </header>
@@ -73,10 +113,10 @@
                 <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-clipboard text-blue-600"></i> Texto Copiado (Origen)
+                            <i class="fa-solid fa-clipboard text-[#FF5A0A]"></i> Texto Copiado (Origen)
                         </h3>
                         <div class="flex items-center gap-2">
-                            <button id="btnPasteClipboard" type="button" class="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
+                            <button id="btnPasteClipboard" type="button" class="text-xs font-semibold text-[#FF5A0A] hover:text-orange-700 bg-orange-50 hover:bg-orange-100 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
                                 <i class="fa-solid fa-paste"></i> Pegar
                             </button>
                             <button id="btnClearText" type="button" class="text-xs font-semibold text-slate-500 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-2.5 py-1 rounded-lg transition">
@@ -86,10 +126,10 @@
                     </div>
 
                     <!-- Textarea -->
-                    <textarea id="rawTextInput" placeholder="Pega aquí los encabezados y los datos copiados de tu sistema (Ctrl + V)..." class="flex-1 w-full min-h-[320px] bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 text-xs font-mono text-slate-700 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
+                    <textarea id="rawTextInput" placeholder="Pega aquí los encabezados y los datos copiados de tu sistema (Ctrl + V)..." class="flex-1 w-full min-h-[340px] bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 text-xs font-mono text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
 
                     <!-- Action Button -->
-                    <button id="btnProcessText" class="mt-4 w-full py-3.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-blue-600/20 transition duration-200 flex items-center justify-center space-x-2">
+                    <button id="btnProcessText" class="mt-4 w-full py-3.5 px-4 bg-gradient-to-r from-[#FF5A0A] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-md shadow-orange-600/20 transition duration-200 flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-arrow-down-short-wide"></i>
                         <span>Ordenar y Estructurar Datos</span>
                     </button>
@@ -98,7 +138,7 @@
 
             <!-- Right Column: Extracted Data Results -->
             <div class="lg:col-span-7 flex flex-col gap-4">
-                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm min-h-[520px]">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm min-h-[540px]">
                     
                     <!-- Header Actions for Results -->
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
@@ -110,9 +150,102 @@
                         </div>
 
                         <div class="flex items-center space-x-2">
-                            <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-xs font-semibold">
-                                Formato Único
+                            <span id="activeTemplateBadge" class="px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF5A0A] border border-orange-200/80 text-xs font-semibold">
+                                Plantilla General
                             </span>
+                        </div>
+                    </div>
+
+                    <!-- Selector de Plantillas -->
+                    <div id="templateSelectorBar" class="hidden mt-3.5 pb-3 border-b border-slate-100">
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                            Selecciona el formato de plantilla:
+                        </label>
+                        <div class="flex flex-wrap gap-1.5" id="templateButtonsContainer">
+                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 General
+                            </button>
+                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🛠️ Gestión BO
+                            </button>
+                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📡 Habilitar Zona
+                            </button>
+                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📊 Estatus Cliente
+                            </button>
+                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Retiro Orden
+                            </button>
+                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Req. de Carga
+                            </button>
+                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 Regestión
+                            </button>
+                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🔄 Cambio Cuadrilla
+                            </button>
+                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                ♻️ Reinicios de Tarea
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Controles Dinámicos (Observación manual, Selección de Teléfono y Cambio Cuadrilla) -->
+                    <div id="dynamicControlsPanel" class="hidden mt-3 bg-slate-50/90 border border-slate-200/80 rounded-xl p-3 flex flex-col gap-2.5">
+                        <!-- Selector de Teléfono (Solo visible en Gestión BO) -->
+                        <div id="phoneChoiceWrapper" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-phone text-[#FF5A0A]"></i> ¿Qué número usar en Gestión BO?
+                            </span>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="telf1" checked class="accent-[#FF5A0A]">
+                                    <span>TELF.1 (<b id="lblTelf1">-</b>)</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="telf2" class="accent-[#FF5A0A]">
+                                    <span>TELF.2 (<b id="lblTelf2">-</b>)</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="custom" class="accent-[#FF5A0A]">
+                                    <span>Otro:</span>
+                                    <input type="text" id="customPhoneInput" placeholder="NÚMERO..." class="w-24 text-xs uppercase border-b border-slate-300 focus:border-[#FF5A0A] focus:outline-none bg-transparent">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Cuadrilla Destino (Solo visible en Cambio Cuadrilla) -->
+                        <div id="moveCuadrillaWrapper" class="hidden flex flex-col gap-2 pb-2 border-b border-slate-200/70">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <label for="moveCuadrillaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                    <i class="fa-solid fa-people-arrows text-[#FF5A0A]"></i> Mover a la cuadrilla:
+                                </label>
+                                <select id="moveCuadrillaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-medium text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                                    <option value="P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN">P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN</option>
+                                    <option value="P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO">P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO</option>
+                                    <option value="P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ">P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ</option>
+                                    <option value="CUSTOM">OTRA CUADRILLA (INGRESAR MANUAL)...</option>
+                                </select>
+                            </div>
+                            <input type="text" id="moveCuadrillaCustomInput" placeholder="ESCRIBE EL NOMBRE DE LA NUEVA CUADRILLA EN MAYÚSCULAS..." class="hidden w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                        </div>
+
+                        <!-- Campo Manual Específico para Motivo (Solo visible en Cambio Cuadrilla) -->
+                        <div id="manualMotivoWrapper" class="hidden flex flex-col sm:flex-row sm:items-center gap-2 pb-2 border-b border-slate-200/70">
+                            <label for="manualMotivoInput" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                <i class="fa-solid fa-tag text-[#FF5A0A]"></i> Motivo:
+                            </label>
+                            <input type="text" id="manualMotivoInput" placeholder="INGRESA EL MOTIVO DEL CAMBIO DE CUADRILLA (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                        </div>
+
+                        <!-- Campo Manual para Observaciones / Motivo -->
+                        <div id="manualObsWrapper" class="flex flex-col sm:flex-row sm:items-center gap-2">
+                            <label for="manualObsInput" id="manualObsLabel" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                <i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:
+                            </label>
+                            <input type="text" id="manualObsInput" placeholder="ESCRIBE AQUÍ LA OBSERVACIÓN O MOTIVO (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
                         </div>
                     </div>
 
@@ -124,20 +257,25 @@
                             <i class="fa-solid fa-file-lines"></i>
                         </div>
                         <h4 class="text-base font-semibold text-slate-700">Esperando texto para generar plantilla...</h4>
-                        <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">Pega el contenido copiado en el recuadro de la izquierda y se generará automáticamente la plantilla con los campos solicitados.</p>
+                        <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">Pega el contenido copiado en el recuadro de la izquierda y selecciona cualquiera de las plantillas disponibles.</p>
                     </div>
 
                     <!-- State 2: Render Container -->
-                    <div id="resultsContainer" class="hidden flex-1 mt-4 flex flex-col overflow-y-auto custom-scrollbar max-h-[560px] pr-1">
+                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1">
                         <!-- Content injected via JS -->
                     </div>
 
-                    <!-- Footer Copy Bar (Sin botones de exportar) -->
+                    <!-- Footer Copy Bar -->
                     <div id="exportBar" class="hidden pt-4 mt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                         <span class="text-xs font-medium text-slate-400">Digital Tech-Win • Plantilla Oficial</span>
                         <div class="flex items-center space-x-2">
-                            <button id="btnCopyTemplate" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 text-xs font-semibold transition flex items-center gap-2">
-                                <i class="fa-solid fa-copy"></i> Copiar Plantilla
+                            <!-- Botón WhatsApp (Predeterminado) -->
+                            <button id="btnCopyWhatsapp" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> <span>Copiar a WhatsApp</span>
+                            </button>
+                            <!-- Botón Telegram (Solo visible en Plantilla General) -->
+                            <button id="btnCopyTelegram" class="hidden px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white shadow-sm shadow-sky-500/20 text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-brands fa-telegram text-sm"></i> <span>Copiar a Telegram</span>
                             </button>
                         </div>
                     </div>
@@ -150,7 +288,7 @@
 
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-white text-slate-800 px-4 py-3 rounded-xl shadow-xl border border-slate-200 flex items-center space-x-3">
-        <div id="toastIcon" class="text-blue-600 text-lg">
+        <div id="toastIcon" class="text-[#FF5A0A] text-lg">
             <i class="fa-solid fa-circle-info"></i>
         </div>
         <div id="toastMessage" class="text-sm font-medium">Notificación</div>
@@ -159,60 +297,85 @@
     <!-- Application Script -->
     <script>
         let currentExtractedData = [];
+        let parsedFields = {};
+        let currentTemplateKey = 'general';
         let currentTemplateText = '';
+
+        const TEMPLATE_NAMES = {
+            general: 'Plantilla General',
+            gestion_bo: 'Gestión BO',
+            habilitar_zona: '📡 Habilitar Zona',
+            estatus_cliente: '📊 Estatus Cliente',
+            retiro_orden: '📦 Retiro Orden',
+            requerimiento_carga: '📦 Requerimiento de carga',
+            regestion: '📋 Regestión',
+            cambio_cuadrilla: '🔄 Cambio Cuadrilla',
+            reinicios_tarea: '♻️ Reinicios de tarea'
+        };
 
         const rawTextInput = document.getElementById('rawTextInput');
         const btnProcessText = document.getElementById('btnProcessText');
         const btnPasteClipboard = document.getElementById('btnPasteClipboard');
         const btnClearText = document.getElementById('btnClearText');
 
+        const topBarCliente = document.getElementById('topBarCliente');
+        const topBarDni = document.getElementById('topBarDni');
+        const topBarCodigo = document.getElementById('topBarCodigo');
+        const topBarTecnico = document.getElementById('topBarTecnico');
+
         const emptyState = document.getElementById('emptyState');
         const resultsContainer = document.getElementById('resultsContainer');
         const statsCount = document.getElementById('statsCount');
         const exportBar = document.getElementById('exportBar');
-        const btnCopyTemplate = document.getElementById('btnCopyTemplate');
+        const btnCopyWhatsapp = document.getElementById('btnCopyWhatsapp');
+        const btnCopyTelegram = document.getElementById('btnCopyTelegram');
 
-        const SAMPLE_TEXT = `\tNº\tCod Seguimiento Cliente\tEstado\tCuadrilla\tFecha Solicitud\tPaís / Empresa\tCliente\tProducto\tTipo Ubicación\tUbicación\tMotivo Regestión\tSector Operativo\tTipo Orden\tTipo Trabajo\tMotivo Trabajo\tLocalidad\tDirección\tCódigo De Seguimiento\tFecha Visita\tRegión / Zona\tTipo Documento\tNúmero Documento\tPrioridad\tMóvil\tFijo\tInicio de Visita\tFin de Visita\tMotivo de Cancelación\tMotivo de Finalización\tMotivo de Anulación\tMotivo de Suspensión\tGeoreferencia\tProveedeor\tId de Proyecto\tCódigo Postal\tMotivo\tDatos Técnicos\tFecha Estado\tSuscripción\tHistorial de Estados\tEmail
-3603247
-3272067
-Agendada
-P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ
-13/11/2026 16:00
-Perú
+        const templateSelectorBar = document.getElementById('templateSelectorBar');
+        const activeTemplateBadge = document.getElementById('activeTemplateBadge');
+        const dynamicControlsPanel = document.getElementById('dynamicControlsPanel');
+        const phoneChoiceWrapper = document.getElementById('phoneChoiceWrapper');
+        const moveCuadrillaWrapper = document.getElementById('moveCuadrillaWrapper');
+        const moveCuadrillaSelect = document.getElementById('moveCuadrillaSelect');
+        const moveCuadrillaCustomInput = document.getElementById('moveCuadrillaCustomInput');
+        const manualMotivoWrapper = document.getElementById('manualMotivoWrapper');
+        const manualMotivoInput = document.getElementById('manualMotivoInput');
+        const manualObsWrapper = document.getElementById('manualObsWrapper');
+        const manualObsLabel = document.getElementById('manualObsLabel');
+        const manualObsInput = document.getElementById('manualObsInput');
+        const customPhoneInput = document.getElementById('customPhoneInput');
 
-GESTIÓN PROVINCIA
-SH
-SAULO HERNAN QUESADA CORTEZ
-Multifamiliar
-INTERNET FIBRA OPTICA SGI PROV
-Domicilio
-Domicilio Particular
-CHICLAYO - CENTRO 1
-Técnica
-INSTALACION
-ATENCION POR SOLICITUD DE CLIENTE
-CHICLAYO
+        // Helper para forzar mayúsculas en inputs manuales manteniendo la posición del cursor
+        function enforceUppercaseInput(el) {
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const upperVal = el.value.toUpperCase();
+            if (el.value !== upperVal) {
+                el.value = upperVal;
+                if (typeof start === 'number' && typeof end === 'number') {
+                    el.setSelectionRange(start, end);
+                }
+            }
+        }
 
-LAMBAYEQUE
-CALLE 2 URB SAN RAFAEL MZ F LT 24 (LA VICTORIA, CHICLAYO, LAMBAYEQUE) PISO 1 DPTO/INTERIOR S/N
-22963827
-13/11/2026 16:00\t
-REGION CENTRO 1 CHICLAYO
+        // Convierte a mayúsculas el texto editado manualmente en la vista previa sin alterar el enlace http://maps.google.com
+        function enforceUppercaseOnTemplateEditor(el) {
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const original = el.value;
+            const upperLines = original.split('\n').map(line => {
+                if (/^\*CORD XY DIR:\*/i.test(line)) {
+                    return line.replace(/^(\*CORD XY DIR:\*\s*)(.*)$/i, (_, prefix, url) => prefix.toUpperCase() + url);
+                }
+                return line.toUpperCase();
+            }).join('\n');
 
-LA VICTORIA
-Cédula de identidad
-46559593
-Alta
-938236726
-0
--6.8069700,-79.8460770
-TECSYCOM
-14007
-COORDENADA CTO1/Númerico/-6.806488-79.845672;COORDENADA CTO2/Númerico/-6.807472-79.8456;COORDENADA CTO3/Númerico/-6.806133-79.845544;CTO1/Alfanumérico/WN-61290-260098;CTO2/Alfanumérico/WN-61290-260102;CTO3/Alfanumérico/WN-61290-260095;DNI/Númerico/'46559593;RRINST/Unidad/1;CCI/Alfanumérico/3040;RREF/Unidad/
-13/11/2026 15:07
-Campaña : Aumento de velocidad No aplica|Paquete: INTERNET 550 Mbps |SVA's: WIN TV PREMIUM|Cantidad de Mesh: 0|Instalacion de mesh: No 0
-Fecha: 13/11/2026 15:05:04 Estado: Pendiente Usuario: TRAICY SOFIA DELGADO ALAYO Observacion: ;Fecha: 13/11/2026 15:07:06 Estado: Asignada Usuario: Administrador Observacion: Cuadrilla Asignada: P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ;Fecha: 13/11/2026 15:07:06 Estado: Agendada Usuario: Administrador Observacion: Fecha agendada: 13/11/2026 16:00
-Alta`;
+            if (original !== upperLines) {
+                el.value = upperLines;
+                if (typeof start === 'number' && typeof end === 'number') {
+                    el.setSelectionRange(start, end);
+                }
+            }
+        }
 
         window.onload = () => {
             setupEventListeners();
@@ -243,20 +406,139 @@ Alta`;
             btnClearText.addEventListener('click', () => {
                 rawTextInput.value = '';
                 currentExtractedData = [];
+                parsedFields = {};
                 currentTemplateText = '';
+                manualObsInput.value = '';
+                manualMotivoInput.value = '';
+                moveCuadrillaCustomInput.value = '';
+                customPhoneInput.value = '';
+                topBarCliente.textContent = '—';
+                topBarDni.textContent = '—';
+                topBarCodigo.textContent = '—';
+                topBarTecnico.textContent = '—';
                 emptyState.classList.remove('hidden');
                 resultsContainer.classList.add('hidden');
                 exportBar.classList.add('hidden');
+                templateSelectorBar.classList.add('hidden');
+                dynamicControlsPanel.classList.add('hidden');
                 statsCount.textContent = 'Sin datos procesados aún';
             });
 
-            btnCopyTemplate.addEventListener('click', () => {
+            // Botón Copiar a WhatsApp
+            btnCopyWhatsapp.addEventListener('click', () => {
                 const editor = document.getElementById('templateEditorArea');
                 const textToCopy = editor ? editor.value : currentTemplateText;
                 if (!textToCopy) return;
                 copyToClipboard(textToCopy);
-                showToast('¡Plantilla copiada al portapapeles!');
+                showToast(`¡Plantilla copiada a WhatsApp!`);
             });
+
+            // Botón Copiar a Telegram (Duplica los asteriscos externos a doble asterisco)
+            btnCopyTelegram.addEventListener('click', () => {
+                const editor = document.getElementById('templateEditorArea');
+                let textToCopy = editor ? editor.value : currentTemplateText;
+                if (!textToCopy) return;
+
+                // Reemplaza *ETIQUETA:* por **ETIQUETA:** para Telegram
+                textToCopy = textToCopy.replace(/^(\*)([^*]+)(\*)/gm, '**$2**');
+
+                copyToClipboard(textToCopy);
+                showToast(`¡Plantilla copiada a Telegram (con formato **)!`);
+            });
+
+            // Eventos para cambiar de plantilla
+            document.querySelectorAll('.template-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.template-pill').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentTemplateKey = btn.dataset.template;
+                    activeTemplateBadge.textContent = TEMPLATE_NAMES[currentTemplateKey];
+                    
+                    // Mostrar u ocultar el botón de Telegram según sea Plantilla General
+                    if (currentTemplateKey === 'general') {
+                        btnCopyTelegram.classList.remove('hidden');
+                    } else {
+                        btnCopyTelegram.classList.add('hidden');
+                    }
+
+                    updateDynamicControlsVisibility();
+                    refreshActiveTemplate();
+                });
+            });
+
+            // Eventos en vivo para Cambio de Cuadrilla
+            moveCuadrillaSelect.addEventListener('change', () => {
+                if (moveCuadrillaSelect.value === 'CUSTOM') {
+                    moveCuadrillaCustomInput.classList.remove('hidden');
+                    moveCuadrillaCustomInput.focus();
+                } else {
+                    moveCuadrillaCustomInput.classList.add('hidden');
+                }
+                refreshActiveTemplate();
+            });
+
+            moveCuadrillaCustomInput.addEventListener('input', () => {
+                enforceUppercaseInput(moveCuadrillaCustomInput);
+                refreshActiveTemplate();
+            });
+
+            manualMotivoInput.addEventListener('input', () => {
+                enforceUppercaseInput(manualMotivoInput);
+                refreshActiveTemplate();
+            });
+
+            // Eventos en vivo para Observación Manual y Selección de Teléfono (en MAYÚSCULAS)
+            manualObsInput.addEventListener('input', () => {
+                enforceUppercaseInput(manualObsInput);
+                refreshActiveTemplate();
+            });
+
+            customPhoneInput.addEventListener('input', () => {
+                enforceUppercaseInput(customPhoneInput);
+                const customRadio = document.querySelector('input[name="boPhoneChoice"][value="custom"]');
+                if (customRadio) customRadio.checked = true;
+                refreshActiveTemplate();
+            });
+
+            document.querySelectorAll('input[name="boPhoneChoice"]').forEach(radio => {
+                radio.addEventListener('change', refreshActiveTemplate);
+            });
+        }
+
+        function updateDynamicControlsVisibility() {
+            if (!parsedFields.codigo && !parsedFields.dni && !parsedFields.cliente) {
+                dynamicControlsPanel.classList.add('hidden');
+                return;
+            }
+
+            const templatesWithObs = ['gestion_bo', 'habilitar_zona', 'retiro_orden', 'regestion', 'cambio_cuadrilla', 'reinicios_tarea'];
+            const needsObs = templatesWithObs.includes(currentTemplateKey);
+            const needsPhone = currentTemplateKey === 'gestion_bo';
+            const isCambioCuadrilla = currentTemplateKey === 'cambio_cuadrilla';
+
+            if (needsObs || needsPhone || isCambioCuadrilla) {
+                dynamicControlsPanel.classList.remove('hidden');
+            } else {
+                dynamicControlsPanel.classList.add('hidden');
+            }
+
+            phoneChoiceWrapper.classList.toggle('hidden', !needsPhone);
+            moveCuadrillaWrapper.classList.toggle('hidden', !isCambioCuadrilla);
+            manualMotivoWrapper.classList.toggle('hidden', !isCambioCuadrilla);
+
+            if (isCambioCuadrilla) {
+                manualObsLabel.innerHTML = '<i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación:';
+                manualObsInput.placeholder = 'ESCRIBE AQUÍ LA OBSERVACIÓN (EN MAYÚSCULAS)...';
+            } else {
+                manualObsLabel.innerHTML = '<i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:';
+                manualObsInput.placeholder = 'ESCRIBE AQUÍ LA OBSERVACIÓN O MOTIVO (EN MAYÚSCULAS)...';
+            }
+
+            if (needsObs) {
+                manualObsWrapper.classList.remove('hidden');
+            } else {
+                manualObsWrapper.classList.add('hidden');
+            }
         }
 
         // Motor Inteligente de Emparejamiento de Encabezados y Valores Pegados
@@ -291,14 +573,47 @@ Alta`;
                 currentExtractedData = [];
             }
 
-            currentTemplateText = buildFormattedTemplate(raw);
-            statsCount.textContent = 'Plantilla lista (solo con los campos solicitados)';
-            renderTemplateView(currentTemplateText);
+            parsedFields = extractAllFields(raw);
 
+            // Actualizar barra superior con CLIENTE, DNI, CÓDIGO y TÉCNICO
+            topBarCliente.textContent = parsedFields.cliente || '—';
+            topBarDni.textContent = parsedFields.dni || '—';
+            topBarCodigo.textContent = parsedFields.codigo || '—';
+            topBarTecnico.textContent = parsedFields.tecnico || '—';
+
+            // Actualizar etiquetas de teléfonos disponibles para Gestión BO
+            document.getElementById('lblTelf1').textContent = parsedFields.telf1 || 'Vacío';
+            document.getElementById('lblTelf2').textContent = parsedFields.telf2 || '0';
+
+            // Sincronizar selector de cuadrilla destino con la cuadrilla detectada si coincide
+            if (parsedFields.tecnico) {
+                const matchedOption = Array.from(moveCuadrillaSelect.options).find(opt => opt.value === parsedFields.tecnico.toUpperCase());
+                if (matchedOption) {
+                    moveCuadrillaSelect.value = matchedOption.value;
+                    moveCuadrillaCustomInput.classList.add('hidden');
+                } else {
+                    moveCuadrillaSelect.value = 'CUSTOM';
+                    moveCuadrillaCustomInput.value = parsedFields.tecnico.toUpperCase();
+                    moveCuadrillaCustomInput.classList.remove('hidden');
+                }
+            }
+
+            templateSelectorBar.classList.remove('hidden');
             emptyState.classList.add('hidden');
             resultsContainer.classList.remove('hidden');
             exportBar.classList.remove('hidden');
-            showToast('¡Plantilla generada y lista para copiar!');
+
+            updateDynamicControlsVisibility();
+            refreshActiveTemplate();
+
+            statsCount.textContent = 'Datos extraídos • Cambia de plantilla cuando lo necesites';
+            showToast('¡Datos procesados y plantillas listas!');
+        }
+
+        function refreshActiveTemplate() {
+            if (!parsedFields || Object.keys(parsedFields).length === 0) return;
+            currentTemplateText = generateTemplateByKey(currentTemplateKey, parsedFields);
+            renderTemplateView(currentTemplateText);
         }
 
         function getFieldValue(regex) {
@@ -306,7 +621,7 @@ Alta`;
             return found ? (found.contenido || '').trim() : '';
         }
 
-        function buildFormattedTemplate(rawText = '') {
+        function extractAllFields(rawText = '') {
             const cleanLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
 
             // 1. TIPO TRABAJO
@@ -364,7 +679,7 @@ Alta`;
             }
             const cliente = rawCliente.replace(/\s*\((Multifamiliar|Residencial|Corporativo|Unifamiliar)\)\s*$/i, '').trim();
 
-            // 5. DNI (Prioridad directa: línea siguiente a Cédula de identidad / DNI / Pasaporte)
+            // 5. DNI
             let dni = '';
             const docIdx = cleanLines.findIndex(l => /^(Cédula de identidad|DNI|Pasaporte|Carnet de extranjería|RUC)$/i.test(l));
             if (docIdx !== -1 && cleanLines[docIdx + 1]) {
@@ -403,7 +718,7 @@ Alta`;
                 cordXyDir = `http://maps.google.com/?q=${parts[0]},${parts[1]}`;
             }
 
-            // 8. DISTRITO (Extraído desde DIRECCIÓN: después de '(' y antes de la segunda ',')
+            // 8. DISTRITO
             let distrito = '';
             const dirParenMatch = direccion.match(/\(([^)]+)\)/);
             if (dirParenMatch) {
@@ -415,7 +730,6 @@ Alta`;
                 }
             }
 
-            // Respaldo si la dirección no trae paréntesis
             if (!distrito) {
                 let regionZona = getFieldValue(/^Región \/ Zona$/i);
                 let localidad = getFieldValue(/^Localidad$/i);
@@ -475,7 +789,7 @@ Alta`;
                 }
             }
 
-            // 11. TÉCNICO (Valor exacto de la columna Cuadrilla)
+            // 11. TÉCNICO / CUADRILLA
             let rawCuadrilla = getFieldValue(/^Cuadrilla$/i);
             if (!rawCuadrilla) {
                 const cuadLine = cleanLines.find(l => /(TECSYCOM|SGI|P\s*\d)/i.test(l) && !/Fecha:/i.test(l));
@@ -483,7 +797,7 @@ Alta`;
             }
             const tecnico = rawCuadrilla.trim();
 
-            // 12. ESTADO (Valor exacto de la columna Estado en MAYÚSCULAS)
+            // 12. ESTADO
             let rawEstado = getFieldValue(/^Estado$/i);
             if (!rawEstado) {
                 const estLine = cleanLines.find(l => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(l));
@@ -491,26 +805,136 @@ Alta`;
             }
             const estado = rawEstado.trim().toUpperCase();
 
-            return `*TIPO TRABAJO:* ${tipoTrabajo}
+            // 13. ZONA SEGÚN REGLA DE CUADRILLA CHICLAYO
+            const upperCuadrilla = tecnico.toUpperCase();
+            let zonaCalculada = getFieldValue(/^Sector Operativo$/i) || '';
+            if (upperCuadrilla.includes('P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN') || /^P\s*1\b/.test(upperCuadrilla)) {
+                zonaCalculada = 'CHICLAYO - ESTE 1';
+            } else if (
+                upperCuadrilla.includes('P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO') ||
+                upperCuadrilla.includes('P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ') ||
+                /^P\s*[23]\b/.test(upperCuadrilla)
+            ) {
+                zonaCalculada = 'CHICLAYO - CENTRO 1';
+            }
 
-*AGENDADO:* ${agendado}
-*CÓDIGO:* ${codigo}
-*CLIENTE:* ${cliente}
-*DNI:* ${dni}
-*DIRECCIÓN:* ${direccion}
-*CORD XY DIR:* ${cordXyDir}
-*DISTRITO:* ${distrito}
-*PLAN:* ${plan}
-*TELF.1:* ${telf1}
-*TELF.2:* ${telf2}
+            return {
+                tipoTrabajo,
+                agendado,
+                codigo,
+                cliente,
+                dni,
+                direccion,
+                cordXyDir,
+                distrito,
+                plan,
+                telf1,
+                telf2,
+                tecnico,
+                estado,
+                partner: 'TECSYCOM',
+                contrata: 'TECSYCOM',
+                zona: zonaCalculada
+            };
+        }
+
+        function getSelectedBoPhone(data) {
+            const choice = document.querySelector('input[name="boPhoneChoice"]:checked')?.value || 'telf1';
+            if (choice === 'telf1') return (data.telf1 || '').toUpperCase();
+            if (choice === 'telf2') return (data.telf2 || '').toUpperCase();
+            if (choice === 'custom') return customPhoneInput.value.trim().toUpperCase();
+            return (data.telf1 || '').toUpperCase();
+        }
+
+        function getTargetCuadrillaForMove(data) {
+            if (moveCuadrillaSelect.value === 'CUSTOM') {
+                return moveCuadrillaCustomInput.value.trim().toUpperCase();
+            }
+            return (moveCuadrillaSelect.value || data.tecnico || '').toUpperCase();
+        }
+
+        function generateTemplateByKey(key, data) {
+            const obsManual = manualObsInput.value.trim().toUpperCase();
+
+            switch (key) {
+                case 'gestion_bo': {
+                    const telefonoSeleccionado = getSelectedBoPhone(data);
+                    return `Teléfono: ${telefonoSeleccionado}
+DNI: ${data.dni}
+Partner: ${data.partner}
+Cliente: ${data.cliente}
+Código/Ticket: ${data.codigo}
+OBS: ${obsManual}`;
+                }
+
+                case 'habilitar_zona':
+                    return `Cuadrilla: ${data.tecnico}
+Contrata: ${data.contrata}
+Solicitud: ${data.codigo}
+Zona: ${data.zona}
+OBS: ${obsManual}`;
+
+                case 'estatus_cliente':
+                    return `DNI: ${data.dni}
+Estado: ${data.estado}`;
+
+                case 'retiro_orden':
+                    return `DNI: ${data.dni}
+Cuadrilla: ${data.tecnico}
+Motivo: ${obsManual}`;
+
+                case 'requerimiento_carga':
+                    return `Partner: ${data.partner}
+Zona: ${data.zona}
+Cuadrillas: ${data.tecnico}`;
+
+                case 'regestion':
+                    return `COD: ${data.codigo}
+Cuadrilla: ${data.tecnico}
+Partner: ${data.partner}
+Motivo: ${obsManual}
+Observación: ${obsManual}`;
+
+                case 'cambio_cuadrilla': {
+                    const cuadrillaDestino = getTargetCuadrillaForMove(data);
+                    const motivoCambio = manualMotivoInput.value.trim().toUpperCase();
+                    return `COD: ${data.codigo}
+Mover a la cuadrilla: ${cuadrillaDestino}
+Partner: ${data.partner}
+Motivo: ${motivoCambio}
+Observación: ${obsManual}`;
+                }
+
+                case 'reinicios_tarea':
+                    return `COD: ${data.codigo}
+Cuadrilla: ${data.tecnico}
+Partner: ${data.partner}
+Motivo: ${obsManual}
+Observación: ${obsManual}`;
+
+                case 'general':
+                default:
+                    return `*TIPO TRABAJO:* ${data.tipoTrabajo}
+
+*AGENDADO:* ${data.agendado}
+*CÓDIGO:* ${data.codigo}
+*CLIENTE:* ${data.cliente}
+*DNI:* ${data.dni}
+*DIRECCIÓN:* ${data.direccion}
+*CORD XY DIR:* ${data.cordXyDir}
+*DISTRITO:* ${data.distrito}
+*PLAN:* ${data.plan}
+*TELF.1:* ${data.telf1}
+*TELF.2:* ${data.telf2}
 
 *TELF ALTERNATIVO:* 
 *CTO:* 
 *PUERTO:* 
 
-*TÉCNICO:* ${tecnico}
-*ESTADO:* ${estado}
-*OBSERVACIONES:* `;
+*TÉCNICO:* ${data.tecnico}
+*ESTADO:* ${data.estado}
+*OBSERVACIONES:* ${obsManual}`;
+            }
         }
 
         function renderTemplateView(templateText) {
@@ -519,17 +943,22 @@ Alta`;
             wrapper.className = 'flex-1 flex flex-col gap-2.5';
 
             wrapper.innerHTML = `
-                <div class="flex items-center justify-between text-xs text-slate-500 bg-blue-50/70 border border-blue-100 px-3.5 py-2 rounded-xl">
-                    <span class="flex items-center gap-1.5 font-medium text-blue-800">
-                        <i class="fa-solid fa-pen-to-square text-blue-600"></i> Puedes completar manualmente <b>TELF.2, CTO, PUERTO u OBSERVACIONES</b> antes de copiar:
+                <div class="flex items-center justify-between text-xs text-slate-600 bg-orange-50/70 border border-orange-100 px-3.5 py-2 rounded-xl">
+                    <span class="flex items-center gap-1.5 font-medium text-slate-700">
+                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b> (se copiará según el botón elegido):
                     </span>
                 </div>
-                <textarea id="templateEditorArea" class="w-full flex-1 min-h-[420px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
+                <textarea id="templateEditorArea" class="w-full flex-1 min-h-[360px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
             `;
 
             resultsContainer.appendChild(wrapper);
             const editor = document.getElementById('templateEditorArea');
             editor.value = templateText;
+
+            // Forzar mayúsculas también si se escribe manualmente dentro del cuadro de la plantilla
+            editor.addEventListener('input', () => {
+                enforceUppercaseOnTemplateEditor(editor);
+            });
         }
 
         function alignStackedValuesToHeaders(headers, bodyLines) {
@@ -667,7 +1096,7 @@ Alta`;
                 toastIcon.className = 'text-rose-600 text-lg';
                 toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
             } else {
-                toastIcon.className = 'text-blue-600 text-lg';
+                toastIcon.className = 'text-[#FF5A0A] text-lg';
                 toastIcon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
             }
 
