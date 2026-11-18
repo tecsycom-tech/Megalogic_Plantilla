@@ -1487,7 +1487,7 @@ Observación: ${obsManual}`;
                 return found ? (found.contenido || '').trim() : '';
             };
 
-            // 1. Zona desde la dirección (después de '(' y antes de la primera coma ',')
+            // Zona desde la dirección (para otras referencias si aplica)
             const rawDir = getCol('Dirección') || pf.direccion || '';
             let zonaExt = '';
             const dirMatch = rawDir.match(/\(([^,]+)/);
@@ -1495,11 +1495,11 @@ Observación: ${obsManual}`;
                 zonaExt = dirMatch[1].trim().toUpperCase();
             }
 
-            // 2. Region (Toma el valor exacto de Región / Zona)
+            // Region (Toma el valor exacto de Región / Zona)
             const regZona = getCol('Región / Zona') || '';
             let regionExt = regZona;
 
-            // 3. Localidad y Provincia separadas
+            // Localidad y Provincia separadas
             const locCol = getCol('Localidad') || '';
             let locPart = locCol;
             let provPart = getCol('Provincia') || '';
@@ -1509,10 +1509,9 @@ Observación: ${obsManual}`;
                 if (!provPart && parts[1]) provPart = parts[1];
             }
 
-            // 4. Extractor directo y robusto para "Fecha Estado" (Busca en la columna explícita o mediante patrón DD/MM/YYYY HH:MM en todo el texto)
+            // Extractor directo y robusto para "Fecha Estado" (FechaUltiEsta / FechaFinVisi)
             let fechaEstadoExt = getCol('Fecha Estado') || getCol('fecha estado') || '';
             if (!fechaEstadoExt) {
-                // Buscamos específicamente la fecha de la línea exacta debajo de "Fecha Estado" o en el texto vertical
                 const lines = fullRawText.split(/\r?\n/).map(l => l.trim());
                 const idxFe = lines.findIndex(l => /^Fecha Estado$/i.test(l));
                 if (idxFe !== -1 && lines[idxFe + 1]) {
@@ -1520,10 +1519,8 @@ Observación: ${obsManual}`;
                 }
             }
             if (!fechaEstadoExt || !/^\d{2}\/\d{2}\/\d{4}/.test(fechaEstadoExt)) {
-                // Último recurso: extraer la última fecha de estado válida encontrada en el texto
                 const matchesAllDates = fullRawText.match(/(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2})/g);
                 if (matchesAllDates && matchesAllDates.length > 0) {
-                    // Tomamos la última fecha del listado (por ejemplo, la fecha de la última acción del historial de estados)
                     fechaEstadoExt = matchesAllDates[matchesAllDates.length - 1];
                 }
             }
@@ -1557,6 +1554,9 @@ Observación: ${obsManual}`;
                 if (matchAnyDateInHist) fechaIniVisiExt = matchAnyDateInHist[1];
             }
 
+            // 5. Extractor exacto para "Sector Operativo" desde el texto copiado
+            let sectorOperativoExt = getCol('Sector Operativo') || getCol('sector operativo') || pf.sectorOperativo || '';
+
             ORIG_HEADERS.forEach((h, idx) => {
                 let val = '';
                 
@@ -1588,18 +1588,17 @@ Observación: ${obsManual}`;
                     val = locPart;
                 } else if (h === 'Provincia') {
                     val = provPart;
-                } else if (h === 'FechaUltiEsta') {
-                    // REGLA: FechaUltiEsta toma exactamente el valor de Fecha Estado
-                    val = fechaEstadoExt;
-                } else if (h === 'FechaFinVisi') {
-                    // FechaFinVisi toma el valor de Fecha Estado
+                } else if (h === 'FechaUltiEsta' || h === 'FechaFinVisi') {
                     val = fechaEstadoExt;
                 } else if (h === 'IdenServi') {
                     val = suscripcionExt;
                 } else if (h === 'Region') {
                     val = regionExt;
-                } else if (h === 'Zona' || h === 'Sector Operativo') {
+                } else if (h === 'Zona') {
                     val = zonaExt || pf.sectorOperativo || pf.zona || '';
+                } else if (h === 'Sector Operativo') {
+                    // REGLA: Sector Operativo toma exactamente el valor de la columna Sector Operativo del texto copiado
+                    val = sectorOperativoExt;
                 } else if (h === 'Empresa') {
                     val = getCol('País / Empresa') || 'GESTIÓN PROVINCIA';
                 } else if (h === 'Pais') {
@@ -1701,7 +1700,7 @@ Observación: ${obsManual}`;
                 document.body.removeChild(a);
                 setTimeout(() => URL.revokeObjectURL(url), 2000);
 
-                showToast('¡Excel exportado con FechaUltiEsta correcto!');
+                showToast('¡Excel exportado con Sector Operativo correcto!');
             } catch (e) {
                 console.error(e);
                 showToast('Error al exportar Excel: ' + e.message, 'error');
