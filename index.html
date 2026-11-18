@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <!-- Barra de Resumen Rápido del Cliente, DNI, Código y Técnico -->
+        <!-- Barra de Resumen Rápido -->
         <div class="border-t border-slate-100 bg-orange-50/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 text-xs">
                 <div class="flex items-center gap-1.5 min-w-0 flex-1">
@@ -129,10 +129,7 @@
                         <button id="btnClearSearchClient" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-
-                        <!-- Lista desplegable de coincidencias -->
-                        <div id="savedClientsDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-40 max-h-64 overflow-y-auto custom-scrollbar divide-y divide-slate-100">
-                        </div>
+                        <div id="savedClientsDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-40 max-h-64 overflow-y-auto custom-scrollbar divide-y divide-slate-100"></div>
                     </div>
 
                     <select id="savedClientsSelect" class="sm:w-64 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition">
@@ -162,10 +159,8 @@
                         </div>
                     </div>
 
-                    <!-- Textarea -->
                     <textarea id="rawTextInput" placeholder="Pega aquí los encabezados y los datos copiados de tu sistema (Ctrl + V)..." class="flex-1 w-full min-h-[340px] bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 text-xs font-mono text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
 
-                    <!-- Action Buttons -->
                     <div class="mt-4 flex flex-col sm:flex-row gap-2">
                         <button id="btnProcessText" class="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#FF5A0A] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-md shadow-orange-600/20 transition duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm">
                             <i class="fa-solid fa-arrow-down-short-wide"></i>
@@ -183,7 +178,6 @@
             <div class="lg:col-span-7 flex flex-col gap-4">
                 <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm min-h-[540px]">
                     
-                    <!-- Header Actions for Results -->
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
                         <div>
                             <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
@@ -205,62 +199,37 @@
                             Selecciona el formato de plantilla:
                         </label>
                         <div class="flex flex-wrap gap-1.5" id="templateButtonsContainer">
-                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📋 General
-                            </button>
-                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                🛠️ Gestión BO
-                            </button>
-                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📡 Habilitar Zona
-                            </button>
-                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📊 Estatus Cliente
-                            </button>
-                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📦 Retiro Orden
-                            </button>
-                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📦 Req. de Carga
-                            </button>
-                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                📋 Regestión
-                            </button>
-                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                🔄 Cambio Cuadrilla
-                            </button>
-                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
-                                ♻️ Reinicios de Tarea
-                            </button>
+                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📋 General</button>
+                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">🛠️ Gestión BO</button>
+                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📡 Habilitar Zona</button>
+                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📊 Estatus Cliente</button>
+                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📦 Retiro Orden</button>
+                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📦 Req. de Carga</button>
+                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📋 Regestión</button>
+                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">🔄 Cambio Cuadrilla</button>
+                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">♻️ Reinicios de Tarea</button>
                         </div>
                     </div>
 
-                    <!-- Controles Dinámicos (Observación manual, Selección de Teléfono, Habilitar Zona y Cambio Cuadrilla) -->
+                    <!-- Controles Dinámicos -->
                     <div id="dynamicControlsPanel" class="hidden mt-3 bg-slate-50/90 border border-slate-200/80 rounded-xl p-3 flex flex-col gap-2.5">
                         
-                        <!-- Selector y Gestión de Zonas (Solo visible en Habilitar Zona) -->
                         <div id="habilitarZonaWrapper" class="hidden flex flex-col gap-2.5 pb-2.5 border-b border-slate-200/70">
-                            <!-- Sugerencia de Sector Operativo original -->
                             <div id="sectorOperativoSuggestionBox" class="hidden flex flex-wrap items-center justify-between gap-2 bg-orange-50/90 border border-orange-200/80 rounded-lg px-3 py-2 text-xs">
                                 <span class="text-slate-700">
                                     <i class="fa-solid fa-lightbulb text-[#FF5A0A] mr-1"></i>
                                     <b>Sector Operativo de la orden:</b> <span id="lblSectorOperativoOrden" class="font-mono font-bold text-slate-900">—</span>
                                 </span>
-                                <button type="button" id="btnApplySectorOperativo" class="px-2.5 py-1 rounded-md bg-white hover:bg-orange-100 text-[#FF5A0A] border border-orange-300 font-semibold text-[11px] transition">
-                                    Usar este Sector como Zona
-                                </button>
+                                <button type="button" id="btnApplySectorOperativo" class="px-2.5 py-1 rounded-md bg-white hover:bg-orange-100 text-[#FF5A0A] border border-orange-300 font-semibold text-[11px] transition">Usar este Sector como Zona</button>
                             </div>
 
-                            <!-- Selector manual de Zona -->
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <label for="habilitarZonaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                     <i class="fa-solid fa-map-location-dot text-[#FF5A0A]"></i> Zona a habilitar:
                                 </label>
-                                <select id="habilitarZonaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
-                                </select>
+                                <select id="habilitarZonaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15"></select>
                             </div>
 
-                            <!-- Añadir nueva zona y guardarla en Google Sheets -->
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <input type="text" id="newZoneInput" placeholder="AÑADIR NUEVA ZONA (EJ: CHICLAYO - NORTE 1)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
                                 <button type="button" id="btnAddNewZoneToSheets" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 shrink-0">
@@ -270,7 +239,6 @@
                             </div>
                         </div>
 
-                        <!-- Selector de Teléfono (Solo visible en Gestión BO) -->
                         <div id="phoneChoiceWrapper" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
                             <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                                 <i class="fa-solid fa-phone text-[#FF5A0A]"></i> ¿Qué número usar en Gestión BO?
@@ -292,7 +260,6 @@
                             </div>
                         </div>
 
-                        <!-- Selector de Cuadrilla Destino (Solo visible en Cambio Cuadrilla) -->
                         <div id="moveCuadrillaWrapper" class="hidden flex flex-col gap-2 pb-2 border-b border-slate-200/70">
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <label for="moveCuadrillaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
@@ -306,12 +273,9 @@
                                 </select>
                             </div>
                             <input type="text" id="moveCuadrillaCustomInput" placeholder="ESCRIBE EL NOMBRE DE LA NUEVA CUADRILLA EN MAYÚSCULAS..." class="hidden w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
-
-                            <!-- Alerta / Validación de Zona vs Sector Operativo -->
                             <div id="zoneValidationBanner" class="hidden rounded-xl p-3 text-xs border transition-all"></div>
                         </div>
 
-                        <!-- Campo Manual Específico para Motivo (Solo visible en Cambio Cuadrilla) -->
                         <div id="manualMotivoWrapper" class="hidden flex flex-col sm:flex-row sm:items-center gap-2 pb-2 border-b border-slate-200/70">
                             <label for="manualMotivoInput" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fa-solid fa-tag text-[#FF5A0A]"></i> Motivo:
@@ -319,7 +283,6 @@
                             <input type="text" id="manualMotivoInput" placeholder="INGRESA EL MOTIVO DEL CAMBIO DE CUADRILLA (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
                         </div>
 
-                        <!-- Campo Manual para Observaciones / Motivo -->
                         <div id="manualObsWrapper" class="flex flex-col sm:flex-row sm:items-center gap-2">
                             <label for="manualObsInput" id="manualObsLabel" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:
@@ -329,8 +292,6 @@
                     </div>
 
                     <!-- Output States -->
-                    
-                    <!-- State 1: Empty -->
                     <div id="emptyState" class="flex-1 flex flex-col items-center justify-center p-8 text-center my-auto">
                         <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center text-3xl mb-3 border border-slate-200/70">
                             <i class="fa-solid fa-file-lines"></i>
@@ -339,24 +300,21 @@
                         <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">Pega el contenido copiado en el recuadro de la izquierda o selecciona un cliente guardado desde Google Sheets.</p>
                     </div>
 
-                    <!-- State 2: Render Container -->
-                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1">
-                        <!-- Content injected via JS -->
-                    </div>
+                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1"></div>
 
-                    <!-- Footer Copy & Save Bar -->
+                    <!-- Footer Bar -->
                     <div id="exportBar" class="hidden pt-4 mt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                         <span class="text-xs font-medium text-slate-400">Digital Tech-Win • Plantilla Oficial</span>
                         <div class="flex flex-wrap items-center gap-2">
-                            <!-- Botón Guardar en Sheets -->
                             <button id="btnSaveToSheetsRight" type="button" class="px-3.5 py-2.5 rounded-xl bg-[#FF5A0A] hover:bg-orange-600 text-white shadow-sm shadow-orange-600/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-solid fa-cloud-arrow-up text-sm"></i> <span>Guardar Cliente</span>
                             </button>
-                            <!-- Botón WhatsApp (Predeterminado) -->
+                            <button id="btnExportExcel" type="button" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white shadow-sm text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-solid fa-file-excel text-sm"></i> <span>Excel Base PERUFIBRA</span>
+                            </button>
                             <button id="btnCopyWhatsapp" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-brands fa-whatsapp text-sm"></i> <span>Copiar a WhatsApp</span>
                             </button>
-                            <!-- Botón Telegram (Solo visible en Plantilla General) -->
                             <button id="btnCopyTelegram" class="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white shadow-sm shadow-sky-500/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-brands fa-telegram text-sm"></i> <span>Copiar a Telegram</span>
                             </button>
@@ -387,7 +345,7 @@
         let currentTemplateText = '';
         let savedClientsCache = [];
         let savedZonesCache = ['CHICLAYO - ESTE 1', 'CHICLAYO - CENTRO 1'];
-        let pendingHabilitarZonaOverride = null; // Guarda { cuadrilla, zona } cuando se redirige desde Cambio Cuadrilla
+        let pendingHabilitarZonaOverride = null;
 
         const TEMPLATE_NAMES = {
             general: 'Plantilla General',
@@ -432,7 +390,6 @@
         const activeTemplateBadge = document.getElementById('activeTemplateBadge');
         const dynamicControlsPanel = document.getElementById('dynamicControlsPanel');
 
-        // Controles Habilitar Zona
         const habilitarZonaWrapper = document.getElementById('habilitarZonaWrapper');
         const sectorOperativoSuggestionBox = document.getElementById('sectorOperativoSuggestionBox');
         const lblSectorOperativoOrden = document.getElementById('lblSectorOperativoOrden');
@@ -453,7 +410,6 @@
         const manualObsInput = document.getElementById('manualObsInput');
         const customPhoneInput = document.getElementById('customPhoneInput');
 
-        // Helper para obtener la Zona definida de una cuadrilla/técnico
         function getZoneForCuadrilla(cuadrillaName) {
             const upper = (cuadrillaName || '').toUpperCase().trim();
             if (!upper) return '';
@@ -470,7 +426,6 @@
             return '';
         }
 
-        // Normaliza textos de zona / sector operativo para comparación exacta
         function normalizeZoneText(str) {
             return (str || '')
                 .toUpperCase()
@@ -479,7 +434,6 @@
                 .trim();
         }
 
-        // Helper para forzar mayúsculas en inputs manuales manteniendo la posición del cursor
         function enforceUppercaseInput(el) {
             const start = el.selectionStart;
             const end = el.selectionEnd;
@@ -492,7 +446,6 @@
             }
         }
 
-        // Convierte a mayúsculas el texto editado manualmente en la vista previa sin alterar el enlace http://maps.google.com
         function enforceUppercaseOnTemplateEditor(el) {
             const start = el.selectionStart;
             const end = el.selectionEnd;
@@ -518,9 +471,6 @@
             loadClientsFromGoogleSheets();
         };
 
-        // ==========================================
-        // GESTIÓN DE ZONAS EN SELECTOR Y GOOGLE SHEETS
-        // ==========================================
         function populateHabilitarZonaSelect(preferredZone = '') {
             const currentVal = preferredZone || habilitarZonaSelect.value || '';
             const allZones = new Set([
@@ -592,7 +542,6 @@
                 }
             } catch (error) {
                 console.error('Error guardando zona:', error);
-                // Aún si falla la red, permitir usarla localmente en esta sesión
                 if (!savedZonesCache.includes(nuevaZona)) {
                     savedZonesCache.push(nuevaZona);
                 }
@@ -600,16 +549,13 @@
                 habilitarZonaSelect.value = nuevaZona;
                 newZoneInput.value = '';
                 refreshActiveTemplate();
-                showToast('Zona añadida localmente (verifica actualización del Script en Sheets)', 'error');
+                showToast('Zona añadida localmente', 'error');
             } finally {
                 btnAddNewZoneToSheets.disabled = false;
                 btnAddNewZoneToSheets.innerHTML = originalBtnHtml;
             }
         }
 
-        // ==========================================
-        // CONEXIÓN CON GOOGLE SHEETS (LEER Y GUARDAR)
-        // ==========================================
         async function loadClientsFromGoogleSheets(showNotification = false) {
             syncIcon.classList.add('fa-spin');
             sheetsStatusText.textContent = 'Sincronizando registros con Google Sheets...';
@@ -637,7 +583,7 @@
                 }
             } catch (error) {
                 console.error('Error cargando de Google Sheets:', error);
-                sheetsStatusText.textContent = 'No se pudo conectar con Google Sheets (revisa permisos del Script)';
+                sheetsStatusText.textContent = 'No se pudo conectar con Google Sheets';
                 if (showNotification) {
                     showToast('Error al leer Google Sheets', 'error');
                 }
@@ -693,9 +639,7 @@
                                 ${item.tecnico ? `<span>•</span><span class="truncate"><b>TÉC:</b> ${item.tecnico}</span>` : ''}
                             </div>
                         </div>
-                        <span class="text-[10px] font-semibold px-2 py-1 rounded-md bg-orange-100 text-[#FF5A0A] shrink-0">
-                            Cargar
-                        </span>
+                        <span class="text-[10px] font-semibold px-2 py-1 rounded-md bg-orange-100 text-[#FF5A0A] shrink-0">Cargar</span>
                     `;
                     rowBtn.addEventListener('click', () => {
                         restoreClientFromRecord(item);
@@ -757,9 +701,7 @@
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     redirect: 'follow',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
 
@@ -777,7 +719,7 @@
                 }
             } catch (error) {
                 console.error('Error guardando en Google Sheets:', error);
-                showToast('No se pudo guardar en Google Sheets. Verifica el Script.', 'error');
+                showToast('No se pudo guardar en Google Sheets.', 'error');
             } finally {
                 btnSaveToSheetsLeft.disabled = false;
                 btnSaveToSheetsRight.disabled = false;
@@ -814,7 +756,6 @@
             btnSaveToSheetsRight.addEventListener('click', saveCurrentClientToGoogleSheets);
             btnSyncSheets.addEventListener('click', () => loadClientsFromGoogleSheets(true));
 
-            // Eventos de Habilitar Zona
             habilitarZonaSelect.addEventListener('change', () => {
                 refreshActiveTemplate();
             });
@@ -835,7 +776,6 @@
 
             btnAddNewZoneToSheets.addEventListener('click', addNewZoneToGoogleSheets);
 
-            // Búsqueda por nombre de cliente en Google Sheets
             searchSavedClientInput.addEventListener('input', () => {
                 enforceUppercaseInput(searchSavedClientInput);
                 const val = searchSavedClientInput.value;
@@ -866,7 +806,6 @@
                 }
             });
 
-            // Cerrar dropdown al hacer clic fuera
             document.addEventListener('click', (e) => {
                 if (!searchSavedClientInput.contains(e.target) && !savedClientsDropdown.contains(e.target)) {
                     savedClientsDropdown.classList.add('hidden');
@@ -915,7 +854,6 @@
                 statsCount.textContent = 'Sin datos procesados aún';
             });
 
-            // Botón Copiar a WhatsApp
             btnCopyWhatsapp.addEventListener('click', () => {
                 const editor = document.getElementById('templateEditorArea');
                 const textToCopy = editor ? editor.value : currentTemplateText;
@@ -924,20 +862,15 @@
                 showToast(`¡Plantilla copiada a WhatsApp!`);
             });
 
-            // Botón Copiar a Telegram (Duplica los asteriscos externos a doble asterisco)
             btnCopyTelegram.addEventListener('click', () => {
                 const editor = document.getElementById('templateEditorArea');
                 let textToCopy = editor ? editor.value : currentTemplateText;
                 if (!textToCopy) return;
-
-                // Reemplaza *ETIQUETA:* por **ETIQUETA:** para Telegram
                 textToCopy = textToCopy.replace(/^(\*)([^*]+)(\*)/gm, '**$2**');
-
                 copyToClipboard(textToCopy);
-                showToast(`¡Plantilla copiada a Telegram (con formato **)!`);
+                showToast(`¡Plantilla copiada a Telegram!`);
             });
 
-            // Eventos para cambiar de plantilla
             document.querySelectorAll('.template-pill').forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (btn.dataset.template !== 'habilitar_zona') {
@@ -947,7 +880,6 @@
                 });
             });
 
-            // Eventos en vivo para Cambio de Cuadrilla
             moveCuadrillaSelect.addEventListener('change', () => {
                 if (moveCuadrillaSelect.value === 'CUSTOM') {
                     moveCuadrillaCustomInput.classList.remove('hidden');
@@ -970,7 +902,6 @@
                 refreshActiveTemplate();
             });
 
-            // Eventos en vivo para Observación Manual y Selección de Teléfono (en MAYÚSCULAS)
             manualObsInput.addEventListener('input', () => {
                 enforceUppercaseInput(manualObsInput);
                 refreshActiveTemplate();
@@ -988,7 +919,6 @@
             });
         }
 
-        // Valida si el Sector Operativo de la orden coincide con la Zona del Técnico seleccionado en Cambio Cuadrilla
         function validateCambioCuadrillaZone() {
             if (currentTemplateKey !== 'cambio_cuadrilla') {
                 zoneValidationBanner.classList.add('hidden');
@@ -1014,9 +944,7 @@
                 zoneValidationBanner.innerHTML = `
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-circle-check text-emerald-600 text-sm shrink-0"></i>
-                        <span>
-                            <b>Sector Operativo compatible:</b> La orden ya está en <b>${sectorOperativoActual}</b>, que coincide con la zona de esta cuadrilla.
-                        </span>
+                        <span><b>Sector Operativo compatible:</b> La orden ya está en <b>${sectorOperativoActual}</b>, que coincide con la zona de esta cuadrilla.</span>
                     </div>
                 `;
             } else {
@@ -1026,9 +954,7 @@
                         <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm mt-0.5 shrink-0"></i>
                         <div>
                             <div class="font-bold text-amber-900">⚠️ SE DEBE HABILITAR ZONA ANTES DE SOLICITAR CAMBIO DE CUADRILLA</div>
-                            <div class="text-[11px] text-amber-800 mt-0.5">
-                                Sector Operativo actual de la orden: <b>${sectorOperativoActual || 'SIN SECTOR DETECTADO'}</b> • Zona requerida por el técnico: <b>${targetZone}</b>
-                            </div>
+                            <div class="text-[11px] text-amber-800 mt-0.5">Sector Operativo actual: <b>${sectorOperativoActual || 'SIN SECTOR'}</b> • Zona requerida: <b>${targetZone}</b></div>
                         </div>
                     </div>
                     <button type="button" id="btnGoHabilitarZona" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#FF5A0A] hover:bg-orange-600 text-white font-semibold text-xs shadow-sm transition flex items-center gap-1.5">
@@ -1100,7 +1026,6 @@
             }
         }
 
-        // Motor Inteligente de Emparejamiento de Encabezados y Valores Pegados
         function processPastedText(silent = false) {
             const raw = rawTextInput.value;
             if (!raw || !raw.trim()) {
@@ -1143,17 +1068,14 @@
         }
 
         function applyParsedFieldsToUI() {
-            // Actualizar barra superior con CLIENTE, DNI, CÓDIGO y TÉCNICO
             topBarCliente.textContent = parsedFields.cliente || '—';
             topBarDni.textContent = parsedFields.dni || '—';
             topBarCodigo.textContent = parsedFields.codigo || '—';
             topBarTecnico.textContent = parsedFields.tecnico || '—';
 
-            // Actualizar etiquetas de teléfonos disponibles para Gestión BO
             document.getElementById('lblTelf1').textContent = parsedFields.telf1 || 'Vacío';
             document.getElementById('lblTelf2').textContent = parsedFields.telf2 || '0';
 
-            // Sincronizar selector de cuadrilla destino con la cuadrilla detectada si coincide
             if (parsedFields.tecnico) {
                 const matchedOption = Array.from(moveCuadrillaSelect.options).find(opt => opt.value === parsedFields.tecnico.toUpperCase());
                 if (matchedOption) {
@@ -1166,7 +1088,6 @@
                 }
             }
 
-            // Sincronizar selector de Habilitar Zona con Sector Operativo como sugerencia inicial
             const initialZoneForHabilitar = parsedFields.sectorOperativo || parsedFields.zona || '';
             populateHabilitarZonaSelect(initialZoneForHabilitar);
 
@@ -1195,7 +1116,6 @@
         function extractAllFields(rawText = '') {
             const cleanLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
 
-            // 1. TIPO TRABAJO
             let rawTipoTrabajo = getFieldValue(/^Tipo Trabajo$/i);
             if (!rawTipoTrabajo) {
                 const ttLine = cleanLines.find(l => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(l));
@@ -1203,7 +1123,6 @@
             }
             const tipoTrabajo = /^INSTALACION$/i.test(rawTipoTrabajo) ? 'ALTA NUEVA' : rawTipoTrabajo.toUpperCase();
 
-            // 2. AGENDADO (A partir de la columna Fecha Solicitud)
             let fechaSolicitud = getFieldValue(/^Fecha Solicitud$/i);
             if (!fechaSolicitud) {
                 const fechas = cleanLines.filter(l => /^\d{2}\/\d{2}\/\d{4}\s+\d{1,2}:\d{2}$/.test(l));
@@ -1213,13 +1132,10 @@
             const timeMatch = fechaSolicitud.match(/(\d{1,2}):\d{2}/);
             if (timeMatch) {
                 const startHour = parseInt(timeMatch[1], 10);
-                if (startHour === 8) {
-                    agendado = '08AM-12PM';
-                } else if (startHour === 12) {
-                    agendado = '12PM-16PM';
-                } else if (startHour === 16) {
-                    agendado = '16PM-20PM';
-                } else {
+                if (startHour === 8) agendado = '08AM-12PM';
+                else if (startHour === 12) agendado = '12PM-16PM';
+                else if (startHour === 16) agendado = '16PM-20PM';
+                else {
                     const endHour = startHour + 4;
                     const startSuffix = startHour >= 12 ? 'PM' : 'AM';
                     const endSuffix = endHour >= 12 ? 'PM' : 'AM';
@@ -1227,7 +1143,6 @@
                 }
             }
 
-            // 3. CÓDIGO (Cod Seguimiento Cliente)
             let codigo = getFieldValue(/^Cod Seguimiento Cliente$/i);
             if (!codigo) {
                 const nums = cleanLines.filter(l => /^\d{6,9}$/.test(l));
@@ -1235,7 +1150,6 @@
                 else if (nums.length === 1) codigo = nums[0];
             }
 
-            // 4. CLIENTE
             let rawCliente = getFieldValue(/^Cliente$/i);
             if (!rawCliente) {
                 const empIdx = cleanLines.findIndex(l => /GESTIÓN PROVINCIA/i.test(l));
@@ -1250,31 +1164,24 @@
             }
             const cliente = rawCliente.replace(/\s*\((Multifamiliar|Residencial|Corporativo|Unifamiliar)\)\s*$/i, '').trim();
 
-            // 5. DNI
             let dni = '';
             const docIdx = cleanLines.findIndex(l => /^(Cédula de identidad|DNI|Pasaporte|Carnet de extranjería|RUC)$/i.test(l));
             if (docIdx !== -1 && cleanLines[docIdx + 1]) {
                 const nextLineDigits = cleanLines[docIdx + 1].replace(/\D/g, '');
-                if (nextLineDigits.length >= 7 && nextLineDigits.length <= 12) {
-                    dni = nextLineDigits;
-                }
+                if (nextLineDigits.length >= 7 && nextLineDigits.length <= 12) dni = nextLineDigits;
             }
-            if (!dni) {
-                dni = getFieldValue(/^Número Documento$/i).replace(/\D/g, '');
-            }
+            if (!dni) dni = getFieldValue(/^Número Documento$/i).replace(/\D/g, '');
             if (!dni) {
                 const techDniMatch = rawText.match(/DNI\/[^/]+\/'?(\d{7,12})/i);
                 if (techDniMatch) dni = techDniMatch[1];
             }
 
-            // 6. DIRECCIÓN
             let direccion = getFieldValue(/^Dirección$/i);
             if (!direccion) {
                 const dirLine = cleanLines.find(l => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(l) && l.length > 15);
                 if (dirLine) direccion = dirLine;
             }
 
-            // 7. CORD XY DIR
             let rawGeo = getFieldValue(/^Georeferencia$/i);
             if (!rawGeo) {
                 const geoLine = cleanLines.find(l => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(l));
@@ -1289,49 +1196,14 @@
                 cordXyDir = `http://maps.google.com/?q=${parts[0]},${parts[1]}`;
             }
 
-            // 8. DISTRITO
             let distrito = '';
             const dirParenMatch = direccion.match(/\(([^)]+)\)/);
             if (dirParenMatch) {
                 const parenParts = dirParenMatch[1].split(',').map(p => p.trim()).filter(Boolean);
-                if (parenParts.length >= 2) {
-                    distrito = `${parenParts[0]}-${parenParts[1]}`;
-                } else if (parenParts.length === 1) {
-                    distrito = parenParts[0];
-                }
+                if (parenParts.length >= 2) distrito = `${parenParts[0]}-${parenParts[1]}`;
+                else if (parenParts.length === 1) distrito = parenParts[0];
             }
 
-            if (!distrito) {
-                let regionZona = getFieldValue(/^Región \/ Zona$/i);
-                let localidad = getFieldValue(/^Localidad$/i);
-                if (!regionZona) {
-                    const regIdx = cleanLines.findIndex(l => /^REGION\s+/i.test(l));
-                    if (regIdx !== -1) {
-                        regionZona = cleanLines[regIdx];
-                        if (cleanLines[regIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[regIdx + 1]) && !/Cédula|DNI/i.test(cleanLines[regIdx + 1])) {
-                            regionZona += ` / ${cleanLines[regIdx + 1]}`;
-                        }
-                    }
-                }
-                if (!localidad) {
-                    const locIdx = cleanLines.findIndex(l => /^(CHICLAYO|LIMA|TRUJILLO|PIURA|AREQUIPA|CUSCO|ICA|HUANCAYO)$/i.test(l));
-                    if (locIdx !== -1) {
-                        localidad = cleanLines[locIdx];
-                        if (cleanLines[locIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[locIdx + 1]) && !/(CALLE|AV|JR|URB|MZ)/i.test(cleanLines[locIdx + 1])) {
-                            localidad += ` - ${cleanLines[locIdx + 1]}`;
-                        }
-                    }
-                }
-                const distritoPart = regionZona.includes('/') ? regionZona.split('/')[1].trim() : '';
-                const provPart = localidad.includes('-') ? localidad.split('-')[0].trim() : localidad;
-                if (distritoPart && provPart) {
-                    distrito = `${distritoPart}-${provPart}`;
-                } else {
-                    distrito = distritoPart || provPart;
-                }
-            }
-
-            // 9. PLAN
             let suscripcion = getFieldValue(/^Suscripción$/i);
             if (!suscripcion) {
                 const suscLine = cleanLines.find(l => /Paquete:/i.test(l));
@@ -1339,28 +1211,21 @@
             }
             let plan = '';
             const paqueteMatch = suscripcion.match(/Paquete:\s*([^|]+)/i);
-            if (paqueteMatch) {
-                plan = paqueteMatch[1].trim();
-            } else {
-                plan = getFieldValue(/^Producto$/i);
-            }
+            if (paqueteMatch) plan = paqueteMatch[1].trim();
+            else plan = getFieldValue(/^Producto$/i);
 
-            // 10. TELF.1 (Móvil) y TELF.2 (Fijo)
             let telf1 = getFieldValue(/^Móvil$/i).replace(/^51\s*\/\s*/g, '').trim();
             let telf2 = getFieldValue(/^Fijo$/i).replace(/^51\s*\/\s*/g, '').trim();
             if (!telf1 && docIdx !== -1) {
                 for (let i = docIdx + 2; i < Math.min(docIdx + 6, cleanLines.length); i++) {
                     if (/^9\d{8}$/.test(cleanLines[i])) {
                         telf1 = cleanLines[i];
-                        if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) {
-                            telf2 = cleanLines[i + 1];
-                        }
+                        if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) telf2 = cleanLines[i + 1];
                         break;
                     }
                 }
             }
 
-            // 11. TÉCNICO / CUADRILLA
             let rawCuadrilla = getFieldValue(/^Cuadrilla$/i);
             if (!rawCuadrilla) {
                 const cuadLine = cleanLines.find(l => /(TECSYCOM|SGI|P\s*\d)/i.test(l) && !/Fecha:/i.test(l));
@@ -1368,7 +1233,6 @@
             }
             const tecnico = rawCuadrilla.trim();
 
-            // 12. ESTADO
             let rawEstado = getFieldValue(/^Estado$/i);
             if (!rawEstado) {
                 const estLine = cleanLines.find(l => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(l));
@@ -1376,34 +1240,17 @@
             }
             const estado = rawEstado.trim().toUpperCase();
 
-            // 13. SECTOR OPERATIVO ORIGINAL DE LA ORDEN
             let sectorOperativo = getFieldValue(/^Sector Operativo$/i).toUpperCase();
             if (!sectorOperativo) {
                 const secLine = cleanLines.find(l => /^(CHICLAYO|LIMA|PIURA|TRUJILLO)\s*-\s*(ESTE|CENTRO|NORTE|SUR|OESTE)/i.test(l));
                 if (secLine) sectorOperativo = secLine.toUpperCase();
             }
 
-            // 14. ZONA SEGÚN REGLA DE CUADRILLA CHICLAYO
             const zonaCalculada = getZoneForCuadrilla(tecnico) || sectorOperativo;
 
             return {
-                tipoTrabajo,
-                agendado,
-                codigo,
-                cliente,
-                dni,
-                direccion,
-                cordXyDir,
-                distrito,
-                plan,
-                telf1,
-                telf2,
-                tecnico,
-                estado,
-                partner: 'TECSYCOM',
-                contrata: 'TECSYCOM',
-                sectorOperativo,
-                zona: zonaCalculada
+                tipoTrabajo, agendado, codigo, cliente, dni, direccion, cordXyDir, distrito, plan, telf1, telf2, tecnico, estado,
+                partner: 'TECSYCOM', contrata: 'TECSYCOM', sectorOperativo, zona: zonaCalculada
             };
         }
 
@@ -1416,9 +1263,7 @@
         }
 
         function getTargetCuadrillaForMove(data) {
-            if (moveCuadrillaSelect.value === 'CUSTOM') {
-                return moveCuadrillaCustomInput.value.trim().toUpperCase();
-            }
+            if (moveCuadrillaSelect.value === 'CUSTOM') return moveCuadrillaCustomInput.value.trim().toUpperCase();
             return (moveCuadrillaSelect.value || data.tecnico || '').toUpperCase();
         }
 
@@ -1426,25 +1271,20 @@
             const obsManual = manualObsInput.value.trim().toUpperCase();
 
             switch (key) {
-                case 'gestion_bo': {
-                    const telefonoSeleccionado = getSelectedBoPhone(data);
-                    return `Teléfono: ${telefonoSeleccionado}
+                case 'gestion_bo':
+                    return `Teléfono: ${getSelectedBoPhone(data)}
 DNI: ${data.dni}
 Partner: ${data.partner}
 Cliente: ${data.cliente}
 Código/Ticket: ${data.codigo}
 OBS: ${obsManual}`;
-                }
 
-                case 'habilitar_zona': {
-                    const cuadrillaHabilitar = pendingHabilitarZonaOverride?.cuadrilla || data.tecnico;
-                    const zonaHabilitar = (habilitarZonaSelect.value || pendingHabilitarZonaOverride?.zona || data.sectorOperativo || data.zona || '').toUpperCase();
-                    return `Cuadrilla: ${cuadrillaHabilitar}
+                case 'habilitar_zona':
+                    return `Cuadrilla: ${pendingHabilitarZonaOverride?.cuadrilla || data.tecnico}
 Contrata: ${data.contrata}
 Solicitud: ${data.codigo}
-Zona: ${zonaHabilitar}
+Zona: ${(habilitarZonaSelect.value || pendingHabilitarZonaOverride?.zona || data.sectorOperativo || data.zona || '').toUpperCase()}
 OBS: ${obsManual}`;
-                }
 
                 case 'estatus_cliente':
                     return `DNI: ${data.dni}
@@ -1467,15 +1307,12 @@ Partner: ${data.partner}
 Motivo: ${obsManual}
 Observación: ${obsManual}`;
 
-                case 'cambio_cuadrilla': {
-                    const cuadrillaDestino = getTargetCuadrillaForMove(data);
-                    const motivoCambio = manualMotivoInput.value.trim().toUpperCase();
+                case 'cambio_cuadrilla':
                     return `COD: ${data.codigo}
-Mover a la cuadrilla: ${cuadrillaDestino}
+Mover a la cuadrilla: ${getTargetCuadrillaForMove(data)}
 Partner: ${data.partner}
-Motivo: ${motivoCambio}
+Motivo: ${manualMotivoInput.value.trim().toUpperCase()}
 Observación: ${obsManual}`;
-                }
 
                 case 'reinicios_tarea':
                     return `COD: ${data.codigo}
@@ -1517,7 +1354,7 @@ Observación: ${obsManual}`;
             wrapper.innerHTML = `
                 <div class="flex items-center justify-between text-xs text-slate-600 bg-orange-50/70 border border-orange-100 px-3.5 py-2 rounded-xl">
                     <span class="flex items-center gap-1.5 font-medium text-slate-700">
-                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b> (se copiará según el botón elegido):
+                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b>:
                     </span>
                 </div>
                 <textarea id="templateEditorArea" class="w-full flex-1 min-h-[360px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
@@ -1526,11 +1363,7 @@ Observación: ${obsManual}`;
             resultsContainer.appendChild(wrapper);
             const editor = document.getElementById('templateEditorArea');
             editor.value = templateText;
-
-            // Forzar mayúsculas también si se escribe manualmente dentro del cuadro de la plantilla
-            editor.addEventListener('input', () => {
-                enforceUppercaseOnTemplateEditor(editor);
-            });
+            editor.addEventListener('input', () => { enforceUppercaseOnTemplateEditor(editor); });
         }
 
         function alignStackedValuesToHeaders(headers, bodyLines) {
@@ -1541,32 +1374,22 @@ Observación: ${obsManual}`;
                 const next = nonEmpty[i + 1] || '';
 
                 if (/^(Perú|Peru|Chile|Colombia|Ecuador)$/i.test(curr) && next && next === next.toUpperCase() && next.length > 3) {
-                    tokens.push(`${curr} / ${next}`);
-                    i++;
-                    continue;
+                    tokens.push(`${curr} / ${next}`); i++; continue;
                 }
                 if (/^[A-ZÑ]{2}$/.test(curr) && next && next.length > 5 && next === next.toUpperCase()) {
-                    tokens.push(next);
-                    i++;
-                    continue;
+                    tokens.push(next); i++; continue;
                 }
                 if (/^(Multifamiliar|Residencial|Corporativo|Unifamiliar)$/i.test(curr) && tokens.length > 0) {
-                    tokens[tokens.length - 1] += ` (${curr})`;
-                    continue;
+                    tokens[tokens.length - 1] += ` (${curr})`; continue;
                 }
                 if (/^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(curr) && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) &&
                     !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(curr) &&
                     !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(next)) {
-                    tokens.push(`${curr} - ${next}`);
-                    i++;
-                    continue;
+                    tokens.push(`${curr} - ${next}`); i++; continue;
                 }
                 if (/^REGION\s+/i.test(curr) && next && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) && !/Cédula|DNI|Pasaporte/i.test(next)) {
-                    tokens.push(`${curr} / ${next}`);
-                    i++;
-                    continue;
+                    tokens.push(`${curr} / ${next}`); i++; continue;
                 }
-
                 tokens.push(curr);
             }
 
@@ -1576,74 +1399,36 @@ Observación: ${obsManual}`;
                 'Estado': v => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(v),
                 'Cuadrilla': v => /(TECSYCOM|CUADRILLA|SGI|P\s*\d)/i.test(v),
                 'Fecha Solicitud': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
-                'País / Empresa': v => /(Perú|GESTIÓN|EMPRESA)/i.test(v),
                 'Cliente': v => v.length > 4 && !/INTERNET|FIBRA/i.test(v),
                 'Producto': v => /(INTERNET|FIBRA|WIN|DUO|TRIO|PLAN)/i.test(v),
-                'Tipo Ubicación': v => /^(Domicilio|Edificio|Condominio|Comercial|Empresa)$/i.test(v),
-                'Ubicación': v => /(Domicilio Particular|Casa|Departamento|Oficina|Local)/i.test(v),
-                'Motivo Regestión': v => false,
                 'Sector Operativo': v => /(CENTRO|NORTE|SUR|ESTE|OESTE|SECTOR|CHICLAYO|LIMA)/i.test(v) && !/^(Técnica|Comercial)$/i.test(v),
                 'Tipo Orden': v => /^(Técnica|Comercial|Postventa|Mantenimiento|Reclamo)$/i.test(v),
                 'Tipo Trabajo': v => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(v),
-                'Motivo Trabajo': v => /(ATENCION|SOLICITUD|CLIENTE|AVERIA|CAMBIO|FALLA)/i.test(v),
-                'Localidad': v => /^[A-ZÁÉÍÓÚÑ\s-]+$/.test(v) && !/(CALLE|AV|JR|URB|MZ)/i.test(v),
                 'Dirección': v => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(v),
-                'Código De Seguimiento': v => /^\d{6,10}$/.test(v),
-                'Fecha Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
-                'Región / Zona': v => /REGION/i.test(v),
-                'Tipo Documento': v => /(Cédula|DNI|Pasaporte|Carnet|RUC)/i.test(v),
                 'Número Documento': v => /^\d{7,12}$/.test(v),
-                'Prioridad': v => /^(Alta|Media|Baja|Urgente)/i.test(v),
                 'Móvil': v => /^9\d{8}$/.test(v) || /^\d{9}$/.test(v),
                 'Fijo': v => /^0$/.test(v) || /^\d{6,9}$/.test(v),
-                'Inicio de Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
-                'Fin de Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
-                'Motivo de Cancelación': v => false,
-                'Motivo de Finalización': v => false,
-                'Motivo de Anulación': v => false,
-                'Motivo de Suspensión': v => false,
                 'Georeferencia': v => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v),
-                'Proveedeor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
-                'Proveedor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
-                'Id de Proyecto': v => false,
-                'Código Postal': v => /^\d{5}$/.test(v),
-                'Motivo': v => false,
-                'Datos Técnicos': v => /(COORDENADA|CTO1|DNI\/|RRINST|CCI\/)/i.test(v),
-                'Fecha Estado': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
                 'Suscripción': v => /(Campaña|Paquete:|SVA's|Mesh)/i.test(v),
-                'Historial de Estados': v => /(Fecha:|Estado:|Usuario:|Observacion:)/i.test(v),
                 'Email': v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
             };
 
             const result = [];
             let tIdx = 0;
-
             for (let hIdx = 0; hIdx < headers.length; hIdx++) {
                 const header = headers[hIdx];
                 const checkFn = validators[header];
                 let value = '';
-
                 if (tIdx < tokens.length) {
                     const candidate = tokens[tIdx];
                     if (checkFn) {
-                        if (checkFn(candidate)) {
-                            value = candidate;
-                            tIdx++;
-                        } else {
-                            value = '';
-                        }
+                        if (checkFn(candidate)) { value = candidate; tIdx++; } else { value = ''; }
                     } else {
-                        value = candidate;
-                        tIdx++;
+                        value = candidate; tIdx++;
                     }
                 }
-
-                result.push({
-                    encabezado: header,
-                    contenido: value
-                });
+                result.push({ encabezado: header, contenido: value });
             }
-
             return result;
         }
 
@@ -1680,6 +1465,251 @@ Observación: ${obsManual}`;
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
+
+        // ================== EXPORTAR EXCEL ORIGINAL CON 46 COLUMNAS (ACTUALIZADO) ==================
+        const ORIG_HEADERS = [
+            "OrdenId", "TipoOrden", "TipoTraba", "Motivo Trabajo", "F.Soli", "Cliente", "Tipo", "TipoClienId", 
+            "Producto", "Cuadrilla", "F.Visita", "Estado", "Direccion", "Localidad", "Provincia", "Direccion1", 
+            "FechaUltiEsta", "IdenServi", "Region", "Zona", "Empresa", "Pais", "Tipo Ubicación", "Ubicación", 
+            "CodiSeguiClien", "CodiSegui", "Tipo Documento", "Número Documento", "Email", "TeleMovilNume", 
+            "TeleFijoNume", "Prioridad", "FechaFinVisi", "FechaIniVisi", "Motivo Cancelación", "Motivo Finalización", 
+            "Motivo Anulación", "Motivo Suspensión", "Georeferencia", "Datos Técnicos", "Proveedeor", 
+            "Sector Operativo", "Motivo", "Motivo Regestión", "Id de Proyecto", "Código Postal"
+        ];
+
+        function pfBuildOriginalRow() {
+            const pf = parsedFields || {};
+            const vals = new Array(ORIG_HEADERS.length).fill('');
+            const fullRawText = rawTextInput.value || '';
+
+            const getCol = (name) => {
+                const found = (currentExtractedData || []).find(d => d.encabezado.toLowerCase() === name.toLowerCase());
+                return found ? (found.contenido || '').trim() : '';
+            };
+
+            // 1. Zona desde la dirección (después de '(' y antes de la primera coma ',')
+            const rawDir = getCol('Dirección') || pf.direccion || '';
+            let zonaExt = '';
+            const dirMatch = rawDir.match(/\(([^,]+)/);
+            if (dirMatch) {
+                zonaExt = dirMatch[1].trim().toUpperCase();
+            }
+
+            // 2. Region (Toma el valor exacto de Región / Zona)
+            const regZona = getCol('Región / Zona') || '';
+            let regionExt = regZona;
+
+            // 3. Localidad y Provincia separadas
+            const locCol = getCol('Localidad') || '';
+            let locPart = locCol;
+            let provPart = getCol('Provincia') || '';
+            if (locCol.includes('-')) {
+                const parts = locCol.split('-').map(p => p.trim());
+                locPart = parts[0];
+                if (!provPart && parts[1]) provPart = parts[1];
+            }
+
+            // 4. Extractor directo y robusto para "Fecha Estado" (Busca en la columna explícita o mediante patrón DD/MM/YYYY HH:MM en todo el texto)
+            let fechaEstadoExt = getCol('Fecha Estado') || getCol('fecha estado') || '';
+            if (!fechaEstadoExt) {
+                // Buscamos específicamente la fecha de la línea exacta debajo de "Fecha Estado" o en el texto vertical
+                const lines = fullRawText.split(/\r?\n/).map(l => l.trim());
+                const idxFe = lines.findIndex(l => /^Fecha Estado$/i.test(l));
+                if (idxFe !== -1 && lines[idxFe + 1]) {
+                    fechaEstadoExt = lines[idxFe + 1];
+                }
+            }
+            if (!fechaEstadoExt || !/^\d{2}\/\d{2}\/\d{4}/.test(fechaEstadoExt)) {
+                // Último recurso: extraer la última fecha de estado válida encontrada en el texto
+                const matchesAllDates = fullRawText.match(/(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2})/g);
+                if (matchesAllDates && matchesAllDates.length > 0) {
+                    // Tomamos la última fecha del listado (por ejemplo, la fecha de la última acción del historial de estados)
+                    fechaEstadoExt = matchesAllDates[matchesAllDates.length - 1];
+                }
+            }
+
+            // Suscripción (para IdenServi)
+            let suscripcionExt = getCol('Suscripción') || getCol('suscripción') || '';
+            if (!suscripcionExt) {
+                const matchSusc = fullRawText.match(/(Campaña\s*:[^|\n]+(?:\|[^|\n]+)*)/i);
+                if (matchSusc) suscripcionExt = matchSusc[1].trim();
+            }
+
+            // Código de Seguimiento / CodiSegui
+            let codSeguiExt = getCol('Código De Seguimiento') || getCol('Cod Seguimiento Cliente') || pf.codigo || '';
+
+            // Georeferencia (-6.xxx,-79.xxx)
+            let geoExt = getCol('Georeferencia') || '';
+            if (!geoExt) {
+                const matchGeo = fullRawText.match(/(-?\d+\.\d+,\s*-?\d+\.\d+)/);
+                if (matchGeo) geoExt = matchGeo[1];
+            }
+
+            // FechaIniVisi extraída del Historial de Estados
+            let histEstados = getCol('Historial de Estados') || '';
+            let fechaIniVisiExt = '';
+            const fechaIniMatch = histEstados.match(/Fecha:\s*([^\s]+ [^\s]+)\s+Estado:\s*Iniciada/i) || histEstados.match(/Fecha:\s*([^\s]+ [^\s]+)\s+Estado:/i);
+            if (fechaIniMatch) {
+                fechaIniVisiExt = fechaIniMatch[1];
+            }
+            if (!fechaIniVisiExt) {
+                const matchAnyDateInHist = fullRawText.match(/(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2})/);
+                if (matchAnyDateInHist) fechaIniVisiExt = matchAnyDateInHist[1];
+            }
+
+            ORIG_HEADERS.forEach((h, idx) => {
+                let val = '';
+                
+                if (h === 'OrdenId') {
+                    val = getCol('Nº') || pf.codigo || '';
+                } else if (h === 'CodiSeguiClien') {
+                    val = pf.codigo || getCol('Nº') || '';
+                } else if (h === 'CodiSegui') {
+                    val = codSeguiExt;
+                } else if (h === 'TipoOrden') {
+                    val = getCol('Tipo Orden') || '';
+                } else if (h === 'TipoTraba' || h === 'TipoTrabajo') {
+                    val = pf.tipoTrabajo || getCol('Tipo Trabajo') || '';
+                } else if (h === 'F.Soli') {
+                    val = getCol('Fecha Solicitud') || '';
+                } else if (h === 'Cliente') {
+                    val = pf.cliente || '';
+                } else if (h === 'Producto') {
+                    val = pf.plan || getCol('Producto') || '';
+                } else if (h === 'Cuadrilla') {
+                    val = pf.tecnico || getCol('Cuadrilla') || '';
+                } else if (h === 'F.Visita') {
+                    val = getCol('Fecha Visita') || '';
+                } else if (h === 'Estado') {
+                    val = pf.estado || getCol('Estado') || '';
+                } else if (h === 'Direccion' || h === 'Direccion1') {
+                    val = rawDir;
+                } else if (h === 'Localidad') {
+                    val = locPart;
+                } else if (h === 'Provincia') {
+                    val = provPart;
+                } else if (h === 'FechaUltiEsta') {
+                    // REGLA: FechaUltiEsta toma exactamente el valor de Fecha Estado
+                    val = fechaEstadoExt;
+                } else if (h === 'FechaFinVisi') {
+                    // FechaFinVisi toma el valor de Fecha Estado
+                    val = fechaEstadoExt;
+                } else if (h === 'IdenServi') {
+                    val = suscripcionExt;
+                } else if (h === 'Region') {
+                    val = regionExt;
+                } else if (h === 'Zona' || h === 'Sector Operativo') {
+                    val = zonaExt || pf.sectorOperativo || pf.zona || '';
+                } else if (h === 'Empresa') {
+                    val = getCol('País / Empresa') || 'GESTIÓN PROVINCIA';
+                } else if (h === 'Pais') {
+                    val = 'Perú';
+                } else if (h === 'Número Documento') {
+                    val = pf.dni || getCol('Número Documento') || '';
+                } else if (h === 'Email') {
+                    val = getCol('Prioridad') || '';
+                } else if (h === 'TeleMovilNume') {
+                    val = pf.telf1 || getCol('Móvil') || '';
+                } else if (h === 'TeleFijoNume') {
+                    val = pf.telf2 || getCol('Fijo') || '';
+                } else if (h === 'FechaIniVisi') {
+                    val = fechaIniVisiExt;
+                } else if (h === 'Georeferencia') {
+                    val = geoExt;
+                } else if (h === 'Proveedeor') {
+                    val = pf.partner || getCol('Proveedeor') || 'TECSYCOM';
+                } else {
+                    val = getCol(h);
+                }
+
+                vals[idx] = val || '';
+            });
+            return vals;
+        }
+
+        async function pfEnsureExcelJS() {
+            if (window.ExcelJS) return window.ExcelJS;
+            const urls = [
+                'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js',
+                'https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js'
+            ];
+            for (const u of urls) {
+                try {
+                    await new Promise((res, rej) => {
+                        const s = document.createElement('script');
+                        s.src = u; s.onload = res; s.onerror = rej;
+                        document.head.appendChild(s);
+                    });
+                    if (window.ExcelJS) return window.ExcelJS;
+                } catch (e) {}
+            }
+            throw new Error('No se pudo cargar la librería ExcelJS.');
+        }
+
+        async function exportOriginalExcel() {
+            if (!parsedFields || Object.keys(parsedFields).length === 0) {
+                showToast('Procesa primero los datos pegados.', 'error');
+                return;
+            }
+
+            try {
+                const ExcelJS = await pfEnsureExcelJS();
+                const wb = new ExcelJS.Workbook();
+                const ws = wb.addWorksheet('Hoja de Datos', {
+                    properties: { tabColor: { argb: 'FF004C99' } }
+                });
+
+                ws.getCell('A1').value = 'Consulta ordenes de Trabajo';
+                ws.getCell('A1').font = { name: 'Calibri', size: 11, bold: true };
+
+                for(let i=2; i<=7; i++) ws.addRow([]);
+
+                const headerRow = ws.getRow(8);
+                ORIG_HEADERS.forEach((h, i) => {
+                    const cell = headerRow.getCell(i + 1);
+                    cell.value = h;
+                    cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+                    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF004C99' } };
+                    cell.alignment = { horizontal: 'center', vertical: 'center' };
+                });
+
+                const rowData = pfBuildOriginalRow();
+                ws.addRow(rowData);
+                const dataRow = ws.getRow(9);
+                ORIG_HEADERS.forEach((_, i) => {
+                    dataRow.getCell(i + 1).font = { name: 'Calibri', size: 10 };
+                });
+
+                ws.columns.forEach(col => {
+                    let maxLen = 10;
+                    col.eachCell({ includeEmpty: true }, cell => {
+                        if (cell.value) maxLen = Math.max(maxLen, String(cell.value).length);
+                    });
+                    col.width = Math.min(Math.max(maxLen + 3, 12), 35);
+                });
+
+                const buf = await wb.xlsx.writeBuffer();
+                const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                const d = new Date();
+                const p = n => String(n).padStart(2, '0');
+                a.href = url;
+                a.download = `misOrdenesdeTrabajo${p(d.getDate())}-${p(d.getMonth() + 1)}-${d.getFullYear()}.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+                showToast('¡Excel exportado con FechaUltiEsta correcto!');
+            } catch (e) {
+                console.error(e);
+                showToast('Error al exportar Excel: ' + e.message, 'error');
+            }
+        }
+
+        const btnExportExcel = document.getElementById('btnExportExcel');
+        if (btnExportExcel) btnExportExcel.addEventListener('click', exportOriginalExcel);
     </script>
 </body>
 </html>
