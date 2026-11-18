@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Tech-Win | Ordenador Inteligente de Datos</title>
+    <!-- Favicon SVG en formato Data URI para el ícono de la pestaña -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF5A0A'><path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff5f0',
+                            100: '#ffe6d9',
+                            500: '#FF5A0A',
+                            600: '#e04800',
+                            700: '#b83b00',
+                            900: '#7c2800',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .template-pill.active {
+            background-color: #FF5A0A;
+            color: #ffffff;
+            border-color: #FF5A0A;
+            box-shadow: 0 4px 12px rgba(255, 90, 10, 0.25);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col bg-slate-50 text-slate-800 overflow-x-hidden">
+
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-200/80 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#FF5A0A] to-orange-400 flex items-center justify-center shadow-md shadow-orange-500/25">
+                    <i class="fa-solid fa-layer-group text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-[#FF5A0A] bg-clip-text text-transparent">
+                        Michell S.V - Digital Tech-Win
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">Ordenador & Estructurador Inteligente de Registros Megalogic</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button id="btnSyncSheets" type="button" class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-orange-50 hover:bg-orange-100 text-[#FF5A0A] border border-orange-200/80 gap-1.5 transition">
+                    <i id="syncIcon" class="fa-solid fa-rotate"></i>
+                    <span>Actualizar Base</span>
+                </button>
+                <span class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Procesamiento Instantáneo</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Barra de Resumen Rápido del Cliente, DNI, Código y Técnico -->
+        <div class="border-t border-slate-100 bg-orange-50/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-1.5 min-w-0 flex-1">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-user mr-1"></i>CLIENTE:
+                    </span>
+                    <span id="topBarCliente" class="font-semibold text-slate-800 truncate">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider">
+                        <i class="fa-solid fa-id-card mr-1"></i>DNI:
+                    </span>
+                    <span id="topBarDni" class="font-mono font-bold text-slate-800">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider">
+                        <i class="fa-solid fa-hashtag mr-1"></i>CÓDIGO:
+                    </span>
+                    <span id="topBarCodigo" class="font-mono font-bold text-slate-800">—</span>
+                </div>
+                <div class="flex items-center gap-1.5 min-w-0 flex-1 justify-end">
+                    <span class="font-bold text-[#FF5A0A] uppercase tracking-wider shrink-0">
+                        <i class="fa-solid fa-helmet-safety mr-1"></i>TÉCNICO:
+                    </span>
+                    <span id="topBarTecnico" class="font-semibold text-slate-800 truncate">—</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+
+        <!-- Barra de Búsqueda y Recuperación desde Google Sheets -->
+        <section class="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200/70 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-table"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Clientes Guardados en Google Sheets</h2>
+                        <p class="text-[11px] text-slate-500" id="sheetsStatusText">Cargando registros guardados...</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 max-w-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 relative">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                        <input type="text" id="searchSavedClientInput" autocomplete="off" placeholder="BUSCAR CLIENTE GUARDADO POR NOMBRE, DNI O CÓDIGO..." class="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs uppercase font-medium text-slate-800 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition">
+                        <button id="btnClearSearchClient" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <!-- Lista desplegable de coincidencias -->
+                        <div id="savedClientsDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-40 max-h-64 overflow-y-auto custom-scrollbar divide-y divide-slate-100">
+                        </div>
+                    </div>
+
+                    <select id="savedClientsSelect" class="sm:w-64 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition">
+                        <option value="">-- Seleccionar cliente guardado --</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
+            
+            <!-- Left Column: Paste Text Area -->
+            <div class="lg:col-span-5 flex flex-col gap-4">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-clipboard text-[#FF5A0A]"></i> Texto Copiado (Origen)
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <button id="btnPasteClipboard" type="button" class="text-xs font-semibold text-[#FF5A0A] hover:text-orange-700 bg-orange-50 hover:bg-orange-100 px-2.5 py-1 rounded-lg transition flex items-center gap-1">
+                                <i class="fa-solid fa-paste"></i> Pegar
+                            </button>
+                            <button id="btnClearText" type="button" class="text-xs font-semibold text-slate-500 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-2.5 py-1 rounded-lg transition">
+                                Limpiar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <textarea id="rawTextInput" placeholder="Pega aquí los encabezados y los datos copiados de tu sistema (Ctrl + V)..." class="flex-1 w-full min-h-[340px] bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 text-xs font-mono text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                        <button id="btnProcessText" class="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#FF5A0A] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-md shadow-orange-600/20 transition duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm">
+                            <i class="fa-solid fa-arrow-down-short-wide"></i>
+                            <span>Ordenar y Estructurar</span>
+                        </button>
+                        <button id="btnSaveToSheetsLeft" type="button" class="py-3.5 px-4 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-xl shadow-sm transition duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm">
+                            <i class="fa-solid fa-cloud-arrow-up text-[#FF5A0A]"></i>
+                            <span>Guardar en Sheets</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Extracted Data Results -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm min-h-[540px]">
+                    
+                    <!-- Header Actions for Results -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
+                        <div>
+                            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> Plantilla Generada
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-0.5 font-medium" id="statsCount">Sin datos procesados aún</p>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <span id="activeTemplateBadge" class="px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF5A0A] border border-orange-200/80 text-xs font-semibold">
+                                Plantilla General
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Selector de Plantillas -->
+                    <div id="templateSelectorBar" class="hidden mt-3.5 pb-3 border-b border-slate-100">
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                            Selecciona el formato de plantilla:
+                        </label>
+                        <div class="flex flex-wrap gap-1.5" id="templateButtonsContainer">
+                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 General
+                            </button>
+                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🛠️ Gestión BO
+                            </button>
+                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📡 Habilitar Zona
+                            </button>
+                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📊 Estatus Cliente
+                            </button>
+                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Retiro Orden
+                            </button>
+                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Req. de Carga
+                            </button>
+                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 Regestión
+                            </button>
+                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🔄 Cambio Cuadrilla
+                            </button>
+                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                ♻️ Reinicios de Tarea
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Controles Dinámicos (Observación manual, Selección de Teléfono, Habilitar Zona y Cambio Cuadrilla) -->
+                    <div id="dynamicControlsPanel" class="hidden mt-3 bg-slate-50/90 border border-slate-200/80 rounded-xl p-3 flex flex-col gap-2.5">
+                        
+                        <!-- Selector y Gestión de Zonas (Solo visible en Habilitar Zona) -->
+                        <div id="habilitarZonaWrapper" class="hidden flex flex-col gap-2.5 pb-2.5 border-b border-slate-200/70">
+                            <!-- Sugerencia de Sector Operativo original -->
+                            <div id="sectorOperativoSuggestionBox" class="hidden flex flex-wrap items-center justify-between gap-2 bg-orange-50/90 border border-orange-200/80 rounded-lg px-3 py-2 text-xs">
+                                <span class="text-slate-700">
+                                    <i class="fa-solid fa-lightbulb text-[#FF5A0A] mr-1"></i>
+                                    <b>Sector Operativo de la orden:</b> <span id="lblSectorOperativoOrden" class="font-mono font-bold text-slate-900">—</span>
+                                </span>
+                                <button type="button" id="btnApplySectorOperativo" class="px-2.5 py-1 rounded-md bg-white hover:bg-orange-100 text-[#FF5A0A] border border-orange-300 font-semibold text-[11px] transition">
+                                    Usar este Sector como Zona
+                                </button>
+                            </div>
+
+                            <!-- Selector manual de Zona -->
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <label for="habilitarZonaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                    <i class="fa-solid fa-map-location-dot text-[#FF5A0A]"></i> Zona a habilitar:
+                                </label>
+                                <select id="habilitarZonaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                                </select>
+                            </div>
+
+                            <!-- Añadir nueva zona y guardarla en Google Sheets -->
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <input type="text" id="newZoneInput" placeholder="AÑADIR NUEVA ZONA (EJ: CHICLAYO - NORTE 1)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                                <button type="button" id="btnAddNewZoneToSheets" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 shrink-0">
+                                    <i class="fa-solid fa-plus text-[#FF5A0A]"></i>
+                                    <span>Añadir y Guardar Zona</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Teléfono (Solo visible en Gestión BO) -->
+                        <div id="phoneChoiceWrapper" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-phone text-[#FF5A0A]"></i> ¿Qué número usar en Gestión BO?
+                            </span>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="telf1" checked class="accent-[#FF5A0A]">
+                                    <span>TELF.1 (<b id="lblTelf1">-</b>)</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="telf2" class="accent-[#FF5A0A]">
+                                    <span>TELF.2 (<b id="lblTelf2">-</b>)</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 text-xs font-medium bg-white border border-slate-200 px-2.5 py-1 rounded-lg cursor-pointer hover:border-[#FF5A0A]">
+                                    <input type="radio" name="boPhoneChoice" value="custom" class="accent-[#FF5A0A]">
+                                    <span>Otro:</span>
+                                    <input type="text" id="customPhoneInput" placeholder="NÚMERO..." class="w-24 text-xs uppercase border-b border-slate-300 focus:border-[#FF5A0A] focus:outline-none bg-transparent">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Cuadrilla Destino (Solo visible en Cambio Cuadrilla) -->
+                        <div id="moveCuadrillaWrapper" class="hidden flex flex-col gap-2 pb-2 border-b border-slate-200/70">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <label for="moveCuadrillaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                    <i class="fa-solid fa-people-arrows text-[#FF5A0A]"></i> Mover a la cuadrilla:
+                                </label>
+                                <select id="moveCuadrillaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-medium text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                                    <option value="P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN">P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN</option>
+                                    <option value="P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO">P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO</option>
+                                    <option value="P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ">P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ</option>
+                                    <option value="CUSTOM">OTRA CUADRILLA (INGRESAR MANUAL)...</option>
+                                </select>
+                            </div>
+                            <input type="text" id="moveCuadrillaCustomInput" placeholder="ESCRIBE EL NOMBRE DE LA NUEVA CUADRILLA EN MAYÚSCULAS..." class="hidden w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+
+                            <!-- Alerta / Validación de Zona vs Sector Operativo -->
+                            <div id="zoneValidationBanner" class="hidden rounded-xl p-3 text-xs border transition-all"></div>
+                        </div>
+
+                        <!-- Campo Manual Específico para Motivo (Solo visible en Cambio Cuadrilla) -->
+                        <div id="manualMotivoWrapper" class="hidden flex flex-col sm:flex-row sm:items-center gap-2 pb-2 border-b border-slate-200/70">
+                            <label for="manualMotivoInput" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                <i class="fa-solid fa-tag text-[#FF5A0A]"></i> Motivo:
+                            </label>
+                            <input type="text" id="manualMotivoInput" placeholder="INGRESA EL MOTIVO DEL CAMBIO DE CUADRILLA (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                        </div>
+
+                        <!-- Campo Manual para Observaciones / Motivo -->
+                        <div id="manualObsWrapper" class="flex flex-col sm:flex-row sm:items-center gap-2">
+                            <label for="manualObsInput" id="manualObsLabel" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                <i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:
+                            </label>
+                            <input type="text" id="manualObsInput" placeholder="ESCRIBE AQUÍ LA OBSERVACIÓN O MOTIVO (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                        </div>
+                    </div>
+
+                    <!-- Output States -->
+                    
+                    <!-- State 1: Empty -->
+                    <div id="emptyState" class="flex-1 flex flex-col items-center justify-center p-8 text-center my-auto">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center text-3xl mb-3 border border-slate-200/70">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <h4 class="text-base font-semibold text-slate-700">Esperando texto para generar plantilla...</h4>
+                        <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">Pega el contenido copiado en el recuadro de la izquierda o selecciona un cliente guardado desde Google Sheets.</p>
+                    </div>
+
+                    <!-- State 2: Render Container -->
+                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1">
+                        <!-- Content injected via JS -->
+                    </div>
+
+                    <!-- Footer Copy & Save Bar -->
+                    <div id="exportBar" class="hidden pt-4 mt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <span class="text-xs font-medium text-slate-400">Digital Tech-Win • Plantilla Oficial</span>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <!-- Botón Guardar en Sheets -->
+                            <button id="btnSaveToSheetsRight" type="button" class="px-3.5 py-2.5 rounded-xl bg-[#FF5A0A] hover:bg-orange-600 text-white shadow-sm shadow-orange-600/20 text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-up text-sm"></i> <span>Guardar Cliente</span>
+                            </button>
+                            <!-- Botón WhatsApp (Predeterminado) -->
+                            <button id="btnCopyWhatsapp" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> <span>Copiar a WhatsApp</span>
+                            </button>
+                            <!-- Botón Telegram (Solo visible en Plantilla General) -->
+                            <button id="btnCopyTelegram" class="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white shadow-sm shadow-sky-500/20 text-xs font-semibold transition flex items-center gap-2">
+                                <i class="fa-brands fa-telegram text-sm"></i> <span>Copiar a Telegram</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-white text-slate-800 px-4 py-3 rounded-xl shadow-xl border border-slate-200 flex items-center space-x-3">
+        <div id="toastIcon" class="text-[#FF5A0A] text-lg">
+            <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div id="toastMessage" class="text-sm font-medium">Notificación</div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_IFuX3Mvpife_0_Z4VRWC3EmsdwmpJw0iN2KkjlFyEnsXWMTFv26Kd58oeICGOsM8/exec';
+
+        let currentExtractedData = [];
+        let parsedFields = {};
+        let currentTemplateKey = 'general';
+        let currentTemplateText = '';
+        let savedClientsCache = [];
+        let savedZonesCache = ['CHICLAYO - ESTE 1', 'CHICLAYO - CENTRO 1'];
+        let pendingHabilitarZonaOverride = null; // Guarda { cuadrilla, zona } cuando se redirige desde Cambio Cuadrilla
+
+        const TEMPLATE_NAMES = {
+            general: 'Plantilla General',
+            gestion_bo: 'Gestión BO',
+            habilitar_zona: '📡 Habilitar Zona',
+            estatus_cliente: '📊 Estatus Cliente',
+            retiro_orden: '📦 Retiro Orden',
+            requerimiento_carga: '📦 Requerimiento de carga',
+            regestion: '📋 Regestión',
+            cambio_cuadrilla: '🔄 Cambio Cuadrilla',
+            reinicios_tarea: '♻️ Reinicios de tarea'
+        };
+
+        const rawTextInput = document.getElementById('rawTextInput');
+        const btnProcessText = document.getElementById('btnProcessText');
+        const btnPasteClipboard = document.getElementById('btnPasteClipboard');
+        const btnClearText = document.getElementById('btnClearText');
+        const btnSaveToSheetsLeft = document.getElementById('btnSaveToSheetsLeft');
+        const btnSaveToSheetsRight = document.getElementById('btnSaveToSheetsRight');
+        const btnSyncSheets = document.getElementById('btnSyncSheets');
+        const syncIcon = document.getElementById('syncIcon');
+
+        const searchSavedClientInput = document.getElementById('searchSavedClientInput');
+        const btnClearSearchClient = document.getElementById('btnClearSearchClient');
+        const savedClientsDropdown = document.getElementById('savedClientsDropdown');
+        const savedClientsSelect = document.getElementById('savedClientsSelect');
+        const sheetsStatusText = document.getElementById('sheetsStatusText');
+
+        const topBarCliente = document.getElementById('topBarCliente');
+        const topBarDni = document.getElementById('topBarDni');
+        const topBarCodigo = document.getElementById('topBarCodigo');
+        const topBarTecnico = document.getElementById('topBarTecnico');
+
+        const emptyState = document.getElementById('emptyState');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const statsCount = document.getElementById('statsCount');
+        const exportBar = document.getElementById('exportBar');
+        const btnCopyWhatsapp = document.getElementById('btnCopyWhatsapp');
+        const btnCopyTelegram = document.getElementById('btnCopyTelegram');
+
+        const templateSelectorBar = document.getElementById('templateSelectorBar');
+        const activeTemplateBadge = document.getElementById('activeTemplateBadge');
+        const dynamicControlsPanel = document.getElementById('dynamicControlsPanel');
+
+        // Controles Habilitar Zona
+        const habilitarZonaWrapper = document.getElementById('habilitarZonaWrapper');
+        const sectorOperativoSuggestionBox = document.getElementById('sectorOperativoSuggestionBox');
+        const lblSectorOperativoOrden = document.getElementById('lblSectorOperativoOrden');
+        const btnApplySectorOperativo = document.getElementById('btnApplySectorOperativo');
+        const habilitarZonaSelect = document.getElementById('habilitarZonaSelect');
+        const newZoneInput = document.getElementById('newZoneInput');
+        const btnAddNewZoneToSheets = document.getElementById('btnAddNewZoneToSheets');
+
+        const phoneChoiceWrapper = document.getElementById('phoneChoiceWrapper');
+        const moveCuadrillaWrapper = document.getElementById('moveCuadrillaWrapper');
+        const moveCuadrillaSelect = document.getElementById('moveCuadrillaSelect');
+        const moveCuadrillaCustomInput = document.getElementById('moveCuadrillaCustomInput');
+        const zoneValidationBanner = document.getElementById('zoneValidationBanner');
+        const manualMotivoWrapper = document.getElementById('manualMotivoWrapper');
+        const manualMotivoInput = document.getElementById('manualMotivoInput');
+        const manualObsWrapper = document.getElementById('manualObsWrapper');
+        const manualObsLabel = document.getElementById('manualObsLabel');
+        const manualObsInput = document.getElementById('manualObsInput');
+        const customPhoneInput = document.getElementById('customPhoneInput');
+
+        // Helper para obtener la Zona definida de una cuadrilla/técnico
+        function getZoneForCuadrilla(cuadrillaName) {
+            const upper = (cuadrillaName || '').toUpperCase().trim();
+            if (!upper) return '';
+            if (upper.includes('P 1 TECSYCOM SGI JORGE JESUS CHAFLOQUE SIESQUEN') || /^P\s*1\b/.test(upper)) {
+                return 'CHICLAYO - ESTE 1';
+            }
+            if (
+                upper.includes('P 2 TECSYCOM SGI JONNY RAFAEL VEGA CADILLO') ||
+                upper.includes('P 3 TECSYCOM SGI LUIS ANGEL CARRION DIAZ') ||
+                /^P\s*[23]\b/.test(upper)
+            ) {
+                return 'CHICLAYO - CENTRO 1';
+            }
+            return '';
+        }
+
+        // Normaliza textos de zona / sector operativo para comparación exacta
+        function normalizeZoneText(str) {
+            return (str || '')
+                .toUpperCase()
+                .replace(/\s*-\s*/g, ' - ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Helper para forzar mayúsculas en inputs manuales manteniendo la posición del cursor
+        function enforceUppercaseInput(el) {
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const upperVal = el.value.toUpperCase();
+            if (el.value !== upperVal) {
+                el.value = upperVal;
+                if (typeof start === 'number' && typeof end === 'number') {
+                    el.setSelectionRange(start, end);
+                }
+            }
+        }
+
+        // Convierte a mayúsculas el texto editado manualmente en la vista previa sin alterar el enlace http://maps.google.com
+        function enforceUppercaseOnTemplateEditor(el) {
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const original = el.value;
+            const upperLines = original.split('\n').map(line => {
+                if (/^\*CORD XY DIR:\*/i.test(line)) {
+                    return line.replace(/^(\*CORD XY DIR:\*\s*)(.*)$/i, (_, prefix, url) => prefix.toUpperCase() + url);
+                }
+                return line.toUpperCase();
+            }).join('\n');
+
+            if (original !== upperLines) {
+                el.value = upperLines;
+                if (typeof start === 'number' && typeof end === 'number') {
+                    el.setSelectionRange(start, end);
+                }
+            }
+        }
+
+        window.onload = () => {
+            populateHabilitarZonaSelect();
+            setupEventListeners();
+            loadClientsFromGoogleSheets();
+        };
+
+        // ==========================================
+        // GESTIÓN DE ZONAS EN SELECTOR Y GOOGLE SHEETS
+        // ==========================================
+        function populateHabilitarZonaSelect(preferredZone = '') {
+            const currentVal = preferredZone || habilitarZonaSelect.value || '';
+            const allZones = new Set([
+                'CHICLAYO - ESTE 1',
+                'CHICLAYO - CENTRO 1',
+                ...savedZonesCache
+            ]);
+
+            if (parsedFields.sectorOperativo) {
+                allZones.add(parsedFields.sectorOperativo.toUpperCase());
+            }
+            if (parsedFields.zona) {
+                allZones.add(parsedFields.zona.toUpperCase());
+            }
+            if (pendingHabilitarZonaOverride?.zona) {
+                allZones.add(pendingHabilitarZonaOverride.zona.toUpperCase());
+            }
+
+            habilitarZonaSelect.innerHTML = '';
+            allZones.forEach(z => {
+                if (!z) return;
+                const opt = document.createElement('option');
+                opt.value = z;
+                opt.textContent = z;
+                habilitarZonaSelect.appendChild(opt);
+            });
+
+            if (currentVal && allZones.has(currentVal.toUpperCase())) {
+                habilitarZonaSelect.value = currentVal.toUpperCase();
+            }
+        }
+
+        async function addNewZoneToGoogleSheets() {
+            const nuevaZona = newZoneInput.value.trim().toUpperCase();
+            if (!nuevaZona) {
+                showToast('Escribe el nombre de la nueva zona primero.', 'error');
+                newZoneInput.focus();
+                return;
+            }
+
+            const originalBtnHtml = btnAddNewZoneToSheets.innerHTML;
+            btnAddNewZoneToSheets.disabled = true;
+            btnAddNewZoneToSheets.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Guardando...</span>';
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    redirect: 'follow',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'add_zone',
+                        zona: nuevaZona
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'ok') {
+                    if (!savedZonesCache.includes(nuevaZona)) {
+                        savedZonesCache.push(nuevaZona);
+                    }
+                    populateHabilitarZonaSelect(nuevaZona);
+                    habilitarZonaSelect.value = nuevaZona;
+                    newZoneInput.value = '';
+                    refreshActiveTemplate();
+                    showToast(`¡Zona "${nuevaZona}" guardada y seleccionada!`);
+                } else {
+                    throw new Error(result.message || 'Error al guardar zona');
+                }
+            } catch (error) {
+                console.error('Error guardando zona:', error);
+                // Aún si falla la red, permitir usarla localmente en esta sesión
+                if (!savedZonesCache.includes(nuevaZona)) {
+                    savedZonesCache.push(nuevaZona);
+                }
+                populateHabilitarZonaSelect(nuevaZona);
+                habilitarZonaSelect.value = nuevaZona;
+                newZoneInput.value = '';
+                refreshActiveTemplate();
+                showToast('Zona añadida localmente (verifica actualización del Script en Sheets)', 'error');
+            } finally {
+                btnAddNewZoneToSheets.disabled = false;
+                btnAddNewZoneToSheets.innerHTML = originalBtnHtml;
+            }
+        }
+
+        // ==========================================
+        // CONEXIÓN CON GOOGLE SHEETS (LEER Y GUARDAR)
+        // ==========================================
+        async function loadClientsFromGoogleSheets(showNotification = false) {
+            syncIcon.classList.add('fa-spin');
+            sheetsStatusText.textContent = 'Sincronizando registros con Google Sheets...';
+
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?t=${Date.now()}`, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                const result = await response.json();
+
+                if (result.status === 'ok' && Array.isArray(result.data)) {
+                    savedClientsCache = result.data;
+                    if (Array.isArray(result.zones) && result.zones.length > 0) {
+                        savedZonesCache = Array.from(new Set([...savedZonesCache, ...result.zones]));
+                        populateHabilitarZonaSelect();
+                    }
+                    populateSavedClientsSelect(savedClientsCache);
+                    sheetsStatusText.textContent = `${savedClientsCache.length} cliente(s) disponible(s) en la base`;
+                    if (showNotification) {
+                        showToast(`Base actualizada: ${savedClientsCache.length} registros cargados.`);
+                    }
+                } else {
+                    throw new Error(result.message || 'Respuesta inválida');
+                }
+            } catch (error) {
+                console.error('Error cargando de Google Sheets:', error);
+                sheetsStatusText.textContent = 'No se pudo conectar con Google Sheets (revisa permisos del Script)';
+                if (showNotification) {
+                    showToast('Error al leer Google Sheets', 'error');
+                }
+            } finally {
+                syncIcon.classList.remove('fa-spin');
+            }
+        }
+
+        function populateSavedClientsSelect(list) {
+            savedClientsSelect.innerHTML = '<option value="">-- Seleccionar cliente guardado --</option>';
+            list.forEach((item, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                const labelCod = item.codigo ? ` [${item.codigo}]` : '';
+                opt.textContent = `${item.cliente || 'SIN NOMBRE'}${labelCod}`;
+                savedClientsSelect.appendChild(opt);
+            });
+        }
+
+        function renderSearchDropdown(query) {
+            const q = query.trim().toUpperCase();
+            if (!q) {
+                savedClientsDropdown.classList.add('hidden');
+                return;
+            }
+
+            const matches = savedClientsCache.filter(item =>
+                (item.cliente && item.cliente.toUpperCase().includes(q)) ||
+                (item.dni && item.dni.includes(q)) ||
+                (item.codigo && item.codigo.includes(q))
+            );
+
+            savedClientsDropdown.innerHTML = '';
+
+            if (matches.length === 0) {
+                savedClientsDropdown.innerHTML = `
+                    <div class="px-3.5 py-3 text-xs text-slate-500 text-center">
+                        No se encontraron clientes con "<b>${q}</b>"
+                    </div>
+                `;
+            } else {
+                matches.slice(0, 15).forEach(item => {
+                    const rowBtn = document.createElement('button');
+                    rowBtn.type = 'button';
+                    rowBtn.className = 'w-full text-left px-3.5 py-2.5 hover:bg-orange-50/80 transition flex items-center justify-between gap-2';
+                    rowBtn.innerHTML = `
+                        <div class="min-w-0">
+                            <div class="text-xs font-bold text-slate-800 truncate">${item.cliente || 'SIN NOMBRE'}</div>
+                            <div class="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                                <span><b>DNI:</b> ${item.dni || '—'}</span>
+                                <span>•</span>
+                                <span><b>CÓD:</b> ${item.codigo || '—'}</span>
+                                ${item.tecnico ? `<span>•</span><span class="truncate"><b>TÉC:</b> ${item.tecnico}</span>` : ''}
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-semibold px-2 py-1 rounded-md bg-orange-100 text-[#FF5A0A] shrink-0">
+                            Cargar
+                        </span>
+                    `;
+                    rowBtn.addEventListener('click', () => {
+                        restoreClientFromRecord(item);
+                        savedClientsDropdown.classList.add('hidden');
+                        searchSavedClientInput.value = item.cliente || '';
+                        btnClearSearchClient.classList.remove('hidden');
+                    });
+                    savedClientsDropdown.appendChild(rowBtn);
+                });
+            }
+
+            savedClientsDropdown.classList.remove('hidden');
+        }
+
+        function restoreClientFromRecord(record) {
+            if (!record) return;
+            pendingHabilitarZonaOverride = null;
+
+            if (record.rawText && record.rawText.trim()) {
+                rawTextInput.value = record.rawText;
+                processPastedText(true);
+            } else if (record.parsedFields && Object.keys(record.parsedFields).length > 0) {
+                rawTextInput.value = '';
+                parsedFields = { ...record.parsedFields };
+                applyParsedFieldsToUI();
+            }
+
+            showToast(`Cliente cargado: ${record.cliente || record.codigo}`);
+        }
+
+        async function saveCurrentClientToGoogleSheets() {
+            if (!parsedFields || (!parsedFields.cliente && !parsedFields.codigo && !parsedFields.dni)) {
+                if (rawTextInput.value.trim()) {
+                    processPastedText(true);
+                } else {
+                    showToast('Primero pega y procesa los datos de un cliente para guardar.', 'error');
+                    return;
+                }
+            }
+
+            const originalLeftHtml = btnSaveToSheetsLeft.innerHTML;
+            const originalRightHtml = btnSaveToSheetsRight.innerHTML;
+
+            btnSaveToSheetsLeft.disabled = true;
+            btnSaveToSheetsRight.disabled = true;
+            btnSaveToSheetsLeft.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Guardando...</span>';
+            btnSaveToSheetsRight.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Guardando...</span>';
+
+            const payload = {
+                cliente: parsedFields.cliente || '',
+                dni: parsedFields.dni || '',
+                codigo: parsedFields.codigo || '',
+                tecnico: parsedFields.tecnico || '',
+                rawText: rawTextInput.value || '',
+                parsedFields: parsedFields
+            };
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    redirect: 'follow',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'ok') {
+                    showToast(
+                        result.updated
+                            ? `¡Registro de ${payload.cliente || payload.codigo} actualizado en Google Sheets!`
+                            : `¡Cliente ${payload.cliente || payload.codigo} guardado en Google Sheets!`
+                    );
+                    await loadClientsFromGoogleSheets(false);
+                } else {
+                    throw new Error(result.message || 'Error al guardar');
+                }
+            } catch (error) {
+                console.error('Error guardando en Google Sheets:', error);
+                showToast('No se pudo guardar en Google Sheets. Verifica el Script.', 'error');
+            } finally {
+                btnSaveToSheetsLeft.disabled = false;
+                btnSaveToSheetsRight.disabled = false;
+                btnSaveToSheetsLeft.innerHTML = originalLeftHtml;
+                btnSaveToSheetsRight.innerHTML = originalRightHtml;
+            }
+        }
+
+        function switchToTemplate(templateKey) {
+            document.querySelectorAll('.template-pill').forEach(b => {
+                b.classList.toggle('active', b.dataset.template === templateKey);
+            });
+            currentTemplateKey = templateKey;
+            activeTemplateBadge.textContent = TEMPLATE_NAMES[currentTemplateKey];
+
+            if (currentTemplateKey === 'general') {
+                btnCopyTelegram.classList.remove('hidden');
+            } else {
+                btnCopyTelegram.classList.add('hidden');
+            }
+
+            if (currentTemplateKey === 'habilitar_zona') {
+                const defaultZone = pendingHabilitarZonaOverride?.zona || parsedFields.sectorOperativo || parsedFields.zona || '';
+                populateHabilitarZonaSelect(defaultZone);
+            }
+
+            updateDynamicControlsVisibility();
+            refreshActiveTemplate();
+        }
+
+        function setupEventListeners() {
+            btnProcessText.addEventListener('click', () => processPastedText(false));
+            btnSaveToSheetsLeft.addEventListener('click', saveCurrentClientToGoogleSheets);
+            btnSaveToSheetsRight.addEventListener('click', saveCurrentClientToGoogleSheets);
+            btnSyncSheets.addEventListener('click', () => loadClientsFromGoogleSheets(true));
+
+            // Eventos de Habilitar Zona
+            habilitarZonaSelect.addEventListener('change', () => {
+                refreshActiveTemplate();
+            });
+
+            btnApplySectorOperativo.addEventListener('click', () => {
+                if (parsedFields.sectorOperativo) {
+                    const sec = parsedFields.sectorOperativo.toUpperCase();
+                    populateHabilitarZonaSelect(sec);
+                    habilitarZonaSelect.value = sec;
+                    refreshActiveTemplate();
+                    showToast(`Zona cambiada a ${sec}`);
+                }
+            });
+
+            newZoneInput.addEventListener('input', () => {
+                enforceUppercaseInput(newZoneInput);
+            });
+
+            btnAddNewZoneToSheets.addEventListener('click', addNewZoneToGoogleSheets);
+
+            // Búsqueda por nombre de cliente en Google Sheets
+            searchSavedClientInput.addEventListener('input', () => {
+                enforceUppercaseInput(searchSavedClientInput);
+                const val = searchSavedClientInput.value;
+                btnClearSearchClient.classList.toggle('hidden', !val);
+                renderSearchDropdown(val);
+            });
+
+            searchSavedClientInput.addEventListener('focus', () => {
+                if (searchSavedClientInput.value.trim()) {
+                    renderSearchDropdown(searchSavedClientInput.value);
+                }
+            });
+
+            btnClearSearchClient.addEventListener('click', () => {
+                searchSavedClientInput.value = '';
+                btnClearSearchClient.classList.add('hidden');
+                savedClientsDropdown.classList.add('hidden');
+                savedClientsSelect.value = '';
+            });
+
+            savedClientsSelect.addEventListener('change', () => {
+                const idx = savedClientsSelect.value;
+                if (idx !== '' && savedClientsCache[idx]) {
+                    const record = savedClientsCache[idx];
+                    searchSavedClientInput.value = record.cliente || '';
+                    btnClearSearchClient.classList.remove('hidden');
+                    restoreClientFromRecord(record);
+                }
+            });
+
+            // Cerrar dropdown al hacer clic fuera
+            document.addEventListener('click', (e) => {
+                if (!searchSavedClientInput.contains(e.target) && !savedClientsDropdown.contains(e.target)) {
+                    savedClientsDropdown.classList.add('hidden');
+                }
+            });
+
+            rawTextInput.addEventListener('paste', () => {
+                setTimeout(() => {
+                    if (rawTextInput.value.trim()) processPastedText(false);
+                }, 50);
+            });
+
+            btnPasteClipboard.addEventListener('click', async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    if (text) {
+                        rawTextInput.value = text;
+                        processPastedText(false);
+                    }
+                } catch (e) {
+                    rawTextInput.focus();
+                    showToast('Presiona Ctrl+V dentro del recuadro para pegar', 'info');
+                }
+            });
+
+            btnClearText.addEventListener('click', () => {
+                rawTextInput.value = '';
+                currentExtractedData = [];
+                parsedFields = {};
+                currentTemplateText = '';
+                pendingHabilitarZonaOverride = null;
+                manualObsInput.value = '';
+                manualMotivoInput.value = '';
+                moveCuadrillaCustomInput.value = '';
+                customPhoneInput.value = '';
+                newZoneInput.value = '';
+                topBarCliente.textContent = '—';
+                topBarDni.textContent = '—';
+                topBarCodigo.textContent = '—';
+                topBarTecnico.textContent = '—';
+                emptyState.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                exportBar.classList.add('hidden');
+                templateSelectorBar.classList.add('hidden');
+                dynamicControlsPanel.classList.add('hidden');
+                statsCount.textContent = 'Sin datos procesados aún';
+            });
+
+            // Botón Copiar a WhatsApp
+            btnCopyWhatsapp.addEventListener('click', () => {
+                const editor = document.getElementById('templateEditorArea');
+                const textToCopy = editor ? editor.value : currentTemplateText;
+                if (!textToCopy) return;
+                copyToClipboard(textToCopy);
+                showToast(`¡Plantilla copiada a WhatsApp!`);
+            });
+
+            // Botón Copiar a Telegram (Duplica los asteriscos externos a doble asterisco)
+            btnCopyTelegram.addEventListener('click', () => {
+                const editor = document.getElementById('templateEditorArea');
+                let textToCopy = editor ? editor.value : currentTemplateText;
+                if (!textToCopy) return;
+
+                // Reemplaza *ETIQUETA:* por **ETIQUETA:** para Telegram
+                textToCopy = textToCopy.replace(/^(\*)([^*]+)(\*)/gm, '**$2**');
+
+                copyToClipboard(textToCopy);
+                showToast(`¡Plantilla copiada a Telegram (con formato **)!`);
+            });
+
+            // Eventos para cambiar de plantilla
+            document.querySelectorAll('.template-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.dataset.template !== 'habilitar_zona') {
+                        pendingHabilitarZonaOverride = null;
+                    }
+                    switchToTemplate(btn.dataset.template);
+                });
+            });
+
+            // Eventos en vivo para Cambio de Cuadrilla
+            moveCuadrillaSelect.addEventListener('change', () => {
+                if (moveCuadrillaSelect.value === 'CUSTOM') {
+                    moveCuadrillaCustomInput.classList.remove('hidden');
+                    moveCuadrillaCustomInput.focus();
+                } else {
+                    moveCuadrillaCustomInput.classList.add('hidden');
+                }
+                validateCambioCuadrillaZone();
+                refreshActiveTemplate();
+            });
+
+            moveCuadrillaCustomInput.addEventListener('input', () => {
+                enforceUppercaseInput(moveCuadrillaCustomInput);
+                validateCambioCuadrillaZone();
+                refreshActiveTemplate();
+            });
+
+            manualMotivoInput.addEventListener('input', () => {
+                enforceUppercaseInput(manualMotivoInput);
+                refreshActiveTemplate();
+            });
+
+            // Eventos en vivo para Observación Manual y Selección de Teléfono (en MAYÚSCULAS)
+            manualObsInput.addEventListener('input', () => {
+                enforceUppercaseInput(manualObsInput);
+                refreshActiveTemplate();
+            });
+
+            customPhoneInput.addEventListener('input', () => {
+                enforceUppercaseInput(customPhoneInput);
+                const customRadio = document.querySelector('input[name="boPhoneChoice"][value="custom"]');
+                if (customRadio) customRadio.checked = true;
+                refreshActiveTemplate();
+            });
+
+            document.querySelectorAll('input[name="boPhoneChoice"]').forEach(radio => {
+                radio.addEventListener('change', refreshActiveTemplate);
+            });
+        }
+
+        // Valida si el Sector Operativo de la orden coincide con la Zona del Técnico seleccionado en Cambio Cuadrilla
+        function validateCambioCuadrillaZone() {
+            if (currentTemplateKey !== 'cambio_cuadrilla') {
+                zoneValidationBanner.classList.add('hidden');
+                return;
+            }
+
+            const targetCuadrilla = getTargetCuadrillaForMove(parsedFields);
+            const targetZone = getZoneForCuadrilla(targetCuadrilla);
+            const sectorOperativoActual = (parsedFields.sectorOperativo || '').toUpperCase().trim();
+
+            if (!targetZone) {
+                zoneValidationBanner.classList.add('hidden');
+                return;
+            }
+
+            const normSector = normalizeZoneText(sectorOperativoActual);
+            const normTargetZone = normalizeZoneText(targetZone);
+
+            zoneValidationBanner.classList.remove('hidden');
+
+            if (normSector && normSector === normTargetZone) {
+                zoneValidationBanner.className = 'rounded-xl p-2.5 text-xs border bg-emerald-50 border-emerald-200 text-emerald-800 flex items-center justify-between gap-2';
+                zoneValidationBanner.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-sm shrink-0"></i>
+                        <span>
+                            <b>Sector Operativo compatible:</b> La orden ya está en <b>${sectorOperativoActual}</b>, que coincide con la zona de esta cuadrilla.
+                        </span>
+                    </div>
+                `;
+            } else {
+                zoneValidationBanner.className = 'rounded-xl p-3 text-xs border bg-amber-50 border-amber-300 text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-sm';
+                zoneValidationBanner.innerHTML = `
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm mt-0.5 shrink-0"></i>
+                        <div>
+                            <div class="font-bold text-amber-900">⚠️ SE DEBE HABILITAR ZONA ANTES DE SOLICITAR CAMBIO DE CUADRILLA</div>
+                            <div class="text-[11px] text-amber-800 mt-0.5">
+                                Sector Operativo actual de la orden: <b>${sectorOperativoActual || 'SIN SECTOR DETECTADO'}</b> • Zona requerida por el técnico: <b>${targetZone}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="btnGoHabilitarZona" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#FF5A0A] hover:bg-orange-600 text-white font-semibold text-xs shadow-sm transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-tower-broadcast"></i>
+                        <span>Habilitar Zona Ahora</span>
+                    </button>
+                `;
+
+                const btnGo = document.getElementById('btnGoHabilitarZona');
+                if (btnGo) {
+                    btnGo.addEventListener('click', () => {
+                        pendingHabilitarZonaOverride = {
+                            cuadrilla: targetCuadrilla,
+                            zona: targetZone
+                        };
+                        switchToTemplate('habilitar_zona');
+                        showToast(`Plantilla Habilitar Zona lista para ${targetZone}`);
+                    });
+                }
+            }
+        }
+
+        function updateDynamicControlsVisibility() {
+            if (!parsedFields.codigo && !parsedFields.dni && !parsedFields.cliente) {
+                dynamicControlsPanel.classList.add('hidden');
+                return;
+            }
+
+            const templatesWithObs = ['gestion_bo', 'habilitar_zona', 'retiro_orden', 'regestion', 'cambio_cuadrilla', 'reinicios_tarea'];
+            const needsObs = templatesWithObs.includes(currentTemplateKey);
+            const needsPhone = currentTemplateKey === 'gestion_bo';
+            const isCambioCuadrilla = currentTemplateKey === 'cambio_cuadrilla';
+            const isHabilitarZona = currentTemplateKey === 'habilitar_zona';
+
+            if (needsObs || needsPhone || isCambioCuadrilla || isHabilitarZona) {
+                dynamicControlsPanel.classList.remove('hidden');
+            } else {
+                dynamicControlsPanel.classList.add('hidden');
+            }
+
+            habilitarZonaWrapper.classList.toggle('hidden', !isHabilitarZona);
+            phoneChoiceWrapper.classList.toggle('hidden', !needsPhone);
+            moveCuadrillaWrapper.classList.toggle('hidden', !isCambioCuadrilla);
+            manualMotivoWrapper.classList.toggle('hidden', !isCambioCuadrilla);
+
+            if (isHabilitarZona) {
+                if (parsedFields.sectorOperativo) {
+                    sectorOperativoSuggestionBox.classList.remove('hidden');
+                    lblSectorOperativoOrden.textContent = parsedFields.sectorOperativo.toUpperCase();
+                } else {
+                    sectorOperativoSuggestionBox.classList.add('hidden');
+                }
+            }
+
+            if (isCambioCuadrilla) {
+                manualObsLabel.innerHTML = '<i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación:';
+                manualObsInput.placeholder = 'ESCRIBE AQUÍ LA OBSERVACIÓN (EN MAYÚSCULAS)...';
+                validateCambioCuadrillaZone();
+            } else {
+                manualObsLabel.innerHTML = '<i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:';
+                manualObsInput.placeholder = 'ESCRIBE AQUÍ LA OBSERVACIÓN O MOTIVO (EN MAYÚSCULAS)...';
+                zoneValidationBanner.classList.add('hidden');
+            }
+
+            if (needsObs) {
+                manualObsWrapper.classList.remove('hidden');
+            } else {
+                manualObsWrapper.classList.add('hidden');
+            }
+        }
+
+        // Motor Inteligente de Emparejamiento de Encabezados y Valores Pegados
+        function processPastedText(silent = false) {
+            const raw = rawTextInput.value;
+            if (!raw || !raw.trim()) {
+                if (!silent) showToast('Pega primero el texto con los encabezados y datos.', 'error');
+                return;
+            }
+
+            pendingHabilitarZonaOverride = null;
+
+            const lines = raw.split(/\r?\n/);
+            let headerLineIndex = lines.findIndex(l => l.includes('\t') && l.split('\t').filter(x => x.trim()).length >= 3);
+            
+            if (headerLineIndex !== -1) {
+                const headers = lines[headerLineIndex]
+                    .split('\t')
+                    .map(h => h.trim())
+                    .filter(h => h.length > 0);
+
+                const bodyLines = lines.slice(headerLineIndex + 1);
+
+                if (bodyLines.length === 1 && bodyLines[0].includes('\t')) {
+                    const rowVals = bodyLines[0].split('\t').map(v => v.trim());
+                    currentExtractedData = headers.map((h, idx) => ({
+                        encabezado: h,
+                        contenido: rowVals[idx] || ''
+                    }));
+                } else {
+                    currentExtractedData = alignStackedValuesToHeaders(headers, bodyLines);
+                }
+            } else {
+                currentExtractedData = [];
+            }
+
+            parsedFields = extractAllFields(raw);
+            applyParsedFieldsToUI();
+
+            if (!silent) {
+                showToast('¡Datos procesados y plantillas listas!');
+            }
+        }
+
+        function applyParsedFieldsToUI() {
+            // Actualizar barra superior con CLIENTE, DNI, CÓDIGO y TÉCNICO
+            topBarCliente.textContent = parsedFields.cliente || '—';
+            topBarDni.textContent = parsedFields.dni || '—';
+            topBarCodigo.textContent = parsedFields.codigo || '—';
+            topBarTecnico.textContent = parsedFields.tecnico || '—';
+
+            // Actualizar etiquetas de teléfonos disponibles para Gestión BO
+            document.getElementById('lblTelf1').textContent = parsedFields.telf1 || 'Vacío';
+            document.getElementById('lblTelf2').textContent = parsedFields.telf2 || '0';
+
+            // Sincronizar selector de cuadrilla destino con la cuadrilla detectada si coincide
+            if (parsedFields.tecnico) {
+                const matchedOption = Array.from(moveCuadrillaSelect.options).find(opt => opt.value === parsedFields.tecnico.toUpperCase());
+                if (matchedOption) {
+                    moveCuadrillaSelect.value = matchedOption.value;
+                    moveCuadrillaCustomInput.classList.add('hidden');
+                } else {
+                    moveCuadrillaSelect.value = 'CUSTOM';
+                    moveCuadrillaCustomInput.value = parsedFields.tecnico.toUpperCase();
+                    moveCuadrillaCustomInput.classList.remove('hidden');
+                }
+            }
+
+            // Sincronizar selector de Habilitar Zona con Sector Operativo como sugerencia inicial
+            const initialZoneForHabilitar = parsedFields.sectorOperativo || parsedFields.zona || '';
+            populateHabilitarZonaSelect(initialZoneForHabilitar);
+
+            templateSelectorBar.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            exportBar.classList.remove('hidden');
+
+            updateDynamicControlsVisibility();
+            refreshActiveTemplate();
+
+            statsCount.textContent = 'Datos extraídos • Cambia de plantilla cuando lo necesites';
+        }
+
+        function refreshActiveTemplate() {
+            if (!parsedFields || Object.keys(parsedFields).length === 0) return;
+            currentTemplateText = generateTemplateByKey(currentTemplateKey, parsedFields);
+            renderTemplateView(currentTemplateText);
+        }
+
+        function getFieldValue(regex) {
+            const found = currentExtractedData.find(d => regex.test(d.encabezado));
+            return found ? (found.contenido || '').trim() : '';
+        }
+
+        function extractAllFields(rawText = '') {
+            const cleanLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+            // 1. TIPO TRABAJO
+            let rawTipoTrabajo = getFieldValue(/^Tipo Trabajo$/i);
+            if (!rawTipoTrabajo) {
+                const ttLine = cleanLines.find(l => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(l));
+                if (ttLine) rawTipoTrabajo = ttLine;
+            }
+            const tipoTrabajo = /^INSTALACION$/i.test(rawTipoTrabajo) ? 'ALTA NUEVA' : rawTipoTrabajo.toUpperCase();
+
+            // 2. AGENDADO (A partir de la columna Fecha Solicitud)
+            let fechaSolicitud = getFieldValue(/^Fecha Solicitud$/i);
+            if (!fechaSolicitud) {
+                const fechas = cleanLines.filter(l => /^\d{2}\/\d{2}\/\d{4}\s+\d{1,2}:\d{2}$/.test(l));
+                fechaSolicitud = fechas[0] || '';
+            }
+            let agendado = '';
+            const timeMatch = fechaSolicitud.match(/(\d{1,2}):\d{2}/);
+            if (timeMatch) {
+                const startHour = parseInt(timeMatch[1], 10);
+                if (startHour === 8) {
+                    agendado = '08AM-12PM';
+                } else if (startHour === 12) {
+                    agendado = '12PM-16PM';
+                } else if (startHour === 16) {
+                    agendado = '16PM-20PM';
+                } else {
+                    const endHour = startHour + 4;
+                    const startSuffix = startHour >= 12 ? 'PM' : 'AM';
+                    const endSuffix = endHour >= 12 ? 'PM' : 'AM';
+                    agendado = `${String(startHour).padStart(2, '0')}${startSuffix}-${String(endHour).padStart(2, '0')}${endSuffix}`;
+                }
+            }
+
+            // 3. CÓDIGO (Cod Seguimiento Cliente)
+            let codigo = getFieldValue(/^Cod Seguimiento Cliente$/i);
+            if (!codigo) {
+                const nums = cleanLines.filter(l => /^\d{6,9}$/.test(l));
+                if (nums.length >= 2) codigo = nums[1];
+                else if (nums.length === 1) codigo = nums[0];
+            }
+
+            // 4. CLIENTE
+            let rawCliente = getFieldValue(/^Cliente$/i);
+            if (!rawCliente) {
+                const empIdx = cleanLines.findIndex(l => /GESTIÓN PROVINCIA/i.test(l));
+                if (empIdx !== -1) {
+                    for (let i = empIdx + 1; i < Math.min(empIdx + 4, cleanLines.length); i++) {
+                        if (cleanLines[i].length > 5 && !/^(Multifamiliar|Residencial|Corporativo|Unifamiliar)$/i.test(cleanLines[i])) {
+                            rawCliente = cleanLines[i];
+                            break;
+                        }
+                    }
+                }
+            }
+            const cliente = rawCliente.replace(/\s*\((Multifamiliar|Residencial|Corporativo|Unifamiliar)\)\s*$/i, '').trim();
+
+            // 5. DNI
+            let dni = '';
+            const docIdx = cleanLines.findIndex(l => /^(Cédula de identidad|DNI|Pasaporte|Carnet de extranjería|RUC)$/i.test(l));
+            if (docIdx !== -1 && cleanLines[docIdx + 1]) {
+                const nextLineDigits = cleanLines[docIdx + 1].replace(/\D/g, '');
+                if (nextLineDigits.length >= 7 && nextLineDigits.length <= 12) {
+                    dni = nextLineDigits;
+                }
+            }
+            if (!dni) {
+                dni = getFieldValue(/^Número Documento$/i).replace(/\D/g, '');
+            }
+            if (!dni) {
+                const techDniMatch = rawText.match(/DNI\/[^/]+\/'?(\d{7,12})/i);
+                if (techDniMatch) dni = techDniMatch[1];
+            }
+
+            // 6. DIRECCIÓN
+            let direccion = getFieldValue(/^Dirección$/i);
+            if (!direccion) {
+                const dirLine = cleanLines.find(l => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(l) && l.length > 15);
+                if (dirLine) direccion = dirLine;
+            }
+
+            // 7. CORD XY DIR
+            let rawGeo = getFieldValue(/^Georeferencia$/i);
+            if (!rawGeo) {
+                const geoLine = cleanLines.find(l => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(l));
+                if (geoLine) rawGeo = geoLine;
+            }
+            let cordXyDir = '';
+            if (rawGeo && rawGeo.includes(',')) {
+                const parts = rawGeo.split(',').map(p => {
+                    const num = parseFloat(p.trim());
+                    return isNaN(num) ? p.trim() : String(num);
+                });
+                cordXyDir = `http://maps.google.com/?q=${parts[0]},${parts[1]}`;
+            }
+
+            // 8. DISTRITO
+            let distrito = '';
+            const dirParenMatch = direccion.match(/\(([^)]+)\)/);
+            if (dirParenMatch) {
+                const parenParts = dirParenMatch[1].split(',').map(p => p.trim()).filter(Boolean);
+                if (parenParts.length >= 2) {
+                    distrito = `${parenParts[0]}-${parenParts[1]}`;
+                } else if (parenParts.length === 1) {
+                    distrito = parenParts[0];
+                }
+            }
+
+            if (!distrito) {
+                let regionZona = getFieldValue(/^Región \/ Zona$/i);
+                let localidad = getFieldValue(/^Localidad$/i);
+                if (!regionZona) {
+                    const regIdx = cleanLines.findIndex(l => /^REGION\s+/i.test(l));
+                    if (regIdx !== -1) {
+                        regionZona = cleanLines[regIdx];
+                        if (cleanLines[regIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[regIdx + 1]) && !/Cédula|DNI/i.test(cleanLines[regIdx + 1])) {
+                            regionZona += ` / ${cleanLines[regIdx + 1]}`;
+                        }
+                    }
+                }
+                if (!localidad) {
+                    const locIdx = cleanLines.findIndex(l => /^(CHICLAYO|LIMA|TRUJILLO|PIURA|AREQUIPA|CUSCO|ICA|HUANCAYO)$/i.test(l));
+                    if (locIdx !== -1) {
+                        localidad = cleanLines[locIdx];
+                        if (cleanLines[locIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[locIdx + 1]) && !/(CALLE|AV|JR|URB|MZ)/i.test(cleanLines[locIdx + 1])) {
+                            localidad += ` - ${cleanLines[locIdx + 1]}`;
+                        }
+                    }
+                }
+                const distritoPart = regionZona.includes('/') ? regionZona.split('/')[1].trim() : '';
+                const provPart = localidad.includes('-') ? localidad.split('-')[0].trim() : localidad;
+                if (distritoPart && provPart) {
+                    distrito = `${distritoPart}-${provPart}`;
+                } else {
+                    distrito = distritoPart || provPart;
+                }
+            }
+
+            // 9. PLAN
+            let suscripcion = getFieldValue(/^Suscripción$/i);
+            if (!suscripcion) {
+                const suscLine = cleanLines.find(l => /Paquete:/i.test(l));
+                if (suscLine) suscripcion = suscLine;
+            }
+            let plan = '';
+            const paqueteMatch = suscripcion.match(/Paquete:\s*([^|]+)/i);
+            if (paqueteMatch) {
+                plan = paqueteMatch[1].trim();
+            } else {
+                plan = getFieldValue(/^Producto$/i);
+            }
+
+            // 10. TELF.1 (Móvil) y TELF.2 (Fijo)
+            let telf1 = getFieldValue(/^Móvil$/i).replace(/^51\s*\/\s*/g, '').trim();
+            let telf2 = getFieldValue(/^Fijo$/i).replace(/^51\s*\/\s*/g, '').trim();
+            if (!telf1 && docIdx !== -1) {
+                for (let i = docIdx + 2; i < Math.min(docIdx + 6, cleanLines.length); i++) {
+                    if (/^9\d{8}$/.test(cleanLines[i])) {
+                        telf1 = cleanLines[i];
+                        if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) {
+                            telf2 = cleanLines[i + 1];
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // 11. TÉCNICO / CUADRILLA
+            let rawCuadrilla = getFieldValue(/^Cuadrilla$/i);
+            if (!rawCuadrilla) {
+                const cuadLine = cleanLines.find(l => /(TECSYCOM|SGI|P\s*\d)/i.test(l) && !/Fecha:/i.test(l));
+                if (cuadLine) rawCuadrilla = cuadLine;
+            }
+            const tecnico = rawCuadrilla.trim();
+
+            // 12. ESTADO
+            let rawEstado = getFieldValue(/^Estado$/i);
+            if (!rawEstado) {
+                const estLine = cleanLines.find(l => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(l));
+                if (estLine) rawEstado = estLine;
+            }
+            const estado = rawEstado.trim().toUpperCase();
+
+            // 13. SECTOR OPERATIVO ORIGINAL DE LA ORDEN
+            let sectorOperativo = getFieldValue(/^Sector Operativo$/i).toUpperCase();
+            if (!sectorOperativo) {
+                const secLine = cleanLines.find(l => /^(CHICLAYO|LIMA|PIURA|TRUJILLO)\s*-\s*(ESTE|CENTRO|NORTE|SUR|OESTE)/i.test(l));
+                if (secLine) sectorOperativo = secLine.toUpperCase();
+            }
+
+            // 14. ZONA SEGÚN REGLA DE CUADRILLA CHICLAYO
+            const zonaCalculada = getZoneForCuadrilla(tecnico) || sectorOperativo;
+
+            return {
+                tipoTrabajo,
+                agendado,
+                codigo,
+                cliente,
+                dni,
+                direccion,
+                cordXyDir,
+                distrito,
+                plan,
+                telf1,
+                telf2,
+                tecnico,
+                estado,
+                partner: 'TECSYCOM',
+                contrata: 'TECSYCOM',
+                sectorOperativo,
+                zona: zonaCalculada
+            };
+        }
+
+        function getSelectedBoPhone(data) {
+            const choice = document.querySelector('input[name="boPhoneChoice"]:checked')?.value || 'telf1';
+            if (choice === 'telf1') return (data.telf1 || '').toUpperCase();
+            if (choice === 'telf2') return (data.telf2 || '').toUpperCase();
+            if (choice === 'custom') return customPhoneInput.value.trim().toUpperCase();
+            return (data.telf1 || '').toUpperCase();
+        }
+
+        function getTargetCuadrillaForMove(data) {
+            if (moveCuadrillaSelect.value === 'CUSTOM') {
+                return moveCuadrillaCustomInput.value.trim().toUpperCase();
+            }
+            return (moveCuadrillaSelect.value || data.tecnico || '').toUpperCase();
+        }
+
+        function generateTemplateByKey(key, data) {
+            const obsManual = manualObsInput.value.trim().toUpperCase();
+
+            switch (key) {
+                case 'gestion_bo': {
+                    const telefonoSeleccionado = getSelectedBoPhone(data);
+                    return `Teléfono: ${telefonoSeleccionado}
+DNI: ${data.dni}
+Partner: ${data.partner}
+Cliente: ${data.cliente}
+Código/Ticket: ${data.codigo}
+OBS: ${obsManual}`;
+                }
+
+                case 'habilitar_zona': {
+                    const cuadrillaHabilitar = pendingHabilitarZonaOverride?.cuadrilla || data.tecnico;
+                    const zonaHabilitar = (habilitarZonaSelect.value || pendingHabilitarZonaOverride?.zona || data.sectorOperativo || data.zona || '').toUpperCase();
+                    return `Cuadrilla: ${cuadrillaHabilitar}
+Contrata: ${data.contrata}
+Solicitud: ${data.codigo}
+Zona: ${zonaHabilitar}
+OBS: ${obsManual}`;
+                }
+
+                case 'estatus_cliente':
+                    return `DNI: ${data.dni}
+Estado: ${data.estado}`;
+
+                case 'retiro_orden':
+                    return `DNI: ${data.dni}
+Cuadrilla: ${data.tecnico}
+Motivo: ${obsManual}`;
+
+                case 'requerimiento_carga':
+                    return `Partner: ${data.partner}
+Zona: ${data.zona}
+Cuadrillas: ${data.tecnico}`;
+
+                case 'regestion':
+                    return `COD: ${data.codigo}
+Cuadrilla: ${data.tecnico}
+Partner: ${data.partner}
+Motivo: ${obsManual}
+Observación: ${obsManual}`;
+
+                case 'cambio_cuadrilla': {
+                    const cuadrillaDestino = getTargetCuadrillaForMove(data);
+                    const motivoCambio = manualMotivoInput.value.trim().toUpperCase();
+                    return `COD: ${data.codigo}
+Mover a la cuadrilla: ${cuadrillaDestino}
+Partner: ${data.partner}
+Motivo: ${motivoCambio}
+Observación: ${obsManual}`;
+                }
+
+                case 'reinicios_tarea':
+                    return `COD: ${data.codigo}
+Cuadrilla: ${data.tecnico}
+Partner: ${data.partner}
+Motivo: ${obsManual}
+Observación: ${obsManual}`;
+
+                case 'general':
+                default:
+                    return `*TIPO TRABAJO:* ${data.tipoTrabajo}
+
+*AGENDADO:* ${data.agendado}
+*CÓDIGO:* ${data.codigo}
+*CLIENTE:* ${data.cliente}
+*DNI:* ${data.dni}
+*DIRECCIÓN:* ${data.direccion}
+*CORD XY DIR:* ${data.cordXyDir}
+*DISTRITO:* ${data.distrito}
+*PLAN:* ${data.plan}
+*TELF.1:* ${data.telf1}
+*TELF.2:* ${data.telf2}
+
+*TELF ALTERNATIVO:* 
+*CTO:* 
+*PUERTO:* 
+
+*TÉCNICO:* ${data.tecnico}
+*ESTADO:* ${data.estado}
+*OBSERVACIONES:* ${obsManual}`;
+            }
+        }
+
+        function renderTemplateView(templateText) {
+            resultsContainer.innerHTML = '';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex-1 flex flex-col gap-2.5';
+
+            wrapper.innerHTML = `
+                <div class="flex items-center justify-between text-xs text-slate-600 bg-orange-50/70 border border-orange-100 px-3.5 py-2 rounded-xl">
+                    <span class="flex items-center gap-1.5 font-medium text-slate-700">
+                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b> (se copiará según el botón elegido):
+                    </span>
+                </div>
+                <textarea id="templateEditorArea" class="w-full flex-1 min-h-[360px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
+            `;
+
+            resultsContainer.appendChild(wrapper);
+            const editor = document.getElementById('templateEditorArea');
+            editor.value = templateText;
+
+            // Forzar mayúsculas también si se escribe manualmente dentro del cuadro de la plantilla
+            editor.addEventListener('input', () => {
+                enforceUppercaseOnTemplateEditor(editor);
+            });
+        }
+
+        function alignStackedValuesToHeaders(headers, bodyLines) {
+            const nonEmpty = bodyLines.map(l => l.trim()).filter(l => l.length > 0);
+            const tokens = [];
+            for (let i = 0; i < nonEmpty.length; i++) {
+                const curr = nonEmpty[i];
+                const next = nonEmpty[i + 1] || '';
+
+                if (/^(Perú|Peru|Chile|Colombia|Ecuador)$/i.test(curr) && next && next === next.toUpperCase() && next.length > 3) {
+                    tokens.push(`${curr} / ${next}`);
+                    i++;
+                    continue;
+                }
+                if (/^[A-ZÑ]{2}$/.test(curr) && next && next.length > 5 && next === next.toUpperCase()) {
+                    tokens.push(next);
+                    i++;
+                    continue;
+                }
+                if (/^(Multifamiliar|Residencial|Corporativo|Unifamiliar)$/i.test(curr) && tokens.length > 0) {
+                    tokens[tokens.length - 1] += ` (${curr})`;
+                    continue;
+                }
+                if (/^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(curr) && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) &&
+                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(curr) &&
+                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(next)) {
+                    tokens.push(`${curr} - ${next}`);
+                    i++;
+                    continue;
+                }
+                if (/^REGION\s+/i.test(curr) && next && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) && !/Cédula|DNI|Pasaporte/i.test(next)) {
+                    tokens.push(`${curr} / ${next}`);
+                    i++;
+                    continue;
+                }
+
+                tokens.push(curr);
+            }
+
+            const validators = {
+                'Nº': v => /^\d{5,10}$/.test(v),
+                'Cod Seguimiento Cliente': v => /^\d{5,10}$/.test(v),
+                'Estado': v => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(v),
+                'Cuadrilla': v => /(TECSYCOM|CUADRILLA|SGI|P\s*\d)/i.test(v),
+                'Fecha Solicitud': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'País / Empresa': v => /(Perú|GESTIÓN|EMPRESA)/i.test(v),
+                'Cliente': v => v.length > 4 && !/INTERNET|FIBRA/i.test(v),
+                'Producto': v => /(INTERNET|FIBRA|WIN|DUO|TRIO|PLAN)/i.test(v),
+                'Tipo Ubicación': v => /^(Domicilio|Edificio|Condominio|Comercial|Empresa)$/i.test(v),
+                'Ubicación': v => /(Domicilio Particular|Casa|Departamento|Oficina|Local)/i.test(v),
+                'Motivo Regestión': v => false,
+                'Sector Operativo': v => /(CENTRO|NORTE|SUR|ESTE|OESTE|SECTOR|CHICLAYO|LIMA)/i.test(v) && !/^(Técnica|Comercial)$/i.test(v),
+                'Tipo Orden': v => /^(Técnica|Comercial|Postventa|Mantenimiento|Reclamo)$/i.test(v),
+                'Tipo Trabajo': v => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(v),
+                'Motivo Trabajo': v => /(ATENCION|SOLICITUD|CLIENTE|AVERIA|CAMBIO|FALLA)/i.test(v),
+                'Localidad': v => /^[A-ZÁÉÍÓÚÑ\s-]+$/.test(v) && !/(CALLE|AV|JR|URB|MZ)/i.test(v),
+                'Dirección': v => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(v),
+                'Código De Seguimiento': v => /^\d{6,10}$/.test(v),
+                'Fecha Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'Región / Zona': v => /REGION/i.test(v),
+                'Tipo Documento': v => /(Cédula|DNI|Pasaporte|Carnet|RUC)/i.test(v),
+                'Número Documento': v => /^\d{7,12}$/.test(v),
+                'Prioridad': v => /^(Alta|Media|Baja|Urgente)/i.test(v),
+                'Móvil': v => /^9\d{8}$/.test(v) || /^\d{9}$/.test(v),
+                'Fijo': v => /^0$/.test(v) || /^\d{6,9}$/.test(v),
+                'Inicio de Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'Fin de Visita': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'Motivo de Cancelación': v => false,
+                'Motivo de Finalización': v => false,
+                'Motivo de Anulación': v => false,
+                'Motivo de Suspensión': v => false,
+                'Georeferencia': v => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v),
+                'Proveedeor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
+                'Proveedor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
+                'Id de Proyecto': v => false,
+                'Código Postal': v => /^\d{5}$/.test(v),
+                'Motivo': v => false,
+                'Datos Técnicos': v => /(COORDENADA|CTO1|DNI\/|RRINST|CCI\/)/i.test(v),
+                'Fecha Estado': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'Suscripción': v => /(Campaña|Paquete:|SVA's|Mesh)/i.test(v),
+                'Historial de Estados': v => /(Fecha:|Estado:|Usuario:|Observacion:)/i.test(v),
+                'Email': v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+            };
+
+            const result = [];
+            let tIdx = 0;
+
+            for (let hIdx = 0; hIdx < headers.length; hIdx++) {
+                const header = headers[hIdx];
+                const checkFn = validators[header];
+                let value = '';
+
+                if (tIdx < tokens.length) {
+                    const candidate = tokens[tIdx];
+                    if (checkFn) {
+                        if (checkFn(candidate)) {
+                            value = candidate;
+                            tIdx++;
+                        } else {
+                            value = '';
+                        }
+                    } else {
+                        value = candidate;
+                        tIdx++;
+                    }
+                }
+
+                result.push({
+                    encabezado: header,
+                    contenido: value
+                });
+            }
+
+            return result;
+        }
+
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMessage.textContent = message;
+            if (type === 'error') {
+                toastIcon.className = 'text-rose-600 text-lg';
+                toastIcon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+            } else {
+                toastIcon.className = 'text-[#FF5A0A] text-lg';
+                toastIcon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
