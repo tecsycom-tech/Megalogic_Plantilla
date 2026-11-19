@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <!-- Barra de Resumen Rápido -->
+        <!-- Barra de Resumen Rápido del Cliente, DNI, Código y Técnico -->
         <div class="border-t border-slate-100 bg-orange-50/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 text-xs">
                 <div class="flex items-center gap-1.5 min-w-0 flex-1">
@@ -129,7 +129,10 @@
                         <button id="btnClearSearchClient" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                        <div id="savedClientsDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-40 max-h-64 overflow-y-auto custom-scrollbar divide-y divide-slate-100"></div>
+
+                        <!-- Lista desplegable de coincidencias -->
+                        <div id="savedClientsDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-40 max-h-64 overflow-y-auto custom-scrollbar divide-y divide-slate-100">
+                        </div>
                     </div>
 
                     <select id="savedClientsSelect" class="sm:w-64 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition">
@@ -159,8 +162,10 @@
                         </div>
                     </div>
 
+                    <!-- Textarea -->
                     <textarea id="rawTextInput" placeholder="Pega aquí los encabezados y los datos copiados de tu sistema (Ctrl + V)..." class="flex-1 w-full min-h-[340px] bg-slate-50/80 border border-slate-200 rounded-xl p-3.5 text-xs font-mono text-slate-700 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
 
+                    <!-- Action Buttons -->
                     <div class="mt-4 flex flex-col sm:flex-row gap-2">
                         <button id="btnProcessText" class="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#FF5A0A] to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-md shadow-orange-600/20 transition duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm">
                             <i class="fa-solid fa-arrow-down-short-wide"></i>
@@ -178,6 +183,7 @@
             <div class="lg:col-span-7 flex flex-col gap-4">
                 <div class="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex-1 flex flex-col shadow-sm min-h-[540px]">
                     
+                    <!-- Header Actions for Results -->
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3.5">
                         <div>
                             <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
@@ -199,37 +205,62 @@
                             Selecciona el formato de plantilla:
                         </label>
                         <div class="flex flex-wrap gap-1.5" id="templateButtonsContainer">
-                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📋 General</button>
-                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">🛠️ Gestión BO</button>
-                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📡 Habilitar Zona</button>
-                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📊 Estatus Cliente</button>
-                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📦 Retiro Orden</button>
-                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📦 Req. de Carga</button>
-                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">📋 Regestión</button>
-                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">🔄 Cambio Cuadrilla</button>
-                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">♻️ Reinicios de Tarea</button>
+                            <button type="button" data-template="general" class="template-pill active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 General
+                            </button>
+                            <button type="button" data-template="gestion_bo" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🛠️ Gestión BO
+                            </button>
+                            <button type="button" data-template="habilitar_zona" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📡 Habilitar Zona
+                            </button>
+                            <button type="button" data-template="estatus_cliente" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📊 Estatus Cliente
+                            </button>
+                            <button type="button" data-template="retiro_orden" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Retiro Orden
+                            </button>
+                            <button type="button" data-template="requerimiento_carga" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📦 Req. de Carga
+                            </button>
+                            <button type="button" data-template="regestion" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                📋 Regestión
+                            </button>
+                            <button type="button" data-template="cambio_cuadrilla" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                🔄 Cambio Cuadrilla
+                            </button>
+                            <button type="button" data-template="reinicios_tarea" class="template-pill px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition">
+                                ♻️ Reinicios de Tarea
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Controles Dinámicos -->
+                    <!-- Controles Dinámicos (Observación manual, Selección de Teléfono, Habilitar Zona y Cambio Cuadrilla) -->
                     <div id="dynamicControlsPanel" class="hidden mt-3 bg-slate-50/90 border border-slate-200/80 rounded-xl p-3 flex flex-col gap-2.5">
                         
+                        <!-- Selector y Gestión de Zonas (Solo visible en Habilitar Zona) -->
                         <div id="habilitarZonaWrapper" class="hidden flex flex-col gap-2.5 pb-2.5 border-b border-slate-200/70">
+                            <!-- Sugerencia de Sector Operativo original -->
                             <div id="sectorOperativoSuggestionBox" class="hidden flex flex-wrap items-center justify-between gap-2 bg-orange-50/90 border border-orange-200/80 rounded-lg px-3 py-2 text-xs">
                                 <span class="text-slate-700">
                                     <i class="fa-solid fa-lightbulb text-[#FF5A0A] mr-1"></i>
                                     <b>Sector Operativo de la orden:</b> <span id="lblSectorOperativoOrden" class="font-mono font-bold text-slate-900">—</span>
                                 </span>
-                                <button type="button" id="btnApplySectorOperativo" class="px-2.5 py-1 rounded-md bg-white hover:bg-orange-100 text-[#FF5A0A] border border-orange-300 font-semibold text-[11px] transition">Usar este Sector como Zona</button>
+                                <button type="button" id="btnApplySectorOperativo" class="px-2.5 py-1 rounded-md bg-white hover:bg-orange-100 text-[#FF5A0A] border border-orange-300 font-semibold text-[11px] transition">
+                                    Usar este Sector como Zona
+                                </button>
                             </div>
 
+                            <!-- Selector manual de Zona -->
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <label for="habilitarZonaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                     <i class="fa-solid fa-map-location-dot text-[#FF5A0A]"></i> Zona a habilitar:
                                 </label>
-                                <select id="habilitarZonaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15"></select>
+                                <select id="habilitarZonaSelect" class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                                </select>
                             </div>
 
+                            <!-- Añadir nueva zona y guardarla en Google Sheets -->
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <input type="text" id="newZoneInput" placeholder="AÑADIR NUEVA ZONA (EJ: CHICLAYO - NORTE 1)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
                                 <button type="button" id="btnAddNewZoneToSheets" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 shrink-0">
@@ -239,6 +270,7 @@
                             </div>
                         </div>
 
+                        <!-- Selector de Teléfono (Solo visible en Gestión BO) -->
                         <div id="phoneChoiceWrapper" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
                             <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                                 <i class="fa-solid fa-phone text-[#FF5A0A]"></i> ¿Qué número usar en Gestión BO?
@@ -260,6 +292,7 @@
                             </div>
                         </div>
 
+                        <!-- Selector de Cuadrilla Destino (Solo visible en Cambio Cuadrilla) -->
                         <div id="moveCuadrillaWrapper" class="hidden flex flex-col gap-2 pb-2 border-b border-slate-200/70">
                             <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                                 <label for="moveCuadrillaSelect" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
@@ -273,9 +306,12 @@
                                 </select>
                             </div>
                             <input type="text" id="moveCuadrillaCustomInput" placeholder="ESCRIBE EL NOMBRE DE LA NUEVA CUADRILLA EN MAYÚSCULAS..." class="hidden w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+
+                            <!-- Alerta / Validación de Zona vs Sector Operativo -->
                             <div id="zoneValidationBanner" class="hidden rounded-xl p-3 text-xs border transition-all"></div>
                         </div>
 
+                        <!-- Campo Manual Específico para Motivo (Solo visible en Cambio Cuadrilla) -->
                         <div id="manualMotivoWrapper" class="hidden flex flex-col sm:flex-row sm:items-center gap-2 pb-2 border-b border-slate-200/70">
                             <label for="manualMotivoInput" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fa-solid fa-tag text-[#FF5A0A]"></i> Motivo:
@@ -283,6 +319,15 @@
                             <input type="text" id="manualMotivoInput" placeholder="INGRESA EL MOTIVO DEL CAMBIO DE CUADRILLA (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
                         </div>
 
+                        <!-- Campo Manual Específico para Solicitud / Comentario (Solo visible en Habilitar Zona) -->
+                        <div id="manualSolicitudWrapper" class="hidden flex flex-col sm:flex-row sm:items-center gap-2 pb-2 border-b border-slate-200/70">
+                            <label for="manualSolicitudInput" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-pen text-[#FF5A0A]"></i> Solicitud:
+                            </label>
+                            <input type="text" id="manualSolicitudInput" placeholder="AGREGAR O MODIFICAR COMENTARIO EN SOLICITUD (EN MAYÚSCULAS)..." class="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs uppercase text-slate-800 focus:outline-none focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15">
+                        </div>
+
+                        <!-- Campo Manual para Observaciones / Motivo -->
                         <div id="manualObsWrapper" class="flex flex-col sm:flex-row sm:items-center gap-2">
                             <label for="manualObsInput" id="manualObsLabel" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fa-solid fa-comment-dots text-[#FF5A0A]"></i> Observación / Motivo:
@@ -292,6 +337,8 @@
                     </div>
 
                     <!-- Output States -->
+                    
+                    <!-- State 1: Empty -->
                     <div id="emptyState" class="flex-1 flex flex-col items-center justify-center p-8 text-center my-auto">
                         <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center text-3xl mb-3 border border-slate-200/70">
                             <i class="fa-solid fa-file-lines"></i>
@@ -300,21 +347,28 @@
                         <p class="text-xs text-slate-500 max-w-sm mt-1 leading-relaxed">Pega el contenido copiado en el recuadro de la izquierda o selecciona un cliente guardado desde Google Sheets.</p>
                     </div>
 
-                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1"></div>
+                    <!-- State 2: Render Container -->
+                    <div id="resultsContainer" class="hidden flex-1 mt-3 flex flex-col overflow-y-auto custom-scrollbar max-h-[520px] pr-1">
+                        <!-- Content injected via JS -->
+                    </div>
 
-                    <!-- Footer Bar -->
+                    <!-- Footer Copy & Save Bar -->
                     <div id="exportBar" class="hidden pt-4 mt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                         <span class="text-xs font-medium text-slate-400">Digital Tech-Win • Plantilla Oficial</span>
                         <div class="flex flex-wrap items-center gap-2">
+                            <!-- Botón Guardar en Sheets -->
                             <button id="btnSaveToSheetsRight" type="button" class="px-3.5 py-2.5 rounded-xl bg-[#FF5A0A] hover:bg-orange-600 text-white shadow-sm shadow-orange-600/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-solid fa-cloud-arrow-up text-sm"></i> <span>Guardar Cliente</span>
                             </button>
+                            <!-- Botón Excel Base PERUFIBRA -->
                             <button id="btnExportExcel" type="button" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white shadow-sm text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-solid fa-file-excel text-sm"></i> <span>Excel Base PERUFIBRA</span>
                             </button>
+                            <!-- Botón WhatsApp (Predeterminado) -->
                             <button id="btnCopyWhatsapp" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-brands fa-whatsapp text-sm"></i> <span>Copiar a WhatsApp</span>
                             </button>
+                            <!-- Botón Telegram (Solo visible en Plantilla General) -->
                             <button id="btnCopyTelegram" class="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white shadow-sm shadow-sky-500/20 text-xs font-semibold transition flex items-center gap-2">
                                 <i class="fa-brands fa-telegram text-sm"></i> <span>Copiar a Telegram</span>
                             </button>
@@ -345,7 +399,7 @@
         let currentTemplateText = '';
         let savedClientsCache = [];
         let savedZonesCache = ['CHICLAYO - ESTE 1', 'CHICLAYO - CENTRO 1'];
-        let pendingHabilitarZonaOverride = null;
+        let pendingHabilitarZonaOverride = null; // Guarda { cuadrilla, zona } cuando se redirige desde Cambio Cuadrilla
 
         const TEMPLATE_NAMES = {
             general: 'Plantilla General',
@@ -390,6 +444,7 @@
         const activeTemplateBadge = document.getElementById('activeTemplateBadge');
         const dynamicControlsPanel = document.getElementById('dynamicControlsPanel');
 
+        // Controles Habilitar Zona
         const habilitarZonaWrapper = document.getElementById('habilitarZonaWrapper');
         const sectorOperativoSuggestionBox = document.getElementById('sectorOperativoSuggestionBox');
         const lblSectorOperativoOrden = document.getElementById('lblSectorOperativoOrden');
@@ -405,11 +460,14 @@
         const zoneValidationBanner = document.getElementById('zoneValidationBanner');
         const manualMotivoWrapper = document.getElementById('manualMotivoWrapper');
         const manualMotivoInput = document.getElementById('manualMotivoInput');
+        const manualSolicitudWrapper = document.getElementById('manualSolicitudWrapper');
+        const manualSolicitudInput = document.getElementById('manualSolicitudInput');
         const manualObsWrapper = document.getElementById('manualObsWrapper');
         const manualObsLabel = document.getElementById('manualObsLabel');
         const manualObsInput = document.getElementById('manualObsInput');
         const customPhoneInput = document.getElementById('customPhoneInput');
 
+        // Helper para obtener la Zona definida de una cuadrilla/técnico
         function getZoneForCuadrilla(cuadrillaName) {
             const upper = (cuadrillaName || '').toUpperCase().trim();
             if (!upper) return '';
@@ -426,6 +484,7 @@
             return '';
         }
 
+        // Normaliza textos de zona / sector operativo para comparación exacta
         function normalizeZoneText(str) {
             return (str || '')
                 .toUpperCase()
@@ -434,6 +493,7 @@
                 .trim();
         }
 
+        // Helper para forzar mayúsculas en inputs manuales manteniendo la posición del cursor
         function enforceUppercaseInput(el) {
             const start = el.selectionStart;
             const end = el.selectionEnd;
@@ -446,6 +506,7 @@
             }
         }
 
+        // Convierte a mayúsculas el texto editado manualmente en la vista previa sin alterar el enlace http://maps.google.com
         function enforceUppercaseOnTemplateEditor(el) {
             const start = el.selectionStart;
             const end = el.selectionEnd;
@@ -471,6 +532,9 @@
             loadClientsFromGoogleSheets();
         };
 
+        // ==========================================
+        // GESTIÓN DE ZONAS EN SELECTOR Y GOOGLE SHEETS
+        // ==========================================
         function populateHabilitarZonaSelect(preferredZone = '') {
             const currentVal = preferredZone || habilitarZonaSelect.value || '';
             const allZones = new Set([
@@ -542,6 +606,7 @@
                 }
             } catch (error) {
                 console.error('Error guardando zona:', error);
+                // Aún si falla la red, permitir usarla localmente en esta sesión
                 if (!savedZonesCache.includes(nuevaZona)) {
                     savedZonesCache.push(nuevaZona);
                 }
@@ -549,13 +614,16 @@
                 habilitarZonaSelect.value = nuevaZona;
                 newZoneInput.value = '';
                 refreshActiveTemplate();
-                showToast('Zona añadida localmente', 'error');
+                showToast('Zona añadida localmente (verifica actualización del Script en Sheets)', 'error');
             } finally {
                 btnAddNewZoneToSheets.disabled = false;
                 btnAddNewZoneToSheets.innerHTML = originalBtnHtml;
             }
         }
 
+        // ==========================================
+        // CONEXIÓN CON GOOGLE SHEETS (LEER Y GUARDAR)
+        // ==========================================
         async function loadClientsFromGoogleSheets(showNotification = false) {
             syncIcon.classList.add('fa-spin');
             sheetsStatusText.textContent = 'Sincronizando registros con Google Sheets...';
@@ -583,7 +651,7 @@
                 }
             } catch (error) {
                 console.error('Error cargando de Google Sheets:', error);
-                sheetsStatusText.textContent = 'No se pudo conectar con Google Sheets';
+                sheetsStatusText.textContent = 'No se pudo conectar con Google Sheets (revisa permisos del Script)';
                 if (showNotification) {
                     showToast('Error al leer Google Sheets', 'error');
                 }
@@ -639,7 +707,9 @@
                                 ${item.tecnico ? `<span>•</span><span class="truncate"><b>TÉC:</b> ${item.tecnico}</span>` : ''}
                             </div>
                         </div>
-                        <span class="text-[10px] font-semibold px-2 py-1 rounded-md bg-orange-100 text-[#FF5A0A] shrink-0">Cargar</span>
+                        <span class="text-[10px] font-semibold px-2 py-1 rounded-md bg-orange-100 text-[#FF5A0A] shrink-0">
+                            Cargar
+                        </span>
                     `;
                     rowBtn.addEventListener('click', () => {
                         restoreClientFromRecord(item);
@@ -701,7 +771,9 @@
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     redirect: 'follow',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
                     body: JSON.stringify(payload)
                 });
 
@@ -719,7 +791,7 @@
                 }
             } catch (error) {
                 console.error('Error guardando en Google Sheets:', error);
-                showToast('No se pudo guardar en Google Sheets.', 'error');
+                showToast('No se pudo guardar en Google Sheets. Verifica el Script.', 'error');
             } finally {
                 btnSaveToSheetsLeft.disabled = false;
                 btnSaveToSheetsRight.disabled = false;
@@ -756,6 +828,7 @@
             btnSaveToSheetsRight.addEventListener('click', saveCurrentClientToGoogleSheets);
             btnSyncSheets.addEventListener('click', () => loadClientsFromGoogleSheets(true));
 
+            // Eventos de Habilitar Zona
             habilitarZonaSelect.addEventListener('change', () => {
                 refreshActiveTemplate();
             });
@@ -776,6 +849,7 @@
 
             btnAddNewZoneToSheets.addEventListener('click', addNewZoneToGoogleSheets);
 
+            // Búsqueda por nombre de cliente en Google Sheets
             searchSavedClientInput.addEventListener('input', () => {
                 enforceUppercaseInput(searchSavedClientInput);
                 const val = searchSavedClientInput.value;
@@ -806,6 +880,7 @@
                 }
             });
 
+            // Cerrar dropdown al hacer clic fuera
             document.addEventListener('click', (e) => {
                 if (!searchSavedClientInput.contains(e.target) && !savedClientsDropdown.contains(e.target)) {
                     savedClientsDropdown.classList.add('hidden');
@@ -839,6 +914,7 @@
                 pendingHabilitarZonaOverride = null;
                 manualObsInput.value = '';
                 manualMotivoInput.value = '';
+                manualSolicitudInput.value = '';
                 moveCuadrillaCustomInput.value = '';
                 customPhoneInput.value = '';
                 newZoneInput.value = '';
@@ -854,6 +930,7 @@
                 statsCount.textContent = 'Sin datos procesados aún';
             });
 
+            // Botón Copiar a WhatsApp
             btnCopyWhatsapp.addEventListener('click', () => {
                 const editor = document.getElementById('templateEditorArea');
                 const textToCopy = editor ? editor.value : currentTemplateText;
@@ -862,15 +939,20 @@
                 showToast(`¡Plantilla copiada a WhatsApp!`);
             });
 
+            // Botón Copiar a Telegram (Duplica los asteriscos externos a doble asterisco)
             btnCopyTelegram.addEventListener('click', () => {
                 const editor = document.getElementById('templateEditorArea');
                 let textToCopy = editor ? editor.value : currentTemplateText;
                 if (!textToCopy) return;
+
+                // Reemplaza *ETIQUETA:* por **ETIQUETA:** para Telegram
                 textToCopy = textToCopy.replace(/^(\*)([^*]+)(\*)/gm, '**$2**');
+
                 copyToClipboard(textToCopy);
-                showToast(`¡Plantilla copiada a Telegram!`);
+                showToast(`¡Plantilla copiada a Telegram (con formato **)!`);
             });
 
+            // Eventos para cambiar de plantilla
             document.querySelectorAll('.template-pill').forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (btn.dataset.template !== 'habilitar_zona') {
@@ -880,6 +962,7 @@
                 });
             });
 
+            // Eventos en vivo para Cambio de Cuadrilla
             moveCuadrillaSelect.addEventListener('change', () => {
                 if (moveCuadrillaSelect.value === 'CUSTOM') {
                     moveCuadrillaCustomInput.classList.remove('hidden');
@@ -902,6 +985,12 @@
                 refreshActiveTemplate();
             });
 
+            manualSolicitudInput.addEventListener('input', () => {
+                enforceUppercaseInput(manualSolicitudInput);
+                refreshActiveTemplate();
+            });
+
+            // Eventos en vivo para Observación Manual y Selección de Teléfono (en MAYÚSCULAS)
             manualObsInput.addEventListener('input', () => {
                 enforceUppercaseInput(manualObsInput);
                 refreshActiveTemplate();
@@ -919,6 +1008,7 @@
             });
         }
 
+        // Valida si el Sector Operativo de la orden coincide con la Zona del Técnico seleccionado en Cambio Cuadrilla
         function validateCambioCuadrillaZone() {
             if (currentTemplateKey !== 'cambio_cuadrilla') {
                 zoneValidationBanner.classList.add('hidden');
@@ -944,7 +1034,9 @@
                 zoneValidationBanner.innerHTML = `
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-circle-check text-emerald-600 text-sm shrink-0"></i>
-                        <span><b>Sector Operativo compatible:</b> La orden ya está en <b>${sectorOperativoActual}</b>, que coincide con la zona de esta cuadrilla.</span>
+                        <span>
+                            <b>Sector Operativo compatible:</b> La orden ya está en <b>${sectorOperativoActual}</b>, que coincide con la zona de esta cuadrilla.
+                        </span>
                     </div>
                 `;
             } else {
@@ -954,7 +1046,9 @@
                         <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm mt-0.5 shrink-0"></i>
                         <div>
                             <div class="font-bold text-amber-900">⚠️ SE DEBE HABILITAR ZONA ANTES DE SOLICITAR CAMBIO DE CUADRILLA</div>
-                            <div class="text-[11px] text-amber-800 mt-0.5">Sector Operativo actual: <b>${sectorOperativoActual || 'SIN SECTOR'}</b> • Zona requerida: <b>${targetZone}</b></div>
+                            <div class="text-[11px] text-amber-800 mt-0.5">
+                                Sector Operativo actual de la orden: <b>${sectorOperativoActual || 'SIN SECTOR DETECTADO'}</b> • Zona requerida por el técnico: <b>${targetZone}</b>
+                            </div>
                         </div>
                     </div>
                     <button type="button" id="btnGoHabilitarZona" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#FF5A0A] hover:bg-orange-600 text-white font-semibold text-xs shadow-sm transition flex items-center gap-1.5">
@@ -999,6 +1093,7 @@
             phoneChoiceWrapper.classList.toggle('hidden', !needsPhone);
             moveCuadrillaWrapper.classList.toggle('hidden', !isCambioCuadrilla);
             manualMotivoWrapper.classList.toggle('hidden', !isCambioCuadrilla);
+            manualSolicitudWrapper.classList.toggle('hidden', !isHabilitarZona);
 
             if (isHabilitarZona) {
                 if (parsedFields.sectorOperativo) {
@@ -1026,6 +1121,7 @@
             }
         }
 
+        // Motor Inteligente de Emparejamiento de Encabezados y Valores Pegados
         function processPastedText(silent = false) {
             const raw = rawTextInput.value;
             if (!raw || !raw.trim()) {
@@ -1068,14 +1164,17 @@
         }
 
         function applyParsedFieldsToUI() {
+            // Actualizar barra superior con CLIENTE, DNI, CÓDIGO y TÉCNICO
             topBarCliente.textContent = parsedFields.cliente || '—';
             topBarDni.textContent = parsedFields.dni || '—';
             topBarCodigo.textContent = parsedFields.codigo || '—';
             topBarTecnico.textContent = parsedFields.tecnico || '—';
 
+            // Actualizar etiquetas de teléfonos disponibles para Gestión BO
             document.getElementById('lblTelf1').textContent = parsedFields.telf1 || 'Vacío';
             document.getElementById('lblTelf2').textContent = parsedFields.telf2 || '0';
 
+            // Sincronizar selector de cuadrilla destino con la cuadrilla detectada si coincide
             if (parsedFields.tecnico) {
                 const matchedOption = Array.from(moveCuadrillaSelect.options).find(opt => opt.value === parsedFields.tecnico.toUpperCase());
                 if (matchedOption) {
@@ -1088,8 +1187,10 @@
                 }
             }
 
+            // Sincronizar selector de Habilitar Zona con Sector Operativo como sugerencia inicial
             const initialZoneForHabilitar = parsedFields.sectorOperativo || parsedFields.zona || '';
             populateHabilitarZonaSelect(initialZoneForHabilitar);
+            manualSolicitudInput.value = '';
 
             templateSelectorBar.classList.remove('hidden');
             emptyState.classList.add('hidden');
@@ -1116,6 +1217,7 @@
         function extractAllFields(rawText = '') {
             const cleanLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
 
+            // 1. TIPO TRABAJO
             let rawTipoTrabajo = getFieldValue(/^Tipo Trabajo$/i);
             if (!rawTipoTrabajo) {
                 const ttLine = cleanLines.find(l => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(l));
@@ -1123,6 +1225,7 @@
             }
             const tipoTrabajo = /^INSTALACION$/i.test(rawTipoTrabajo) ? 'ALTA NUEVA' : rawTipoTrabajo.toUpperCase();
 
+            // 2. AGENDADO (A partir de la columna Fecha Solicitud)
             let fechaSolicitud = getFieldValue(/^Fecha Solicitud$/i);
             if (!fechaSolicitud) {
                 const fechas = cleanLines.filter(l => /^\d{2}\/\d{2}\/\d{4}\s+\d{1,2}:\d{2}$/.test(l));
@@ -1132,10 +1235,13 @@
             const timeMatch = fechaSolicitud.match(/(\d{1,2}):\d{2}/);
             if (timeMatch) {
                 const startHour = parseInt(timeMatch[1], 10);
-                if (startHour === 8) agendado = '08AM-12PM';
-                else if (startHour === 12) agendado = '12PM-16PM';
-                else if (startHour === 16) agendado = '16PM-20PM';
-                else {
+                if (startHour === 8) {
+                    agendado = '08AM-12PM';
+                } else if (startHour === 12) {
+                    agendado = '12PM-16PM';
+                } else if (startHour === 16) {
+                    agendado = '16PM-20PM';
+                } else {
                     const endHour = startHour + 4;
                     const startSuffix = startHour >= 12 ? 'PM' : 'AM';
                     const endSuffix = endHour >= 12 ? 'PM' : 'AM';
@@ -1143,6 +1249,7 @@
                 }
             }
 
+            // 3. CÓDIGO (Cod Seguimiento Cliente)
             let codigo = getFieldValue(/^Cod Seguimiento Cliente$/i);
             if (!codigo) {
                 const nums = cleanLines.filter(l => /^\d{6,9}$/.test(l));
@@ -1150,6 +1257,7 @@
                 else if (nums.length === 1) codigo = nums[0];
             }
 
+            // 4. CLIENTE
             let rawCliente = getFieldValue(/^Cliente$/i);
             if (!rawCliente) {
                 const empIdx = cleanLines.findIndex(l => /GESTIÓN PROVINCIA/i.test(l));
@@ -1164,24 +1272,31 @@
             }
             const cliente = rawCliente.replace(/\s*\((Multifamiliar|Residencial|Corporativo|Unifamiliar)\)\s*$/i, '').trim();
 
+            // 5. DNI
             let dni = '';
             const docIdx = cleanLines.findIndex(l => /^(Cédula de identidad|DNI|Pasaporte|Carnet de extranjería|RUC)$/i.test(l));
             if (docIdx !== -1 && cleanLines[docIdx + 1]) {
                 const nextLineDigits = cleanLines[docIdx + 1].replace(/\D/g, '');
-                if (nextLineDigits.length >= 7 && nextLineDigits.length <= 12) dni = nextLineDigits;
+                if (nextLineDigits.length >= 7 && nextLineDigits.length <= 12) {
+                    dni = nextLineDigits;
+                }
             }
-            if (!dni) dni = getFieldValue(/^Número Documento$/i).replace(/\D/g, '');
+            if (!dni) {
+                dni = getFieldValue(/^Número Documento$/i).replace(/\D/g, '');
+            }
             if (!dni) {
                 const techDniMatch = rawText.match(/DNI\/[^/]+\/'?(\d{7,12})/i);
                 if (techDniMatch) dni = techDniMatch[1];
             }
 
+            // 6. DIRECCIÓN
             let direccion = getFieldValue(/^Dirección$/i);
             if (!direccion) {
                 const dirLine = cleanLines.find(l => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(l) && l.length > 15);
                 if (dirLine) direccion = dirLine;
             }
 
+            // 7. CORD XY DIR
             let rawGeo = getFieldValue(/^Georeferencia$/i);
             if (!rawGeo) {
                 const geoLine = cleanLines.find(l => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(l));
@@ -1196,14 +1311,49 @@
                 cordXyDir = `http://maps.google.com/?q=${parts[0]},${parts[1]}`;
             }
 
+            // 8. DISTRITO
             let distrito = '';
             const dirParenMatch = direccion.match(/\(([^)]+)\)/);
             if (dirParenMatch) {
                 const parenParts = dirParenMatch[1].split(',').map(p => p.trim()).filter(Boolean);
-                if (parenParts.length >= 2) distrito = `${parenParts[0]}-${parenParts[1]}`;
-                else if (parenParts.length === 1) distrito = parenParts[0];
+                if (parenParts.length >= 2) {
+                    distrito = `${parenParts[0]}-${parenParts[1]}`;
+                } else if (parenParts.length === 1) {
+                    distrito = parenParts[0];
+                }
             }
 
+            if (!distrito) {
+                let regionZona = getFieldValue(/^Región \/ Zona$/i);
+                let localidad = getFieldValue(/^Localidad$/i);
+                if (!regionZona) {
+                    const regIdx = cleanLines.findIndex(l => /^REGION\s+/i.test(l));
+                    if (regIdx !== -1) {
+                        regionZona = cleanLines[regIdx];
+                        if (cleanLines[regIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[regIdx + 1]) && !/Cédula|DNI/i.test(cleanLines[regIdx + 1])) {
+                            regionZona += ` / ${cleanLines[regIdx + 1]}`;
+                        }
+                    }
+                }
+                if (!localidad) {
+                    const locIdx = cleanLines.findIndex(l => /^(CHICLAYO|LIMA|TRUJILLO|PIURA|AREQUIPA|CUSCO|ICA|HUANCAYO)$/i.test(l));
+                    if (locIdx !== -1) {
+                        localidad = cleanLines[locIdx];
+                        if (cleanLines[locIdx + 1] && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(cleanLines[locIdx + 1]) && !/(CALLE|AV|JR|URB|MZ)/i.test(cleanLines[locIdx + 1])) {
+                            localidad += ` - ${cleanLines[locIdx + 1]}`;
+                        }
+                    }
+                }
+                const distritoPart = regionZona.includes('/') ? regionZona.split('/')[1].trim() : '';
+                const provPart = localidad.includes('-') ? localidad.split('-')[0].trim() : localidad;
+                if (distritoPart && provPart) {
+                    distrito = `${distritoPart}-${provPart}`;
+                } else {
+                    distrito = distritoPart || provPart;
+                }
+            }
+
+            // 9. PLAN
             let suscripcion = getFieldValue(/^Suscripción$/i);
             if (!suscripcion) {
                 const suscLine = cleanLines.find(l => /Paquete:/i.test(l));
@@ -1211,21 +1361,28 @@
             }
             let plan = '';
             const paqueteMatch = suscripcion.match(/Paquete:\s*([^|]+)/i);
-            if (paqueteMatch) plan = paqueteMatch[1].trim();
-            else plan = getFieldValue(/^Producto$/i);
+            if (paqueteMatch) {
+                plan = paqueteMatch[1].trim();
+            } else {
+                plan = getFieldValue(/^Producto$/i);
+            }
 
+            // 10. TELF.1 (Móvil) y TELF.2 (Fijo)
             let telf1 = getFieldValue(/^Móvil$/i).replace(/^51\s*\/\s*/g, '').trim();
             let telf2 = getFieldValue(/^Fijo$/i).replace(/^51\s*\/\s*/g, '').trim();
             if (!telf1 && docIdx !== -1) {
                 for (let i = docIdx + 2; i < Math.min(docIdx + 6, cleanLines.length); i++) {
                     if (/^9\d{8}$/.test(cleanLines[i])) {
                         telf1 = cleanLines[i];
-                        if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) telf2 = cleanLines[i + 1];
+                        if (cleanLines[i + 1] && /^(\d{6,9}|0)$/.test(cleanLines[i + 1])) {
+                            telf2 = cleanLines[i + 1];
+                        }
                         break;
                     }
                 }
             }
 
+            // 11. TÉCNICO / CUADRILLA
             let rawCuadrilla = getFieldValue(/^Cuadrilla$/i);
             if (!rawCuadrilla) {
                 const cuadLine = cleanLines.find(l => /(TECSYCOM|SGI|P\s*\d)/i.test(l) && !/Fecha:/i.test(l));
@@ -1233,6 +1390,7 @@
             }
             const tecnico = rawCuadrilla.trim();
 
+            // 12. ESTADO
             let rawEstado = getFieldValue(/^Estado$/i);
             if (!rawEstado) {
                 const estLine = cleanLines.find(l => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(l));
@@ -1240,17 +1398,34 @@
             }
             const estado = rawEstado.trim().toUpperCase();
 
+            // 13. SECTOR OPERATIVO ORIGINAL DE LA ORDEN
             let sectorOperativo = getFieldValue(/^Sector Operativo$/i).toUpperCase();
             if (!sectorOperativo) {
                 const secLine = cleanLines.find(l => /^(CHICLAYO|LIMA|PIURA|TRUJILLO)\s*-\s*(ESTE|CENTRO|NORTE|SUR|OESTE)/i.test(l));
                 if (secLine) sectorOperativo = secLine.toUpperCase();
             }
 
+            // 14. ZONA SEGÚN REGLA DE CUADRILLA CHICLAYO
             const zonaCalculada = getZoneForCuadrilla(tecnico) || sectorOperativo;
 
             return {
-                tipoTrabajo, agendado, codigo, cliente, dni, direccion, cordXyDir, distrito, plan, telf1, telf2, tecnico, estado,
-                partner: 'TECSYCOM', contrata: 'TECSYCOM', sectorOperativo, zona: zonaCalculada
+                tipoTrabajo,
+                agendado,
+                codigo,
+                cliente,
+                dni,
+                direccion,
+                cordXyDir,
+                distrito,
+                plan,
+                telf1,
+                telf2,
+                tecnico,
+                estado,
+                partner: 'TECSYCOM',
+                contrata: 'TECSYCOM',
+                sectorOperativo,
+                zona: zonaCalculada
             };
         }
 
@@ -1263,7 +1438,9 @@
         }
 
         function getTargetCuadrillaForMove(data) {
-            if (moveCuadrillaSelect.value === 'CUSTOM') return moveCuadrillaCustomInput.value.trim().toUpperCase();
+            if (moveCuadrillaSelect.value === 'CUSTOM') {
+                return moveCuadrillaCustomInput.value.trim().toUpperCase();
+            }
             return (moveCuadrillaSelect.value || data.tecnico || '').toUpperCase();
         }
 
@@ -1271,20 +1448,26 @@
             const obsManual = manualObsInput.value.trim().toUpperCase();
 
             switch (key) {
-                case 'gestion_bo':
-                    return `Teléfono: ${getSelectedBoPhone(data)}
+                case 'gestion_bo': {
+                    const telefonoSeleccionado = getSelectedBoPhone(data);
+                    return `Teléfono: ${telefonoSeleccionado}
 DNI: ${data.dni}
 Partner: ${data.partner}
 Cliente: ${data.cliente}
 Código/Ticket: ${data.codigo}
 OBS: ${obsManual}`;
+                }
 
-                case 'habilitar_zona':
-                    return `Cuadrilla: ${pendingHabilitarZonaOverride?.cuadrilla || data.tecnico}
+                case 'habilitar_zona': {
+                    const cuadrillaHabilitar = pendingHabilitarZonaOverride?.cuadrilla || data.tecnico;
+                    const zonaHabilitar = (habilitarZonaSelect.value || pendingHabilitarZonaOverride?.zona || data.sectorOperativo || data.zona || '').toUpperCase();
+                    const comentarioSolicitud = manualSolicitudInput.value.trim().toUpperCase();
+                    return `Cuadrilla: ${cuadrillaHabilitar}
 Contrata: ${data.contrata}
-Solicitud: ${data.codigo}
-Zona: ${(habilitarZonaSelect.value || pendingHabilitarZonaOverride?.zona || data.sectorOperativo || data.zona || '').toUpperCase()}
+Solicitud: ${comentarioSolicitud}
+Zona: ${zonaHabilitar}
 OBS: ${obsManual}`;
+                }
 
                 case 'estatus_cliente':
                     return `DNI: ${data.dni}
@@ -1307,12 +1490,15 @@ Partner: ${data.partner}
 Motivo: ${obsManual}
 Observación: ${obsManual}`;
 
-                case 'cambio_cuadrilla':
+                case 'cambio_cuadrilla': {
+                    const cuadrillaDestino = getTargetCuadrillaForMove(data);
+                    const motivoCambio = manualMotivoInput.value.trim().toUpperCase();
                     return `COD: ${data.codigo}
-Mover a la cuadrilla: ${getTargetCuadrillaForMove(data)}
+Mover a la cuadrilla: ${cuadrillaDestino}
 Partner: ${data.partner}
-Motivo: ${manualMotivoInput.value.trim().toUpperCase()}
+Motivo: ${motivoCambio}
 Observación: ${obsManual}`;
+                }
 
                 case 'reinicios_tarea':
                     return `COD: ${data.codigo}
@@ -1354,7 +1540,7 @@ Observación: ${obsManual}`;
             wrapper.innerHTML = `
                 <div class="flex items-center justify-between text-xs text-slate-600 bg-orange-50/70 border border-orange-100 px-3.5 py-2 rounded-xl">
                     <span class="flex items-center gap-1.5 font-medium text-slate-700">
-                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b>:
+                        <i class="fa-solid fa-pen-to-square text-[#FF5A0A]"></i> Vista previa editable de <b>${TEMPLATE_NAMES[currentTemplateKey]}</b> (se copiará según el botón elegido):
                     </span>
                 </div>
                 <textarea id="templateEditorArea" class="w-full flex-1 min-h-[360px] bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none focus:bg-white focus:border-[#FF5A0A] focus:ring-2 focus:ring-orange-500/15 transition resize-none custom-scrollbar leading-relaxed"></textarea>
@@ -1363,7 +1549,11 @@ Observación: ${obsManual}`;
             resultsContainer.appendChild(wrapper);
             const editor = document.getElementById('templateEditorArea');
             editor.value = templateText;
-            editor.addEventListener('input', () => { enforceUppercaseOnTemplateEditor(editor); });
+
+            // Forzar mayúsculas también si se escribe manualmente dentro del cuadro de la plantilla
+            editor.addEventListener('input', () => {
+                enforceUppercaseOnTemplateEditor(editor);
+            });
         }
 
         function alignStackedValuesToHeaders(headers, bodyLines) {
@@ -1373,62 +1563,116 @@ Observación: ${obsManual}`;
                 const curr = nonEmpty[i];
                 const next = nonEmpty[i + 1] || '';
 
+                // Une "Perú" + "GESTIÓN PROVINCIA" (+ "EM")
                 if (/^(Perú|Peru|Chile|Colombia|Ecuador)$/i.test(curr) && next && next === next.toUpperCase() && next.length > 3) {
-                    tokens.push(`${curr} / ${next}`); i++; continue;
+                    let combined = `${curr} / ${next}`;
+                    if (/^[A-ZÑ]{2,4}$/.test(nonEmpty[i + 2] || '')) {
+                        combined += ` (${nonEmpty[i + 2]})`;
+                        i++;
+                    }
+                    tokens.push(combined);
+                    i++;
+                    continue;
                 }
                 if (/^[A-ZÑ]{2}$/.test(curr) && next && next.length > 5 && next === next.toUpperCase()) {
-                    tokens.push(next); i++; continue;
+                    tokens.push(next);
+                    i++;
+                    continue;
                 }
                 if (/^(Multifamiliar|Residencial|Corporativo|Unifamiliar)$/i.test(curr) && tokens.length > 0) {
-                    tokens[tokens.length - 1] += ` (${curr})`; continue;
+                    tokens[tokens.length - 1] += ` (${curr})`;
+                    continue;
                 }
                 if (/^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(curr) && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) &&
-                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(curr) &&
-                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT)/i.test(next)) {
-                    tokens.push(`${curr} - ${next}`); i++; continue;
+                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT|REASIGNACIÓN|CAMBIO|REPROGRAMADO|DESASIGNADO)/i.test(curr) &&
+                    !/(INSTALACION|ATENCION|TECSYCOM|DOMICILIO|CALLE|AV|JR|URB|MZ|LT|REASIGNACIÓN|CAMBIO|REPROGRAMADO|DESASIGNADO)/i.test(next)) {
+                    tokens.push(`${curr} - ${next}`);
+                    i++;
+                    continue;
                 }
                 if (/^REGION\s+/i.test(curr) && next && /^[A-ZÁÉÍÓÚÑ\s]{4,}$/.test(next) && !/Cédula|DNI|Pasaporte/i.test(next)) {
-                    tokens.push(`${curr} / ${next}`); i++; continue;
+                    tokens.push(`${curr} / ${next}`);
+                    i++;
+                    continue;
                 }
+
                 tokens.push(curr);
             }
 
             const validators = {
                 'Nº': v => /^\d{5,10}$/.test(v),
                 'Cod Seguimiento Cliente': v => /^\d{5,10}$/.test(v),
-                'Estado': v => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso)$/i.test(v),
+                'Estado': v => /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso|Iniciada|En ejecución|Atendida|Cerrada|Registrada)$/i.test(v),
                 'Cuadrilla': v => /(TECSYCOM|CUADRILLA|SGI|P\s*\d)/i.test(v),
-                'Fecha Solicitud': v => /^\d{2}\/\d{2}\/\d{4}/.test(v),
+                'Fecha Solicitud': v => /^(\d{2}\/\d{2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
+                'País / Empresa': v => /(Perú|GESTIÓN|EMPRESA)/i.test(v),
                 'Cliente': v => v.length > 4 && !/INTERNET|FIBRA/i.test(v),
                 'Producto': v => /(INTERNET|FIBRA|WIN|DUO|TRIO|PLAN)/i.test(v),
+                'Tipo Ubicación': v => /^(Domicilio|Edificio|Condominio|Comercial|Empresa)$/i.test(v),
+                'Ubicación': v => /(Domicilio Particular|Casa|Departamento|Oficina|Local)/i.test(v),
+                'Motivo Regestión': v => v.length > 3 && !/^\d+$/.test(v) && !/(CHICLAYO|LIMA|PIURA|TRUJILLO)\s*-\s*(ESTE|CENTRO|NORTE|SUR|OESTE)/i.test(v),
                 'Sector Operativo': v => /(CENTRO|NORTE|SUR|ESTE|OESTE|SECTOR|CHICLAYO|LIMA)/i.test(v) && !/^(Técnica|Comercial)$/i.test(v),
                 'Tipo Orden': v => /^(Técnica|Comercial|Postventa|Mantenimiento|Reclamo)$/i.test(v),
                 'Tipo Trabajo': v => /^(INSTALACION|AVERIA|MIGRACION|TRASLADO|RETIRO|MANTENIMIENTO|POSTVENTA)$/i.test(v),
+                'Motivo Trabajo': v => /(ATENCION|SOLICITUD|CLIENTE|AVERIA|CAMBIO|FALLA)/i.test(v),
+                'Localidad': v => /^[A-ZÁÉÍÓÚÑ\s-]+$/.test(v) && !/(CALLE|AV|JR|URB|MZ)/i.test(v),
                 'Dirección': v => /(CALLE|AV|JR|URB|MZ|LT|PISO|DPTO|PSJ|ASENTAMIENTO|PUEBLO)/i.test(v),
+                'Código De Seguimiento': v => /^\d{6,10}$/.test(v),
+                'Fecha Visita': v => /^(\d{2}\/\d{2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
+                'Región / Zona': v => /REGION/i.test(v),
+                'Tipo Documento': v => /(Cédula|DNI|Pasaporte|Carnet|RUC)/i.test(v),
                 'Número Documento': v => /^\d{7,12}$/.test(v),
+                'Prioridad': v => /^(Alta|Media|Baja|Urgente)/i.test(v),
                 'Móvil': v => /^9\d{8}$/.test(v) || /^\d{9}$/.test(v),
                 'Fijo': v => /^0$/.test(v) || /^\d{6,9}$/.test(v),
+                'Inicio de Visita': v => /^(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
+                'Fin de Visita': v => /^(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
+                'Motivo de Cancelación': v => v.length > 3 && !/^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v) && !/^(TECSYCOM|WIN)$/i.test(v),
+                'Motivo de Finalización': v => v.length > 3 && !/^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v) && !/^(TECSYCOM|WIN)$/i.test(v),
+                'Motivo de Anulación': v => v.length > 3 && !/^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v) && !/^(TECSYCOM|WIN)$/i.test(v),
+                'Motivo de Suspensión': v => v.length > 3 && !/^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v) && !/^(TECSYCOM|WIN)$/i.test(v),
                 'Georeferencia': v => /^-?\d+\.\d+\s*,\s*-?\d+\.\d+$/.test(v),
+                'Proveedeor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
+                'Proveedor': v => /^(TECSYCOM|WIN|CONTRATISTA)/i.test(v) && !/^\d+$/.test(v),
+                'Id de Proyecto': v => /^\d{3,8}$/.test(v),
+                'Código Postal': v => /^\d{5}$/.test(v),
+                'Motivo': v => v.length > 2 && !/(COORDENADA|CTO1|DNI\/|RRINST|CCI\/)/i.test(v) && !/^(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
+                'Datos Técnicos': v => /(COORDENADA|CTO1|DNI\/|RRINST|CCI\/)/i.test(v),
+                'Fecha Estado': v => /^(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(v),
                 'Suscripción': v => /(Campaña|Paquete:|SVA's|Mesh)/i.test(v),
-                'Email': v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+                'Historial de Estados': v => /(Fecha:|Estado:|Usuario:|Observacion:)/i.test(v),
+                'Email': v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || /^(Alta|Media|Baja|Urgente)$/i.test(v)
             };
 
             const result = [];
             let tIdx = 0;
+
             for (let hIdx = 0; hIdx < headers.length; hIdx++) {
                 const header = headers[hIdx];
                 const checkFn = validators[header];
                 let value = '';
+
                 if (tIdx < tokens.length) {
                     const candidate = tokens[tIdx];
                     if (checkFn) {
-                        if (checkFn(candidate)) { value = candidate; tIdx++; } else { value = ''; }
+                        if (checkFn(candidate)) {
+                            value = candidate;
+                            tIdx++;
+                        } else {
+                            value = '';
+                        }
                     } else {
-                        value = candidate; tIdx++;
+                        value = candidate;
+                        tIdx++;
                     }
                 }
-                result.push({ encabezado: header, contenido: value });
+
+                result.push({
+                    encabezado: header,
+                    contenido: value
+                });
             }
+
             return result;
         }
 
@@ -1466,7 +1710,7 @@ Observación: ${obsManual}`;
             }, 3000);
         }
 
-        // ================== EXPORTAR EXCEL ORIGINAL CON 46 COLUMNAS (ACTUALIZADO) ==================
+                // ================== EXPORTAR EXCEL ORIGINAL CON 46 COLUMNAS (HOMOLOGADO) ==================
         const ORIG_HEADERS = [
             "OrdenId", "TipoOrden", "TipoTraba", "Motivo Trabajo", "F.Soli", "Cliente", "Tipo", "TipoClienId", 
             "Producto", "Cuadrilla", "F.Visita", "Estado", "Direccion", "Localidad", "Provincia", "Direccion1", 
@@ -1476,6 +1720,66 @@ Observación: ${obsManual}`;
             "Motivo Anulación", "Motivo Suspensión", "Georeferencia", "Datos Técnicos", "Proveedeor", 
             "Sector Operativo", "Motivo", "Motivo Regestión", "Id de Proyecto", "Código Postal"
         ];
+
+        function toExcelSerialDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return '';
+            const s = dateStr.trim();
+            if (!s) return '';
+
+            let year, month, day, hour = 0, minute = 0, second = 0;
+
+            let mIso = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T\s]+(\d{1,2}):(\d{2})(?::(\d{2}))?(?:\.\d+)?)?$/);
+            if (mIso) {
+                year = parseInt(mIso[1], 10);
+                month = parseInt(mIso[2], 10);
+                day = parseInt(mIso[3], 10);
+                hour = mIso[4] ? parseInt(mIso[4], 10) : 0;
+                minute = mIso[5] ? parseInt(mIso[5], 10) : 0;
+                second = mIso[6] ? parseInt(mIso[6], 10) : 0;
+            } else {
+
+            let m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
+            if (m) {
+                const p1 = parseInt(m[1], 10);
+                const p2 = parseInt(m[2], 10);
+                year = parseInt(m[3], 10);
+                hour = m[4] ? parseInt(m[4], 10) : 0;
+                minute = m[5] ? parseInt(m[5], 10) : 0;
+                second = m[6] ? parseInt(m[6], 10) : 0;
+
+                if (p1 > 12) {
+                    day = p1;
+                    month = p2;
+                } else if (p2 > 12) {
+                    month = p1;
+                    day = p2;
+                } else {
+                    day = p1;
+                    month = p2;
+                }
+            } else {
+                m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/i);
+                if (m) {
+                    month = parseInt(m[1], 10);
+                    day = parseInt(m[2], 10);
+                    year = parseInt(m[3], 10);
+                    hour = parseInt(m[4], 10);
+                    minute = parseInt(m[5], 10);
+                    second = m[6] ? parseInt(m[6], 10) : 0;
+                    const ampm = m[7].toUpperCase();
+                    if (ampm === 'PM' && hour < 12) hour += 12;
+                    if (ampm === 'AM' && hour === 12) hour = 0;
+                } else {
+                    return s;
+                }
+            }
+            }
+
+            const utcMs = Date.UTC(year, month - 1, day, hour, minute, second);
+            const excelEpochMs = Date.UTC(1899, 11, 30, 0, 0, 0);
+            const serial = (utcMs - excelEpochMs) / 86400000;
+            return Number(serial.toFixed(10));
+        }
 
         function pfBuildOriginalRow() {
             const pf = parsedFields || {};
@@ -1487,142 +1791,316 @@ Observación: ${obsManual}`;
                 return found ? (found.contenido || '').trim() : '';
             };
 
-            // Zona desde la dirección (para otras referencias si aplica)
-            const rawDir = getCol('Dirección') || pf.direccion || '';
-            let zonaExt = '';
-            const dirMatch = rawDir.match(/\(([^,]+)/);
-            if (dirMatch) {
-                zonaExt = dirMatch[1].trim().toUpperCase();
+            // País / Empresa -> Pais y Empresa
+            const paisEmpresaRaw = getCol('País / Empresa') || '';
+            let paisExt = '';
+            let empresaExt = '';
+            if (paisEmpresaRaw.includes('/')) {
+                const peParts = paisEmpresaRaw.split('/').map(p => p.trim());
+                paisExt = peParts[0] || '';
+                empresaExt = peParts[1] || '';
+            } else if (paisEmpresaRaw) {
+                if (/^per[úu]$/i.test(paisEmpresaRaw)) {
+                    paisExt = paisEmpresaRaw;
+                } else {
+                    empresaExt = paisEmpresaRaw;
+                }
+            }
+            if (!paisExt) paisExt = 'Perú';
+            if (!empresaExt) empresaExt = 'GESTIÓN PROVINCIA';
+
+            // Ubicación ("Domicilio; Domicilio Particular" -> "Domicilio Particular")
+            const ubicacionRaw = getCol('Ubicación') || '';
+            let ubicacionExt = ubicacionRaw;
+            if (ubicacionRaw.includes(';')) {
+                const uParts = ubicacionRaw.split(';').map(p => p.trim()).filter(Boolean);
+                ubicacionExt = uParts[uParts.length - 1] || ubicacionRaw;
+            } else if (/^Domicilio\s*-\s*Domicilio Particular$/i.test(ubicacionRaw)) {
+                ubicacionExt = 'Domicilio Particular';
             }
 
-            // Region (Toma el valor exacto de Región / Zona)
-            const regZona = getCol('Región / Zona') || '';
-            let regionExt = regZona;
+            const rawLines = fullRawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+            const rawDir = getCol('Dirección') || pf.direccion || '';
 
-            // Localidad y Provincia separadas
-            const locCol = getCol('Localidad') || '';
-            let locPart = locCol;
+            // Localidad y Provincia
+            let locCol = getCol('Localidad') || '';
             let provPart = getCol('Provincia') || '';
-            if (locCol.includes('-')) {
+            if (!locCol && rawDir) {
+                const parenMatch = rawDir.match(/\(([^)]+)\)/);
+                if (parenMatch) {
+                    const pParts = parenMatch[1].split(',').map(p => p.trim()).filter(Boolean);
+                    // En "(DISTRITO, PROVINCIA, DEPARTAMENTO)" -> pParts[1] es provincia y pParts[0] o pParts[1] localidad
+                    if (pParts.length >= 2) {
+                        locCol = pParts[1];
+                        if (!provPart) provPart = pParts[2] || pParts[1];
+                    } else if (pParts.length === 1) {
+                        locCol = pParts[0];
+                    }
+                }
+            }
+            let locPart = locCol;
+            if (locCol.includes(',')) {
+                const parts = locCol.split(',').map(p => p.trim());
+                locPart = parts[0] || '';
+                if (!provPart && parts[1]) provPart = parts[1];
+            } else if (locCol.includes('-')) {
                 const parts = locCol.split('-').map(p => p.trim());
-                locPart = parts[0];
+                locPart = parts[0] || '';
                 if (!provPart && parts[1]) provPart = parts[1];
             }
 
-            // Extractor directo y robusto para "Fecha Estado" (FechaUltiEsta / FechaFinVisi)
-            let fechaEstadoExt = getCol('Fecha Estado') || getCol('fecha estado') || '';
-            if (!fechaEstadoExt) {
-                const lines = fullRawText.split(/\r?\n/).map(l => l.trim());
-                const idxFe = lines.findIndex(l => /^Fecha Estado$/i.test(l));
-                if (idxFe !== -1 && lines[idxFe + 1]) {
-                    fechaEstadoExt = lines[idxFe + 1];
+            // Región / Zona -> Region y Zona
+            let regZonaRaw = getCol('Región / Zona') || '';
+            if (!regZonaRaw) {
+                const regLine = rawLines.find(l => /^REGION\s+/i.test(l));
+                if (regLine) regZonaRaw = regLine;
+            }
+            let regionExt = regZonaRaw;
+            let zonaExt = '';
+            if (regZonaRaw.includes(';')) {
+                const rzParts = regZonaRaw.split(';').map(p => p.trim());
+                regionExt = rzParts[0] || '';
+                zonaExt = rzParts[1] || '';
+            } else if (regZonaRaw.includes('/')) {
+                const rzParts = regZonaRaw.split('/').map(p => p.trim());
+                regionExt = rzParts[0] || '';
+                zonaExt = rzParts[1] || '';
+            }
+
+            if (!zonaExt) {
+                const dirMatch = rawDir.match(/\(([^,]+)/);
+                if (dirMatch) zonaExt = dirMatch[1].trim();
+            }
+
+            // FechaUltiEsta = valor de la columna "Fecha Estado"
+            let fechaEstadoRaw = getCol('Fecha Estado') || getCol('fecha estado') || '';
+            if (!fechaEstadoRaw) {
+                const idxFe = rawLines.findIndex(l => /^Fecha Estado$/i.test(l));
+                if (idxFe !== -1 && rawLines[idxFe + 1] && /^(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})/.test(rawLines[idxFe + 1])) {
+                    fechaEstadoRaw = rawLines[idxFe + 1];
                 }
             }
-            if (!fechaEstadoExt || !/^\d{2}\/\d{2}\/\d{4}/.test(fechaEstadoExt)) {
-                const matchesAllDates = fullRawText.match(/(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2})/g);
-                if (matchesAllDates && matchesAllDates.length > 0) {
-                    fechaEstadoExt = matchesAllDates[matchesAllDates.length - 1];
+            const fechaUltiEstaSerial = toExcelSerialDate(fechaEstadoRaw);
+
+            // F.Soli y F.Visita
+            let fechaSoliRaw = getCol('Fecha Solicitud') || '';
+            let fechaVisitaRaw = getCol('Fecha Visita') || '';
+            const allDateMatches = fullRawText.match(/(?:\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2})(?:\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*(?:AM|PM))?)?/gi) || [];
+            if (!fechaSoliRaw && allDateMatches[0]) fechaSoliRaw = allDateMatches[0];
+            if (!fechaVisitaRaw && allDateMatches[1]) fechaVisitaRaw = allDateMatches[1];
+
+            const fechaSoliSerial = toExcelSerialDate(fechaSoliRaw);
+            const fechaVisitaSerial = toExcelSerialDate(fechaVisitaRaw);
+
+            // Cliente y Estado protegidos contra desalineación
+            const estadoWordsRegex = /^(Agendada|Pendiente|Asignada|Finalizada|Cancelada|Anulada|Suspendida|En camino|En proceso|Iniciada|En ejecución|Atendida|Cerrada|Registrada)$/i;
+            let clienteColVal = getCol('Cliente') || '';
+            if (!clienteColVal || estadoWordsRegex.test(clienteColVal)) {
+                clienteColVal = pf.cliente || clienteColVal || '';
+            }
+            let estadoColVal = getCol('Estado') || pf.estado || '';
+            if (!estadoColVal) {
+                const estFound = rawLines.find(l => estadoWordsRegex.test(l));
+                if (estFound) estadoColVal = estFound;
+            }
+
+            // CodiSegui = valor de "Código De Seguimiento"
+            let codiSeguiVal = getCol('Código De Seguimiento') || getCol('Codigo De Seguimiento') || '';
+            if (!codiSeguiVal) {
+                const idxCs = rawLines.findIndex(l => /^C[oó]digo De Seguimiento$/i.test(l));
+                if (idxCs !== -1 && rawLines[idxCs + 1] && /^\d{5,12}$/.test(rawLines[idxCs + 1])) {
+                    codiSeguiVal = rawLines[idxCs + 1];
                 }
             }
 
-            // Suscripción (para IdenServi)
+            // Motivo ("Reprogramado; GESTIÓN PROVINCIA; EM" -> "Reprogramado")
+            const motivoRaw = getCol('Motivo') || '';
+            let motivoExt = motivoRaw;
+            if (motivoRaw.includes(';')) {
+                motivoExt = motivoRaw.split(';')[0].trim();
+            }
+
+            // Email toma el valor de Prioridad
+            const prioridadOrigen = getCol('Prioridad') || '';
+            const emailDestino = prioridadOrigen || getCol('Email') || '';
+
+            // Suscripción -> IdenServi
             let suscripcionExt = getCol('Suscripción') || getCol('suscripción') || '';
             if (!suscripcionExt) {
                 const matchSusc = fullRawText.match(/(Campaña\s*:[^|\n]+(?:\|[^|\n]+)*)/i);
                 if (matchSusc) suscripcionExt = matchSusc[1].trim();
             }
 
-            // Código de Seguimiento / CodiSegui
-            let codSeguiExt = getCol('Código De Seguimiento') || getCol('Cod Seguimiento Cliente') || pf.codigo || '';
+            // Sector Operativo
+            const sectorOperativoExt = getCol('Sector Operativo') || getCol('sector operativo') || pf.sectorOperativo || '';
 
-            // Georeferencia (-6.xxx,-79.xxx)
+            // Tipo Trabajo
+            const tipoTrabajoExt = getCol('Tipo Trabajo') || pf.tipoTrabajo || '';
+
+            // Georeferencia
             let geoExt = getCol('Georeferencia') || '';
             if (!geoExt) {
                 const matchGeo = fullRawText.match(/(-?\d+\.\d+,\s*-?\d+\.\d+)/);
                 if (matchGeo) geoExt = matchGeo[1];
             }
 
-            // FechaIniVisi extraída del Historial de Estados
-            let histEstados = getCol('Historial de Estados') || '';
-            let fechaIniVisiExt = '';
-            const fechaIniMatch = histEstados.match(/Fecha:\s*([^\s]+ [^\s]+)\s+Estado:\s*Iniciada/i) || histEstados.match(/Fecha:\s*([^\s]+ [^\s]+)\s+Estado:/i);
-            if (fechaIniMatch) {
-                fechaIniVisiExt = fechaIniMatch[1];
+            // Datos Técnicos
+            let datosTecnicosExt = getCol('Datos Técnicos') || '';
+            if (!datosTecnicosExt) {
+                const dtLine = fullRawText.split(/\r?\n/).find(l => /COORDENADA CTO1/i.test(l));
+                if (dtLine) datosTecnicosExt = dtLine.trim();
             }
-            if (!fechaIniVisiExt) {
-                const matchAnyDateInHist = fullRawText.match(/(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2})/);
-                if (matchAnyDateInHist) fechaIniVisiExt = matchAnyDateInHist[1];
-            }
-
-            // 5. Extractor exacto para "Sector Operativo" desde el texto copiado
-            let sectorOperativoExt = getCol('Sector Operativo') || getCol('sector operativo') || pf.sectorOperativo || '';
 
             ORIG_HEADERS.forEach((h, idx) => {
                 let val = '';
-                
-                if (h === 'OrdenId') {
-                    val = getCol('Nº') || pf.codigo || '';
-                } else if (h === 'CodiSeguiClien') {
-                    val = pf.codigo || getCol('Nº') || '';
-                } else if (h === 'CodiSegui') {
-                    val = codSeguiExt;
-                } else if (h === 'TipoOrden') {
-                    val = getCol('Tipo Orden') || '';
-                } else if (h === 'TipoTraba' || h === 'TipoTrabajo') {
-                    val = pf.tipoTrabajo || getCol('Tipo Trabajo') || '';
-                } else if (h === 'F.Soli') {
-                    val = getCol('Fecha Solicitud') || '';
-                } else if (h === 'Cliente') {
-                    val = pf.cliente || '';
-                } else if (h === 'Producto') {
-                    val = pf.plan || getCol('Producto') || '';
-                } else if (h === 'Cuadrilla') {
-                    val = pf.tecnico || getCol('Cuadrilla') || '';
-                } else if (h === 'F.Visita') {
-                    val = getCol('Fecha Visita') || '';
-                } else if (h === 'Estado') {
-                    val = pf.estado || getCol('Estado') || '';
-                } else if (h === 'Direccion' || h === 'Direccion1') {
-                    val = rawDir;
-                } else if (h === 'Localidad') {
-                    val = locPart;
-                } else if (h === 'Provincia') {
-                    val = provPart;
-                } else if (h === 'FechaUltiEsta' || h === 'FechaFinVisi') {
-                    val = fechaEstadoExt;
-                } else if (h === 'IdenServi') {
-                    val = suscripcionExt;
-                } else if (h === 'Region') {
-                    val = regionExt;
-                } else if (h === 'Zona') {
-                    val = zonaExt || pf.sectorOperativo || pf.zona || '';
-                } else if (h === 'Sector Operativo') {
-                    // REGLA: Sector Operativo toma exactamente el valor de la columna Sector Operativo del texto copiado
-                    val = sectorOperativoExt;
-                } else if (h === 'Empresa') {
-                    val = getCol('País / Empresa') || 'GESTIÓN PROVINCIA';
-                } else if (h === 'Pais') {
-                    val = 'Perú';
-                } else if (h === 'Número Documento') {
-                    val = pf.dni || getCol('Número Documento') || '';
-                } else if (h === 'Email') {
-                    val = getCol('Prioridad') || '';
-                } else if (h === 'TeleMovilNume') {
-                    val = pf.telf1 || getCol('Móvil') || '';
-                } else if (h === 'TeleFijoNume') {
-                    val = pf.telf2 || getCol('Fijo') || '';
-                } else if (h === 'FechaIniVisi') {
-                    val = fechaIniVisiExt;
-                } else if (h === 'Georeferencia') {
-                    val = geoExt;
-                } else if (h === 'Proveedeor') {
-                    val = pf.partner || getCol('Proveedeor') || 'TECSYCOM';
-                } else {
-                    val = getCol(h);
+
+                switch (h) {
+                    case 'OrdenId':
+                        val = getCol('Nº') || pf.codigo || '';
+                        break;
+                    case 'TipoOrden':
+                        val = getCol('Tipo Orden') || '';
+                        break;
+                    case 'TipoTraba':
+                        val = tipoTrabajoExt;
+                        break;
+                    case 'Motivo Trabajo':
+                        val = getCol('Motivo Trabajo') || '';
+                        break;
+                    case 'F.Soli':
+                        val = fechaSoliSerial;
+                        break;
+                    case 'Cliente':
+                        val = (clienteColVal || '').replace(/\s*\((Multifamiliar|Residencial|Corporativo|Unifamiliar)\)\s*$/i, '').trim();
+                        break;
+                    case 'Tipo':
+                        val = getCol('Tipo Ubicación') || '';
+                        break;
+                    case 'TipoClienId':
+                        // Omitido por falta de referencia
+                        val = '';
+                        break;
+                    case 'Producto':
+                        val = getCol('Producto') || pf.plan || '';
+                        break;
+                    case 'Cuadrilla':
+                        val = getCol('Cuadrilla') || pf.tecnico || '';
+                        break;
+                    case 'F.Visita':
+                        val = fechaVisitaSerial;
+                        break;
+                    case 'Estado':
+                        val = estadoColVal;
+                        break;
+                    case 'Direccion':
+                    case 'Direccion1':
+                        val = rawDir;
+                        break;
+                    case 'Localidad':
+                        val = locPart;
+                        break;
+                    case 'Provincia':
+                        val = provPart;
+                        break;
+                    case 'FechaUltiEsta':
+                        val = fechaUltiEstaSerial;
+                        break;
+                    case 'IdenServi':
+                        val = suscripcionExt;
+                        break;
+                    case 'Region':
+                        val = regionExt;
+                        break;
+                    case 'Zona':
+                        val = zonaExt || sectorOperativoExt;
+                        break;
+                    case 'Empresa':
+                        val = empresaExt;
+                        break;
+                    case 'Pais':
+                        val = paisExt;
+                        break;
+                    case 'Tipo Ubicación':
+                        // Omitido por falta de referencia
+                        val = '';
+                        break;
+                    case 'Ubicación':
+                        val = ubicacionExt;
+                        break;
+                    case 'CodiSeguiClien':
+                        val = getCol('Cod Seguimiento Cliente') || pf.codigo || '';
+                        break;
+                    case 'CodiSegui':
+                        val = codiSeguiVal;
+                        break;
+                    case 'Tipo Documento':
+                        val = getCol('Tipo Documento') || '';
+                        break;
+                    case 'Número Documento':
+                        val = getCol('Número Documento') || pf.dni || '';
+                        break;
+                    case 'Email':
+                        val = emailDestino;
+                        break;
+                    case 'TeleMovilNume':
+                        val = getCol('Móvil') || pf.telf1 || '';
+                        break;
+                    case 'TeleFijoNume':
+                        val = getCol('Fijo') || pf.telf2 || '';
+                        break;
+                    case 'Prioridad':
+                        val = prioridadOrigen;
+                        break;
+                    case 'FechaFinVisi':
+                    case 'FechaIniVisi':
+                        // Se mantiene la columna sin valor
+                        val = '';
+                        break;
+                    case 'Motivo Cancelación':
+                        val = getCol('Motivo de Cancelación') || '';
+                        break;
+                    case 'Motivo Finalización':
+                        val = getCol('Motivo de Finalización') || '';
+                        break;
+                    case 'Motivo Anulación':
+                        val = getCol('Motivo de Anulación') || '';
+                        break;
+                    case 'Motivo Suspensión':
+                        val = getCol('Motivo de Suspensión') || '';
+                        break;
+                    case 'Georeferencia':
+                        val = geoExt;
+                        break;
+                    case 'Datos Técnicos':
+                        val = datosTecnicosExt;
+                        break;
+                    case 'Proveedeor':
+                        val = getCol('Proveedeor') || pf.partner || 'TECSYCOM';
+                        break;
+                    case 'Sector Operativo':
+                        val = sectorOperativoExt;
+                        break;
+                    case 'Motivo':
+                        val = motivoExt;
+                        break;
+                    case 'Motivo Regestión':
+                        val = getCol('Motivo Regestión') || '';
+                        break;
+                    case 'Id de Proyecto':
+                        // Se mantiene vacía según archivo de referencia
+                        val = '';
+                        break;
+                    case 'Código Postal':
+                        val = getCol('Código Postal') || '';
+                        break;
+                    default:
+                        val = getCol(h);
+                        break;
                 }
 
-                vals[idx] = val || '';
+                vals[idx] = val !== undefined && val !== null ? val : '';
             });
+
             return vals;
         }
 
@@ -1700,7 +2178,7 @@ Observación: ${obsManual}`;
                 document.body.removeChild(a);
                 setTimeout(() => URL.revokeObjectURL(url), 2000);
 
-                showToast('¡Excel exportado con Sector Operativo correcto!');
+                showToast('¡Excel exportado con los encabezados originales!');
             } catch (e) {
                 console.error(e);
                 showToast('Error al exportar Excel: ' + e.message, 'error');
